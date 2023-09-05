@@ -40,6 +40,7 @@ const usuariosController = require('./controllers/usuariosController');
 app.get('/api/obtenerUsuarios', (req, res) => {
     const usuarios = usuariosController.getUsuarios();
     const Exito = usuariosController.getExito();
+    //const tipoUsuario = usuariosController.getTipoUsuario();
     res.json({Exito, usuarios});
 });
 

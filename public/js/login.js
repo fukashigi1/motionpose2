@@ -19,4 +19,8 @@ $(document).ready(function(){
         }
     });
     //$("#parrafoTest").html("<p>Hola " + JSON.stringify(usuarios) + "</p>"); // Muestra los datos en el HTML
+    $('h1').textfill({
+        minFontPixels: 400,
+        maxFontPixels: 1000
+      });
 });

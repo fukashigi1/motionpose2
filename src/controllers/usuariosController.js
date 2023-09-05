@@ -15,9 +15,9 @@ controller.list = (req, res)=>{
                 Exito = false;
             }else{
                 //res.json(filas);
-                Exito = true;
                 usuariosLista = filas;
-                console.log(usuariosLista);
+                //console.log(filas[1].);
+                Exito = true;
             }
             //usuariosLista.unshift({ Exito });
             res.sendFile(path.join(__dirname, '..', 'view', 'login.html'))

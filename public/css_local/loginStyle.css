@@ -1,0 +1,39 @@
+body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    color: white;
+    font-family: monospace;
+    background-color: #16161a;
+}
+::selection {
+    color: black;
+    background: white;
+}
+
+h1 {
+    margin: 0;
+    font-size: 80px;
+    text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
+}
+
+.contenedorTitulo {
+    float: left;
+    width: 50%;
+}
+
+.imgLogo {
+    width: 497px;
+    height: 134px;
+}
+
+.lateral {
+    float: right;
+    width: 50%;
+}
+
+.contenedorLogin {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+}
