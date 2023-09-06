@@ -12,14 +12,21 @@ body {
 }
 
 h1 {
-    margin: 0;
     font-size: 80px;
     text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
 }
 
-.contenedorTitulo {
+.contenedorContenedor {
     float: left;
     width: 50%;
+    height: 100vh;
+}
+
+.contenedorTitulo {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-left: 125px;
 }
 
 .imgLogo {
@@ -30,10 +37,16 @@ h1 {
 .lateral {
     float: right;
     width: 50%;
+    height: 100vh;
 }
 
 .contenedorLogin {
-    width: 100px;
-    height: 100px;
+    width: 28%;
+    height: 60%;
+    border-radius: 7px;
     background-color: white;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-left: 124px;
 }

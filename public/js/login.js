@@ -22,5 +22,5 @@ $(document).ready(function(){
     $('h1').textfill({
         minFontPixels: 400,
         maxFontPixels: 1000
-      });
+    });
 });
