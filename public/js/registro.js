@@ -1,7 +1,16 @@
 $(document).ready(function(){
-    //$("#parrafoTest").html("<p>Hola " + JSON.stringify(usuarios) + "</p>"); // Muestra los datos en el HTML
-    
-    // Estetica label login
+    //Animaciones
+    $("#nombre").on("focus", function(){
+        $("#nombreLabel").css("bottom", "-8px");
+        $("#nombreLabel").css("background-color", "white");
+    })
+    $("#nombre").on("blur", function(){
+        if($("#nombre").val() == ""){        
+            $("#nombreLabel").css("bottom", "-31px");
+            $("#nombreLabel").css("background-color", "transparent");
+        }
+    });
+
     $("#correo").on("focus", function(){
         $("#correoLabel").css("bottom", "-8px");
         $("#correoLabel").css("background-color", "white");
@@ -24,7 +33,16 @@ $(document).ready(function(){
         }
     });
 
-    // Titulo y contenedor animación
+    $("#contrasenaConfirmar").on("focus", function(){
+        $("#contrasenaLabelConfirmar").css("bottom", "-8px");
+        $("#contrasenaLabelConfirmar").css("background-color", "white");
+    })
+    $("#contrasenaConfirmar").on("blur", function(){
+        if($("#contrasenaConfirmar").val() == ""){        
+            $("#contrasenaLabelConfirmar").css("bottom", "-31px");
+            $("#contrasenaLabelConfirmar").css("background-color", "transparent");
+        }
+    });
 
     $(".contenedorTitulo").css({
         'opacity' : '1',
@@ -39,34 +57,16 @@ $(document).ready(function(){
         'left': '0',
         'opacity': '1'
     });
+
+    $("#aceptarTerminos").css({
+        'opacity': '1'
+    });
+    //Botones
     $("#noCuenta").on("click", function(){
         window.location.href = 'registro'; 
     });
 
-    $("#continuarBoton").on("click", function(){
-        var formData = new FormData();
-        formData.append("nombre", "Julio");
-        formData.append("contrasena", "1234");
-        $.ajax({
-            url: '/login', // Reemplaza con la ruta correcta hacia tu función getUsuarios
-            method: 'POST',
-            dataType: 'json',
-            data: JSON.stringify(formData),
-            processData: false,
-            contentType: false,
-            success: function(data) {
-                console.log("Hola");
-                console.log(data);
-                if(data.Exito){
-                    console.log("Solicitud POST exitosa");
-                }else{
-                    console.error("Solicitud POST DENEGADA");
-                }
-                
-            },
-            error: function(error) {
-                console.error(error);
-            }
-        });
+    $("#volver").on("click", function(){
+        window.location.href = '/login'; 
     });
 });

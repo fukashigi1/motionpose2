@@ -5,6 +5,10 @@ const mysql = require('mysql');
 const myConnection = require('express-myconnection');
 const app = express();
 
+// Manejar solicitudes JSON
+app.use(express.json());
+
+
 // Configuración de acceso a la base de datos
 const hostDB = "localhost";
 const userDB = "root";
@@ -14,6 +18,7 @@ const databaseDB = 'motionpose';
 
 // Importación de rutas
 const usuarioRuta = require('./routes/usuarios');
+const registroRuta = require('./routes/registroRuta');
 
 // Configuración
 app.set('port', process.env.PORT || 5555);
@@ -30,19 +35,12 @@ app.use(myConnection(mysql, {
 
 // Rutas
 app.use('/login', usuarioRuta);
+app.use('/registro', registroRuta);
 
 // Archivos estáticos
 app.use(express.static('public'));
 
 // API
-const usuariosController = require('./controllers/usuariosController');
-app.get('/api/obtenerUsuarios', (req, res) => {
-    const usuarios = usuariosController.getUsuarios();
-    const Exito = usuariosController.getExito();
-    //const tipoUsuario = usuariosController.getTipoUsuario();
-    res.json({Exito, usuarios});
-});
-
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, 'view', 'index.html'))
 });
