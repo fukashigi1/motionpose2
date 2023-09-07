@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>    
-    <link rel="stylesheet" type="text/css" href="css_local/loginStyle.css">
+    <link rel="stylesheet" type="text/css" href="css_local/registroStyle.css">
     <script src="js/jquery/code.jquery.com_jquery-3.7.0.min.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/registro.js"></script>
 </head>
 <body>
     <div class="contenedorContenedor">
         <div class="contenedorTitulo">
             <img src="img/motion_pose_background4.png" class="imgLogo">
         </div>
-        <a id="volver" href="/">Volver</a>
+        <a id="volver">Volver</a>
     </div>
     <div class="lateral">
         <div class="contenedorLogin">
             <form>
-                <h2>Soy usuario</h2>
+                <h2>No soy usuario</h2>
+                <div>
+                    <label id="nombreLabel">Nombre de usuario</label>
+                    <input id="nombre" type="text">
+                </div>
                 <div>
                     <label id="correoLabel">Correo Electrónico</label>
                     <input id="correo" type="mail">
@@ -27,9 +31,15 @@
                     <label id="contrasenaLabel">Contraseña</label>
                     <input id="contrasena" type="password">
                 </div>
-                <a id="noCuenta">No tengo una cuenta</a>
-                <a id="continuarBoton">Continuar</a>
-                <a id="olvideCuenta" type="submit">Olvidé mi cuenta</a>
+                <div>
+                    <label id="contrasenaLabelConfirmar">Confirmar Contraseña</label>
+                    <input id="contrasenaConfirmar" type="password">
+                </div>
+                <div class="contenedorTerminos">
+                    <input type="checkbox" id="aceptarTerminos">
+                    <label id="terminos">Acepto los términos y condiciones</label>
+                </div>
+                <a id="registrarseBoton">Registrarse</a>
             </form>
         </div>
     </div>

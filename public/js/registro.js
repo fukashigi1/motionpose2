@@ -1,26 +1,16 @@
 $(document).ready(function(){
-    $.ajax({
-        url: '/api/obtenerUsuarios', // Reemplaza con la ruta correcta hacia tu función getUsuarios
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            if(data.Exito){
-                console.log(data.usuarios);
-                $("#parrafoTest").html("<p>Hola " + JSON.stringify(data.usuarios) + "</p>");
-            }else{
-                console.error("No hubo exito en el if: " + data.Exito);
-                $("#parrafoTest").html("<p>Hola " + JSON.stringify(data.usuarios) + "</p>");
-
-            }
-            
-        },
-        error: function(error) {
-            console.error(error);
+    //Animaciones
+    $("#nombre").on("focus", function(){
+        $("#nombreLabel").css("bottom", "-8px");
+        $("#nombreLabel").css("background-color", "white");
+    })
+    $("#nombre").on("blur", function(){
+        if($("#nombre").val() == ""){        
+            $("#nombreLabel").css("bottom", "-31px");
+            $("#nombreLabel").css("background-color", "transparent");
         }
     });
-    //$("#parrafoTest").html("<p>Hola " + JSON.stringify(usuarios) + "</p>"); // Muestra los datos en el HTML
-    
-    // Estetica label login
+
     $("#correo").on("focus", function(){
         $("#correoLabel").css("bottom", "-8px");
         $("#correoLabel").css("background-color", "white");
@@ -43,7 +33,16 @@ $(document).ready(function(){
         }
     });
 
-    // Titulo y contenedor animación
+    $("#contrasenaConfirmar").on("focus", function(){
+        $("#contrasenaLabelConfirmar").css("bottom", "-8px");
+        $("#contrasenaLabelConfirmar").css("background-color", "white");
+    })
+    $("#contrasenaConfirmar").on("blur", function(){
+        if($("#contrasenaConfirmar").val() == ""){        
+            $("#contrasenaLabelConfirmar").css("bottom", "-31px");
+            $("#contrasenaLabelConfirmar").css("background-color", "transparent");
+        }
+    });
 
     $(".contenedorTitulo").css({
         'opacity' : '1',
@@ -58,7 +57,13 @@ $(document).ready(function(){
         'left': '0',
         'opacity': '1'
     });
+
+    //Botones
     $("#noCuenta").on("click", function(){
         window.location.href = 'registro'; 
+    });
+
+    $("#volver").on("click", function(){
+        window.location.href = '/login'; 
     });
 });

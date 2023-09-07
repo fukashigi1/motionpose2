@@ -34,13 +34,13 @@ label {
     font-size: 15px;
     user-select: none;
     cursor: text;
-
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 input {
     width: 100%;
     height: 40px;
-    margin-bottom: 20px;
     border-radius: 15px;
     border: 1px solid #16161aba;
     font-size: 15px;
@@ -60,6 +60,16 @@ a{
     user-select: none;
 }
 
+#aceptarTerminos {
+    width: 18px;
+    height: 18px;
+}
+
+.contenedorTerminos {
+    text-align: center;
+    margin-top: 10px;
+}
+
 #volver {
     transition: all 1s;
     text-decoration: none;
@@ -76,21 +86,9 @@ a{
 }
 
 #volver:hover {
-    font-size: 26px;
+    font-size: 25.5px;
 }
-
-#noCuenta {
-    transition: all 0.5s;
-    text-decoration: none;
-    font-size: 15px;
-    cursor: pointer;
-    text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-    color: #16161a;
-}
-#noCuenta:hover {
-    font-size: 16px;
-}
-#continuarBoton {
+#registrarseBoton {
     transition: all 0.5s;
     cursor: pointer;
     position: absolute;
@@ -103,23 +101,25 @@ a{
     border-bottom: 1px solid black;
     
 }
-#continuarBoton:hover{
-    font-size: 16px;
+#registrarseBoton:hover{
+    font-size: 15.5px;
 }
 
-#olvideCuenta {
-    display: block;
+#terminos {
+    display: inline-block;
     transition: all 0.5s;
     text-decoration: none;
     font-size: 15px;
     cursor: pointer;
     text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
     color: #16161a;
-    margin-top: 24px;
+    padding: 0;
+    position: relative;
+    top: -4px;
 }
 
-#olvideCuenta:hover {
-    font-size: 16px;
+#terminos:hover {
+    font-size: 15.5px;
 }
 
 .contenedorContenedor {

@@ -100,7 +100,7 @@ ul {
 
 ul a {
     transition: all 0.7s;
-    font-size: 20px;    
+    font-size: 19px;    
     font-family: monospace;
     padding: 10px;
     cursor: pointer;
@@ -165,7 +165,7 @@ ul a:hover {
     background: white;
 }
 
-@media screen and (max-width: 1382px){        
+@media screen and (max-width: 1365px){        
     ul{
        display: none;
     }

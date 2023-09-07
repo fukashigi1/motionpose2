@@ -14,6 +14,7 @@ const databaseDB = 'motionpose';
 
 // Importación de rutas
 const usuarioRuta = require('./routes/usuarios');
+const registroRuta = require('./routes/registroRuta');
 
 // Configuración
 app.set('port', process.env.PORT || 5555);
@@ -30,6 +31,7 @@ app.use(myConnection(mysql, {
 
 // Rutas
 app.use('/login', usuarioRuta);
+app.use('/registro', registroRuta);
 
 // Archivos estáticos
 app.use(express.static('public'));
