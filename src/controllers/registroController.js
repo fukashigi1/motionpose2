@@ -1,38 +1,48 @@
 const controller = {};
 const path = require('path');
-let usuariosLista = [];
-let Exito;
-function getUsuarios() {
-    return usuariosLista;
-}
-function getExito(){
-    return Exito;
-}
-controller.vista = (req, res)=>{
-    req.getConnection((error, conexion) =>{
-        conexion.query('SELECT * FROM usuarios', (error, filas) => {
-            res.sendFile(path.join(__dirname, '..', 'view', 'registro.html'))
-        });
-    });
+
+controller.view = (req, res)=>{
+    res.sendFile(path.join(__dirname, '..', 'view', 'registro.html'));
 };
-/*
-controller.vista = (req, res)=>{
-    req.getConnection((error, conexion) =>{
-        conexion.query('SELECT * FROM usuarios', (error, filas) => {
-            if(error){
-                Exito = false;
-            }else{
-                //res.json(filas);
-                usuariosLista = filas;
-                //console.log(filas[1].);
-                Exito = true;
-            }
-            //usuariosLista.unshift({ Exito });
-            res.sendFile(path.join(__dirname, '..', 'view', 'login.html'))
-        });
+controller.post = async (req, res) => {
+    let nombre = req.body.nombre;
+    let correo = req.body.correo;
+    let contrasena =  req.body.contrasena;
+    let msg;
+
+    req.getConnection((error, conexion) => {
+        if (error) {
+            msg = "Ha ocurrido un error inesperado en la consulta getConnection.";
+            console.error(msg);
+            res.json({ Exito: false, msg: msg });
+        } else {
+            // Verificar si el correo ya está en uso
+            conexion.query('SELECT correo FROM usuarios WHERE correo = ?', [correo], (error, filas) => {
+                if (error) {
+                    msg = error.code;
+                    console.error(msg);
+                    res.json({ Exito: false, msg: msg });
+                } else {
+                    if (filas.length > 0) {
+                        msg = "El correo ya está en uso.";
+                        console.error(msg);
+                        res.json({ Exito: false, msg: msg });
+                    } else {
+                        // Insertar nuevo usuario
+                        conexion.query("INSERT INTO usuarios (nombre_usuario, contrasena, correo) VALUES (?, ?, ?)", [nombre, contrasena, correo], (error, resultado) => {
+                            if (error) {
+                                msg = error.code;
+                                console.error(msg);
+                                res.json({ Exito: false, msg: msg });
+                            } else {
+                                res.json({ Exito: true, msg: "Usuario registrado exitosamente.", correo: correo, contrasena: contrasena});
+                            }
+                        });
+                    }
+                }
+            });
+        }
     });
-};*/
+}
 
 module.exports = controller;
-module.exports.getUsuarios = getUsuarios;
-module.exports.getExito = getExito;

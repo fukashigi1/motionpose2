@@ -16,14 +16,38 @@ $(document).ready(function(){
     $("#contrasena").on("focus", function(){
         $("#contrasenaLabel").css("bottom", "-8px");
         $("#contrasenaLabel").css("background-color", "white");
+        $("#contrasenaLabel img").css("background-color", "white");
     })
     $("#contrasena").on("blur", function(){
         if($("#contrasena").val() == ""){        
             $("#contrasenaLabel").css("bottom", "-31px");
             $("#contrasenaLabel").css("background-color", "transparent");
+            $("#contrasenaLabel img").css("background-color", "transparent");
         }
     });
-
+    //Click en label de input
+    $("#correoLabel").on("click", function(){
+        $("#correoLabel").css("bottom", "-8px");
+        $("#correoLabel").css("background-color", "white");
+        $("#correo").focus();
+    });
+    $("#contrasenaLabel").on("click", function(){
+        $("#contrasenaLabel").css("bottom", "-8px");
+        $("#contrasenaLabel").css("background-color", "white");
+        $("#contrasena").focus();
+    });
+    // Cambiar ojo de contraseña
+    $("#contrasenaLabel img").on("click", function(){
+        if($("#contrasenaLabel img").attr("src") == "icons/hide.png"){
+            $("#contrasena").attr("type", "text");
+            $("#contrasenaLabel img").attr("src", "icons/view.png");
+            $("#contrasenaLabel img").attr("title", "Ocultar contraseña.");
+        }else{
+            $("#contrasena").attr("type", "password");
+            $("#contrasenaLabel img").attr("src", "icons/hide.png");
+            $("#contrasenaLabel img").attr("title", "Mostrar contraseña.");
+        }
+    });
     // Titulo y contenedor animación
 
     $(".contenedorTitulo").css({
@@ -33,7 +57,7 @@ $(document).ready(function(){
 
     $(".contenedorLogin").css({
         'width' : '28%',
-        'height' : '60%'
+        'height' : '63%'
     });
     $("#volver").css({
         'left': '0',
@@ -44,24 +68,33 @@ $(document).ready(function(){
     });
 
     $("#continuarBoton").on("click", function(){
-        var formData = new FormData();
-        formData.append("nombre", "Julio");
-        formData.append("contrasena", "1234");
         $.ajax({
             url: '/login', // Reemplaza con la ruta correcta hacia tu función getUsuarios
             method: 'POST',
             dataType: 'json',
-            data: JSON.stringify(formData),
-            processData: false,
-            contentType: false,
+            data: JSON.stringify({
+                correo: $("#correo").val(),
+                contrasena: $("#contrasena").val()
+            }),
+            contentType: 'application/json',
             success: function(data) {
-                console.log("Hola");
                 console.log(data);
                 if(data.Exito){
+                    // Mandar a pagina principal
                     console.log("Solicitud POST exitosa");
                 }else{
+                    $(".mostrarError").css({
+                        "opacity": "1",
+                        "margin-top": "0px"
+                    });
+                    $(".mostrarError").text("Correo o contraseña inválidos.");
                     console.error("Solicitud POST DENEGADA");
                 }
+                $(".mostrarError").text(data.msg);
+                $(".mostrarError").css({
+                    "opacity": "1",
+                    "margin-top": "0px"
+                });
                 
             },
             error: function(error) {

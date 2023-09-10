@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>    
+    <title>Registrarse</title>    
     <link rel="stylesheet" type="text/css" href="css_local/registroStyle.css">
+    <link rel="icon" type="image/x-icon" href="/icons/motion_pose_icon.ico">
     <script src="js/jquery/code.jquery.com_jquery-3.7.0.min.js"></script>
     <script src="js/registro.js"></script>
 </head>
 <body>
     <div class="contenedorContenedor">
         <div class="contenedorTitulo">
-            <img src="img/motion_pose_background4.png" class="imgLogo">
+            <img src="img/motion_pose_background4.png" class="imgLogo" alt="Motion Pose Logo">
         </div>
         <a id="volver">Volver</a>
     </div>
@@ -19,20 +20,22 @@
         <div class="contenedorLogin">
             <form>
                 <h2>No soy usuario</h2>
-                <div>
-                    <label id="nombreLabel">Nombre de usuario</label>
+                <div class="mostrarError">
+                </div>
+                <div style="margin-top: 10px;">
+                    <label id="nombreLabel" for="nombre">Nombre de usuario</label>
                     <input id="nombre" type="text">
                 </div>
                 <div>
-                    <label id="correoLabel">Correo Electrónico</label>
+                    <label id="correoLabel" for="correo">Correo Electrónico</label>
                     <input id="correo" type="mail">
                 </div>
                 <div>
-                    <label id="contrasenaLabel">Contraseña</label>
+                    <label id="contrasenaLabel" for="contrasena">Contraseña</label>
                     <input id="contrasena" type="password">
                 </div>
                 <div>
-                    <label id="contrasenaLabelConfirmar">Confirmar Contraseña</label>
+                    <label id="contrasenaLabelConfirmar" for="contrasenaConfirmar">Confirmar Contraseña</label>
                     <input id="contrasenaConfirmar" type="password">
                 </div>
                 <div class="contenedorTerminos">

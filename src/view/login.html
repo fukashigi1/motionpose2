@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>    
     <link rel="stylesheet" type="text/css" href="css_local/loginStyle.css">
+    <link rel="icon" type="image/x-icon" href="/icons/motion_pose_icon.ico">
+    
     <script src="js/jquery/code.jquery.com_jquery-3.7.0.min.js"></script>
     <script src="js/login.js"></script>
 </head>
 <body>
     <div class="contenedorContenedor">
         <div class="contenedorTitulo">
-            <img src="img/motion_pose_background4.png" class="imgLogo">
+            <img src="img/motion_pose_background4.png" class="imgLogo" alt="Motion Pose Logo">
         </div>
         <a id="volver" href="/">Volver</a>
     </div>
@@ -19,12 +21,14 @@
         <div class="contenedorLogin">
             <form>
                 <h2>Soy usuario</h2>
-                <div>
-                    <label id="correoLabel">Correo Electrónico</label>
+                <div class="mostrarError">
+                </div>
+                <div style="margin-top: 10px">
+                    <label id="correoLabel" for="correo">Correo Electrónico</label>
                     <input id="correo" type="mail">
                 </div>
                 <div>
-                    <label id="contrasenaLabel">Contraseña</label>
+                    <label id="contrasenaLabel" style="left: 16px;" for="contrasena"><img src="icons/hide.png" title="Mostrar contraseña">Contraseña</label>
                     <input id="contrasena" type="password">
                 </div>
                 <a id="noCuenta">No tengo una cuenta</a>

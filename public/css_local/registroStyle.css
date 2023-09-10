@@ -23,6 +23,7 @@ h2{
     font-weight: 100;
     padding-bottom: 15px;
     border-bottom: 1px solid #00000063;
+    margin-bottom: 0;
 }
 
 label {
@@ -118,15 +119,28 @@ a{
     top: -4px;
 }
 
-#terminos:hover {
-    font-size: 15.5px;
-}
-
 #aceptarTerminos { 
     transition: all 7s;
     opacity: 0;
     accent-color: #16161a;
 }
+
+.ocultar {
+    display: none;
+}
+
+.mostrarError {
+    transition: all 0.5s;
+    margin-top: -56px;
+    opacity: 0;
+    color: #16161a;
+    border-bottom: 1px solid #00000063;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgb(0 0 0 / 10%) 40%, rgb(0 0 0 / 10%) 60%, rgba(252,176,69,0) 100%);
+}
+
 .contenedorContenedor {
     float: left;
     width: 50%;
