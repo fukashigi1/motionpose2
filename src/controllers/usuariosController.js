@@ -1,7 +1,7 @@
 const controller = {};
 const path = require('path');
 
-controller.view = (req, res)=>{
+controller.view = async (req, res)=>{
     res.sendFile(path.join(__dirname, '..', 'view', 'login.html'));
 };
 controller.post = async (req, res) => {
