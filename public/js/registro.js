@@ -1,5 +1,7 @@
 $(document).ready(function(){
     //Animaciones
+
+
     $("#nombre").on("focus", function(){
         $("#nombreLabel").css("bottom", "-8px");
         $("#nombreLabel").css("background-color", "white");
@@ -97,12 +99,12 @@ $(document).ready(function(){
         // Validación de campos.
         while (true){
             if($("#nombre").val() == ""){
-                invalido = "El nombre no puede estár vacío.";
+                invalido = "El nombre de usuario es obligatorio.";
                 break;
             }
     
             if ($("#correo").val() == ""){
-                invalido = "El correo no puede estár vacío.";
+                invalido = "El correo es obligatorio.";
                 break;
             }
             if (validarCorreo($("#correo").val()) == false) {
@@ -111,7 +113,7 @@ $(document).ready(function(){
             }
     
             if ($("#contrasena").val() == ""){
-                invalido = "La contraseña no puede estár vacía.";
+                invalido = "La contraseña es obligatoria.";
                 break;
             } 
             if(validarContraseña($("#contrasena").val()) == false) {
@@ -124,7 +126,7 @@ $(document).ready(function(){
             }
     
             if($("#contrasena").val() != $("#contrasenaConfirmar").val()){
-                invalido = "Las contraseñas ingresadas no son iguales.";
+                invalido = "Las contraseñas ingresadas no coinciden.";
                 break;
             }
             if($("#aceptarTerminos").is(":checked") == false){
@@ -150,9 +152,10 @@ $(document).ready(function(){
                 }),
                 contentType: 'application/json',
                 success: function(data) {
-                    console.log(data);
                     if(data.Exito){
-                        // Mandar a pagina principal
+                        console.log(data);
+                        window.location.href = 'login'; 
+                        
                     }else{
                         console.error("Solicitud POST DENEGADA");
                     }

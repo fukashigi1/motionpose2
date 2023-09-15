@@ -5,23 +5,10 @@ const mysql = require('mysql');
 const myConnection = require('express-myconnection');
 const app = express();
 const compression = require('compression');
+const session = require('express-session');
 
 // Configuración
-app.set('port', process.env.PORT || 5555);
 
-app.use(express.static('public', {
-    maxAge: 31536000, // Cache for 1 year
-  }));
-app.get('/', (req, res)=>{
-    res.sendFile(path.join(__dirname, 'view', 'index.html'))
-}); 
-// Importación de rutas
-const usuarioRuta = require('./routes/usuarios');
-const registroRuta = require('./routes/registroRuta');
-
-// Rutas
-app.use('/login', usuarioRuta); 
-app.use('/registro', registroRuta);
 
 // Configuración de acceso a la base de datos
 const hostDB = "localhost";
@@ -41,6 +28,28 @@ app.use(myConnection(mysql, {
     database: databaseDB
 }, 'single'));
 
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true
+}))
+
+app.set('port', process.env.PORT || 5555);
+
+app.use(express.static('public', {
+    maxAge: 31536000, // Cache for 1 year
+  }));
+app.get('/', (req, res)=>{
+    res.sendFile(path.join(__dirname, 'view', 'index.html'))
+}); 
+// Importación de rutas
+const usuarioRuta = require('./routes/usuarios');
+const registroRuta = require('./routes/registroRuta');
+const lobbyRuta = require('./routes/lobbyRuta');
+
+// Rutas
+app.use('/login', usuarioRuta); 
+app.use('/registro', registroRuta);
+app.use('/lobby', lobbyRuta);
 app.listen(app.get('port'), ()=>{
     console.log('Server corriendo en puerto: ' + app.get('port'));
 });

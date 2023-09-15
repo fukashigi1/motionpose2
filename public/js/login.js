@@ -69,7 +69,7 @@ $(document).ready(function(){
 
     $("#continuarBoton").on("click", function(){
         $.ajax({
-            url: '/login', // Reemplaza con la ruta correcta hacia tu función getUsuarios
+            url: '/login', 
             method: 'POST',
             dataType: 'json',
             data: JSON.stringify({
@@ -82,6 +82,7 @@ $(document).ready(function(){
                 if(data.Exito){
                     // Mandar a pagina principal
                     console.log("Solicitud POST exitosa");
+                    window.location.href = 'lobby'; 
                 }else{
                     $(".mostrarError").css({
                         "opacity": "1",
