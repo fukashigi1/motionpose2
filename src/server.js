@@ -45,11 +45,15 @@ app.get('/', (req, res)=>{
 const usuarioRuta = require('./routes/usuarios');
 const registroRuta = require('./routes/registroRuta');
 const lobbyRuta = require('./routes/lobbyRuta');
+const proyectosRuta = require('./routes/proyectosRuta');
+const miCuentaRuta = require('./routes/miCuentaRuta');
 
 // Rutas
 app.use('/login', usuarioRuta); 
 app.use('/registro', registroRuta);
 app.use('/lobby', lobbyRuta);
+app.use('/proyectos', proyectosRuta);
+app.use('/cuenta', miCuentaRuta);
 app.listen(app.get('port'), ()=>{
     console.log('Server corriendo en puerto: ' + app.get('port'));
 });

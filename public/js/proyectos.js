@@ -15,19 +15,9 @@ $(document).ready(function(){
         e.preventDefault();
         $('html, body').animate({scrollTop:0}, '300');
       });
-
-    $.ajax({
-        url: '/lobby/name', // Reemplaza con la ruta correcta hacia tu función getUsuarios
-        method: 'GET',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function(data) {
-            console.log(data);
-            desplegarNombre(data);
-        },
-        error: function(error) {
-            console.error(error);
-        }
+    
+    $(".nuevoProyecto").on("click", function(){
+        window.location.href = 'lobby';
     });
     
     // Nav

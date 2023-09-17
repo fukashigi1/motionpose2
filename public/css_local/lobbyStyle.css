@@ -1,0 +1,149 @@
+body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    color: white;
+    font-family: monospace;
+    background-color: #16161a;
+}
+::selection {
+    color: rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+}
+
+h1 {
+    font-size: 3vh;
+    padding-top: 10px;
+}
+
+h1::selection {
+    color: rgb(255, 255, 255) !important;
+    background: rgb(0, 0, 0) !important;
+}
+.imgLogo {
+    width: 247px;
+    height: 67px;
+    cursor: pointer;
+    margin-top: 18px;
+    margin-left: 150px;
+}
+.header {
+    transition: all 0.5s;
+    z-index: 100;
+    height: 100px;
+    width: 100%;
+    background-color: #ffffff00;
+    position: fixed;
+    margin-top: -1.96vh;
+}
+ul {
+    float: right;
+    margin-top: 36px;
+    margin-right: 150px;
+}
+
+ul a {
+    transition: all 0.2s;
+    font-size: 19px;    
+    font-family: monospace;
+    padding: 10px;
+    cursor: pointer;
+    text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
+}
+ul a:hover {
+    transition: all 0.2s;
+    padding: 8px;
+    font-size: 20px;    
+    text-decoration: underline;
+}
+
+i {
+    color: #ffffff;
+    width: 100%;
+    font-size: 13vh;
+    margin-top: 1.5vh;
+    margin-bottom: 3vh;
+}
+
+i::before {
+    transition: all 0.13s;
+}
+
+.centro {
+    position: relative;
+    margin-left: 150px;
+    margin-right: 150px;
+    background-color: white;
+    top: 30vh;
+    height: auto;
+    padding-bottom: 4vh;
+    text-align: center;
+    color: #16161a;
+    border-radius: 4px;
+    margin-bottom: 30vh;
+}
+
+.elemento {
+    transition: all 1s;
+    width: 23vh;
+    height: 23vh;
+    background-color: #16161a;
+    border-radius: 2.5vh;
+    margin-top: 1.5vh;
+    margin-left: 1vh;
+    margin-right: 1vh;
+    color: white;
+    font-size: 2.5vh;
+    user-select: none;
+    cursor:pointer;
+}
+.elemento:hover i::before {
+    font-size: 13.3vh;
+}
+
+.contenedorElementos {
+    width: 100%;
+    height: 82%;
+    overflow: hidden;
+    display: inline-flex;
+    margin-left: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+p {
+    margin-left: 150px;
+    margin-right: 150px;
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 70px;
+}
+
+footer {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 63vh;
+    border-top: 1px solid white;
+    margin-bottom: 50px;
+}
+footer p {
+    font-size: 20px;
+    margin-left: 25px;
+}
+
+footer a {
+    font-size: 20px;
+    margin-left: 25px;
+    cursor: pointer;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1365px){        
+    ul{
+       display: none;
+    }
+}

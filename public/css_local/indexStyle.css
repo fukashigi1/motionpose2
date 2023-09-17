@@ -99,7 +99,7 @@ ul {
 }
 
 ul a {
-    transition: all 0.7s;
+    transition: all 0.2s;
     font-size: 19px;    
     font-family: monospace;
     padding: 10px;
@@ -107,9 +107,9 @@ ul a {
     text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
 }
 ul a:hover {
-    transition: all 0.7s;
+    transition: all 0.2s;
     padding: 8px;
-    font-size: 21px;    
+    font-size: 20px;    
     text-decoration: underline;
 }
 

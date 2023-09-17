@@ -30,6 +30,7 @@ $(document).ready(function(){
         }
     });
     
+
     // Nav
     $('.imgLogo').on('click', function(e) {
         window.location.href = '/';
@@ -44,7 +45,7 @@ $(document).ready(function(){
         window.location.href = '/cuenta';
     });
     $("#cerrarSesion").on("click", function(){
-        window.location.href = 'lobby/salir';
+        window.location.href = 'cuenta/salir';
     });
 });
 function desplegarNombre(nombre){

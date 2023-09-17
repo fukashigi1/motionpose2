@@ -1,0 +1,29 @@
+.nuevoProyecto {
+    transition: all 0.1s;
+    background-color: white;
+    border: 1px solid black;
+    height: 5vh;
+    width: 17vh;
+    cursor: pointer;
+    font-family: monospace;
+    border-radius: 3px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+#nuevoProyecto:hover{
+    background-color: rgb(0, 0, 0);
+    border: 3px double rgb(255, 255, 255);
+    color: white;
+}
+
+#nuevoProyectoHidden {
+    position: absolute;
+    top: -4.5vh;
+    left: 2vh;
+}
+
+#nuevoProyectoHidden:hover{
+    background-color: rgb(0, 0, 0);
+    border: 3px double rgb(255, 255, 255);
+    color: white;
+}

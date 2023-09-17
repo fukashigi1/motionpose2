@@ -4,13 +4,10 @@ const path = require('path');
 controller.view = async (req, res)=>{
     if(req.session.loggedin != true){
         //res.redirect('/login');
-        res.sendFile(path.join(__dirname, '..', 'view', 'lobby.html'));
+        res.sendFile(path.join(__dirname, '..', 'view', 'miCuenta.html'));
     }else{
-        res.sendFile(path.join(__dirname, '..', 'view', 'lobby.html'));
+        res.sendFile(path.join(__dirname, '..', 'view', 'miCuenta.html'));
     }
-};
-controller.name = async (req, res)=>{
-    res.json({name: req.session.name});
 };
 
 controller.salir = async (req, res) => {

@@ -3,15 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lobby</title>    
-    <link rel="stylesheet" type="text/css" href="css_local/loginStyle.css">
+    <title>Principal</title>    
+    <link rel="stylesheet" type="text/css" href="css_local/lobbyStyle.css">
     <link rel="icon" type="image/x-icon" href="/icons/motion_pose_icon.ico">
+    <link rel="stylesheet" type="text/css" href="css/all.css">
     
     <script src="js/jquery/code.jquery.com_jquery-3.7.0.min.js"></script>
     <script src="js/lobby.js"></script>
 </head>
 <body>
-    <h1>Bienvenido al lobby</h1>
-    <p id="test"></p>
+    <div class="header">
+        <img src="img/motion_pose_background4.png" class="imgLogo">
+        <ul>
+            <a id="inicio">Inicio</a>
+            <a id="misProyectos">Mis proyectos</a>
+            <a id="miCuenta" >Mi cuenta</a>
+            <a id="tienda">Tienda</a>
+            <a id="ayuda">Ayuda</a>
+            <a id="cerrarSesion">Cerrar sesión</a>
+        </ul>
+    </div>
+    <div class="centro">
+        <h1>¿Cómo quieres comenzar?</h1>
+        <div class="contenedorElementos">
+            <div class="elemento">
+                <i class="fa-solid fa-file-image" style="color: #ffffff;"></i>
+                Imagen
+            </div>
+            <div class="elemento">
+                <i class="fa-solid fa-file-video" style="color: #ffffff;"></i>
+                Video
+            </div>
+            <div class="elemento">
+                <i class="fa-solid fa-cube" style="color: #ffffff;"></i>
+                3D
+            </div>
+            <div class="elemento">
+                <i class="fa-solid fa-hand-sparkles" style="color: #ffffff;"></i>
+                Animación
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>
+            Motion Pose MP ~ 2023
+        </p>
+        <a>Políticas de privacidad</a>
+        <a>Términos y condiciones</a>
+        <a>Manual de usuario</a>
+        <a id="volverArriba" style="float: right;">Volver arriba</a>
+    </footer>
 </body>
 </html>
