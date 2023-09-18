@@ -19,23 +19,6 @@ $(document).ready(function(){
     $(".nuevoProyecto").on("click", function(){
         window.location.href = 'lobby';
     });
-    
-    // Nav
-    $('.imgLogo').on('click', function(e) {
-        window.location.href = '/';
-      });
-    $("#inicio").on("click", function(){
-        window.location.href = '/lobby';
-    });
-    $("#misProyectos").on("click", function(){
-        window.location.href = '/proyectos';
-    });
-    $("#miCuenta").on("click", function(){
-        window.location.href = '/cuenta';
-    });
-    $("#cerrarSesion").on("click", function(){
-        window.location.href = 'lobby/salir';
-    });
 });
 function desplegarNombre(nombre){
     $('#test').text(nombre.name);

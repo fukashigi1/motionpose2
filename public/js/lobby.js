@@ -28,21 +28,4 @@ $(document).ready(function(){
             console.error(error);
         }
     });
-    
-    // Nav
-    $('.imgLogo').on('click', function(e) {
-        window.location.href = '/';
-      });
-    $("#inicio").on("click", function(){
-        window.location.href = '/lobby';
-    });
-    $("#misProyectos").on("click", function(){
-        window.location.href = '/proyectos';
-    });
-    $("#miCuenta").on("click", function(){
-        window.location.href = '/cuenta';
-    });
-    $("#cerrarSesion").on("click", function(){
-        window.location.href = 'lobby/salir';
-    });
 });

@@ -47,13 +47,14 @@ const registroRuta = require('./routes/registroRuta');
 const lobbyRuta = require('./routes/lobbyRuta');
 const proyectosRuta = require('./routes/proyectosRuta');
 const miCuentaRuta = require('./routes/miCuentaRuta');
-
+const tiendaRuta = require('./routes/tiendaRuta');
 // Rutas
 app.use('/login', usuarioRuta); 
 app.use('/registro', registroRuta);
 app.use('/lobby', lobbyRuta);
 app.use('/proyectos', proyectosRuta);
 app.use('/cuenta', miCuentaRuta);
+app.use('/tienda', tiendaRuta);
 app.listen(app.get('port'), ()=>{
     console.log('Server corriendo en puerto: ' + app.get('port'));
 });

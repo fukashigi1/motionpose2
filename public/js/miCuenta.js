@@ -75,23 +75,6 @@ $(document).ready(function(){
             contrasenaEditar = true;
         }
     }
-    // Nav
-    $('.imgLogo').on('click', function(e) {
-        window.location.href = '/';
-      });
-    $("#inicio").on("click", function(){
-        window.location.href = '/lobby';
-    });
-    $("#misProyectos").on("click", function(){
-        window.location.href = '/proyectos';
-    });
-    $("#miCuenta").on("click", function(){
-        window.location.href = '/cuenta';
-    });
-    $("#cerrarSesion").on("click", function(){
-        window.location.href = 'cuenta/salir';
-    });
-
     
     $.ajax({
         url: '/cuenta/datos', // Reemplaza con la ruta correcta hacia tu función getUsuarios
@@ -187,7 +170,8 @@ function desplegarDatos(datos){
     $('#correo').val(datos.correo);
 
     // Desencriptar
-
+    
+    console.log(datos.tipo_usuario);
     $('#membresia').val(datos.tipo_usuario);
 }
 
