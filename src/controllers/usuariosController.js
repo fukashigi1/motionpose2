@@ -43,7 +43,10 @@ controller.post = async (req, res) => {
                                     msg = "Iniciando sesión...";
                                     Exito = true;
                                     req.session.loggedin = true;
-                                    req.session.name = elemento.nombre_usuario;
+                                    req.session.nombre_usuario = elemento.nombre_usuario;
+                                    req.session.correo = elemento.correo;
+                                    req.session.contrasena = elemento.contrasena;
+                                    req.session.tipo_usuario = elemento.tipo_usuario;
 
                                 }else{
                                     msg = "Correo o contraseña incorrecta."

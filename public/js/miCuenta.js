@@ -1,4 +1,8 @@
+let correoInicial;
+let contrasenaEditar = false;
 $(document).ready(function(){
+
+    $("#contrasena").attr("placeholder", "*******");
 
     $('html, body').animate({scrollTop:0}, '1');
 
@@ -16,21 +20,61 @@ $(document).ready(function(){
         $('html, body').animate({scrollTop:0}, '300');
       });
 
-    $.ajax({
-        url: '/lobby/name', // Reemplaza con la ruta correcta hacia tu función getUsuarios
-        method: 'GET',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function(data) {
-            console.log(data);
-            desplegarNombre(data);
-        },
-        error: function(error) {
-            console.error(error);
+    // Editar campos
+    $('#usuarioLapiz').on("click", function(){
+        var miInput = $("#usuario");
+        miInput.prop("readonly", function(i, readonly) {
+        return !readonly;
+        });
+        if (miInput.prop("readonly")) {
+            miInput.addClass("noEditable");
+        } else {
+            miInput.removeClass("noEditable");
         }
+        $("#aceptarCambios").removeClass("remover");
     });
-    
 
+    $('#correoLapiz').on("click", function(){
+        var miInput = $("#correo");
+        miInput.prop("readonly", function(i, readonly) {
+        return !readonly;
+        });
+        if (miInput.prop("readonly")) {
+            miInput.addClass("noEditable");
+        } else {
+            miInput.removeClass("noEditable");
+        }
+        $("#aceptarCambios").removeClass("remover");
+    });
+
+    var miInput = $("#contrasena");
+    
+    $('#contrasenaLapiz').on("click", function() {
+      toggleReadonlyAndClass(miInput);
+      $("#aceptarCambios").removeClass("remover");
+    });
+
+    // Detectar presión de la tecla Enter en el campo de contraseña
+    miInput.on("keydown", function(event) {
+      if (event.which === 13) {
+        toggleReadonlyAndClass(miInput);
+      }
+    });
+
+    function toggleReadonlyAndClass(inputElement) {
+        inputElement.prop("readonly", function(i, readonly) {
+            return !readonly;
+        });
+        if (inputElement.prop("readonly")) {
+            inputElement.addClass("noEditable");
+            inputElement.attr("placeholder", "*******");
+            contrasenaEditar = false;
+        } else {
+            inputElement.removeClass("noEditable");
+            inputElement.attr("placeholder", "Nueva contraseña");
+            contrasenaEditar = true;
+        }
+    }
     // Nav
     $('.imgLogo').on('click', function(e) {
         window.location.href = '/';
@@ -47,7 +91,112 @@ $(document).ready(function(){
     $("#cerrarSesion").on("click", function(){
         window.location.href = 'cuenta/salir';
     });
+
+    
+    $.ajax({
+        url: '/cuenta/datos', // Reemplaza con la ruta correcta hacia tu función getUsuarios
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function(data) {
+            console.log(data);
+            desplegarDatos(data.datos)
+            correoInicial = data.datos.correo;
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+
+    // Aceptar cambios de los campos -2.1vh
+    $('#aceptarCambios').on("click", function(){
+        let invalido = "";
+        let datos = {correoInicial: correoInicial};
+        while (true) {
+            
+            if(contrasenaEditar == true){
+                if ($("#contrasena").val() == ""){
+                    invalido = "La contraseña no puede estár vacía.";
+                    break;
+                }
+                if(validarContraseña($("#contrasena").val()) == false) {
+                    invalido = "La contraseña debe contener al menos 8 carácteres, el uso de mayúsculas y carácteres especiales.";
+                    break;
+                }else{
+                    datos.contrasena = $("#contrasena").val();
+                }
+            }
+
+            if($("#usuario").val() == ""){
+                invalido = "El nombre de usuario no puede estár vacío.";
+                break;
+            }else{
+                datos.nombre_usuario = $("#usuario").val();
+            }
+    
+            if ($("#correo").val() == ""){
+                invalido = "El correo no puede estár vacío.";
+                break;
+            }
+
+            if (validarCorreo($("#correo").val()) == false) {
+                console.log(validarCorreo($("#correo").val()));
+                invalido = "El correo ingresado es inválido.";
+                break;
+            }else{
+                datos.correo = $("#correo").val();
+            }
+            break;
+        }
+        console.log(datos);
+        if(invalido == ""){
+            console.log("EXITO cambiado");
+            $.ajax({
+                url: '/cuenta',
+                method: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(datos),
+                contentType: 'application/json',
+                success: function(data) {
+                    if(data.Exito){
+                        console.log("exito");
+                    }else{
+                        console.error("Solicitud POST DENEGADA");
+                    }
+                    console.log(data);
+                    $(".mensaje").removeClass("ocultar");
+                    $(".mensaje").css("margin-top", "-2.1vh")
+                    $(".mensaje").text(data.msg);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        }else{
+            $(".mensaje").removeClass("ocultar");
+            $(".mensaje").css("margin-top", "-2.1vh")
+            $(".mensaje").text(invalido);
+        }
+    });
 });
-function desplegarNombre(nombre){
-    $('#test').text(nombre.name);
+
+
+function desplegarDatos(datos){
+    $('#usuario').val(datos.nombre_usuario);
+
+    $('#correo').val(datos.correo);
+
+    // Desencriptar
+
+    $('#membresia').val(datos.tipo_usuario);
+}
+
+function validarCorreo(email) {
+    let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+}
+
+function validarContraseña(contrasena) {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$&+,:;=?@#|'<>.^*()%!-]).{8,}$/;
+    return regex.test(contrasena);
 }

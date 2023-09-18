@@ -42,7 +42,7 @@ label {
 input {
     width: 100%;
     height: 40px;
-    border-radius: 15px;
+    border-radius: 5px;
     border: 1px solid #16161aba;
     font-size: 15px;
     font-family: monospace;
@@ -72,7 +72,7 @@ a{
 }
 
 #volver {
-    transition: all 1s;
+    transition: all 0.3s;
     text-decoration: none;
     font-size: 25px;
     padding: 10px;
@@ -90,7 +90,7 @@ a{
     font-size: 25.5px;
 }
 #registrarseBoton {
-    transition: all 0.5s;
+    transition: all 0.2s;
     cursor: pointer;
     position: absolute;
     bottom: 0;
@@ -108,7 +108,7 @@ a{
 
 #terminos {
     display: inline-block;
-    transition: all 0.5s;
+    transition: all 0.1s;
     text-decoration: none;
     font-size: 15px;
     cursor: pointer;
@@ -130,7 +130,7 @@ a{
 }
 
 .mostrarError {
-    transition: all 0.5s;
+    transition: all 0.2s;
     margin-top: -56px;
     opacity: 0;
     color: #16161a;
@@ -148,7 +148,7 @@ a{
 }
 
 .contenedorTitulo {
-    transition: all 1s;
+    transition: all 0.5s;
     opacity: 0;
     position: absolute;
     top: 50%;
@@ -168,7 +168,7 @@ a{
 }
 
 .contenedorLogin {
-    transition: all 1s;
+    transition: all 0.5s;
     width: 0%;
     height: 0%;
     border-radius: 10px;

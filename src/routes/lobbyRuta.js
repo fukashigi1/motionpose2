@@ -6,6 +6,6 @@ router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
 router.get('/', usuariosController.view);
-router.get('/name', usuariosController.name);
+router.get('/datos', usuariosController.datos);
 router.get('/salir', usuariosController.salir);
 module.exports = router;

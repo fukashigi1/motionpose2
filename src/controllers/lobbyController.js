@@ -9,8 +9,8 @@ controller.view = async (req, res)=>{
         res.sendFile(path.join(__dirname, '..', 'view', 'lobby.html'));
     }
 };
-controller.name = async (req, res)=>{
-    res.json({name: req.session.name});
+controller.datos = async (req, res)=>{
+    res.json({datos: req.session});
 };
 
 controller.salir = async (req, res) => {
