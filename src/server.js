@@ -19,7 +19,10 @@ const databaseDB = 'motionpose';
 
 // Middlewares
 app.use(compression());
+
 app.use(morgan('dev'));
+
+
 app.use(myConnection(mysql, {
     host: hostDB,
     user: userDB,
@@ -38,6 +41,7 @@ app.set('port', process.env.PORT || 5555);
 app.use(express.static('public', {
     maxAge: 31536000, // Cache for 1 year
   }));
+  
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, 'view', 'index.html'))
 }); 
@@ -48,6 +52,8 @@ const lobbyRuta = require('./routes/lobbyRuta');
 const proyectosRuta = require('./routes/proyectosRuta');
 const miCuentaRuta = require('./routes/miCuentaRuta');
 const tiendaRuta = require('./routes/tiendaRuta');
+const ayudaRuta = require('./routes/ayudaRuta')
+
 // Rutas
 app.use('/login', usuarioRuta); 
 app.use('/registro', registroRuta);
@@ -55,6 +61,8 @@ app.use('/lobby', lobbyRuta);
 app.use('/proyectos', proyectosRuta);
 app.use('/cuenta', miCuentaRuta);
 app.use('/tienda', tiendaRuta);
+app.use('/ayuda', ayudaRuta);
+
 app.listen(app.get('port'), ()=>{
     console.log('Server corriendo en puerto: ' + app.get('port'));
 });

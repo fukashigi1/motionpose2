@@ -28,6 +28,7 @@ $(document).ready(function(){
       $("#probar").on("click", function(){
         window.location.href = 'login'; 
       });
+
       // Desplazamiento barra de navegación
       
       $("#actualizaciones").click(function() {
