@@ -142,6 +142,123 @@ footer a:hover {
     text-decoration: underline;
 }
 
+
+/*NOTIFICACION MODAL*/
+
+.modalFlotante {
+    transition: all 0.3s;
+    height: 30vh;
+    width: 40vh;
+    opacity: 0;
+    display: none;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    border-radius: 10px;
+    box-shadow: 1px 1px 12px 10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 1px 12px 10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 1px 12px 10px rgba(0,0,0,0.75);
+    overflow: hidden;
+}
+
+.modalHeader {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #00000012;
+}
+
+.modalTitulo {
+    color: #16161a;
+    font-size: 2.5vh;
+    margin: 1vh;
+    display: inline-block;
+    font-family: monospace;
+    margin-left: 2vh;
+}
+
+.modalTitulo::selection {
+    color: rgb(255, 255, 255);
+    background: rgb(0, 0, 0);
+}
+
+.exit {
+    color: #16161a;
+    font-size: 3vh;
+    position: absolute;
+    right: 1px;
+    width: 4vh;
+    margin: 1vh;
+    margin-right: 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+.modalCuerpo {
+    height: 78.1%;
+    margin-top: 5vh;
+    color: #16161a;
+    font-family: monospace;
+    padding: 2vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.modalTexto {
+    font-size: 1.5vh;
+    text-align: center;
+}
+
+.modalCuerpo::selection {
+    color: rgb(255, 255, 255);
+    background: rgb(0, 0, 0);
+}
+
+.modalFooter {
+    background-color: #00000012;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.modalBoton {
+    transition: all 0.1s;
+    width: 13vh;
+    height: 4vh;
+    margin: 1vh;
+    font-family: monospace;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.modalBoton:hover {
+    background-color: rgb(0, 0, 0);
+    border: 3px double rgb(255, 255, 255);
+    color: white;
+}
+
+.fondoModal {
+    height: 100%;
+    width: 100%;
+    background-color: #0000004d;
+    position: absolute;
+    z-index: 100;
+    margin: 0;
+    top: 0;
+    display: none;
+}
+
 @media screen and (max-width: 1365px){        
     ul{
        display: none;
