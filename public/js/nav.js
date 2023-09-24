@@ -50,20 +50,7 @@ $(document).ready(function(){
 
     //Modal
     $(".ejecutarModal").on("click", function(){
-        setTimeout(() => {
-            $(".modalFlotante").css({
-                "opacity": "1",
-                "height": "50vh",
-                "width": "60vh"
-            });
-            $(".fondoModal").css({
-                "display": "inline-block"
-            });
-            }, "100");
-
-        $(".modalFlotante").css({
-            "display": "inline-block"
-        }); 
+        ejecutarModal();
     });
 
     $(".exit").on("click", function(){
@@ -115,7 +102,46 @@ $(document).ready(function(){
     $("#tienda").on("click", function(){
         window.location.href = '/tienda';
     });
+    $("#ayuda").on("click", function(){
+        window.location.href = '/ayuda';
+    });
     $("#cerrarSesion").on("click", function(){
         window.location.href = 'lobby/salir';
     });
 });
+
+function ejecutarModal(titulo, descripcion, icono){
+    setTimeout(() => {
+        $(".modalFlotante").css({
+            "opacity": "1",
+            "height": "50vh",
+            "width": "60vh"
+        });
+        $(".fondoModal").css({
+            "display": "inline-block"
+        });
+        }, "100");
+
+    $(".modalFlotante").css({
+        "display": "inline-block"
+    }); 
+    
+    if (titulo === undefined){
+        $(".modalTitulo").text("Ha ocurrido un error :(");
+    } else {
+        $(".modalTitulo").text(titulo);
+    }
+
+    if (descripcion === undefined){
+        $(".modalTexto").text("No sabemos que ha ocurrido.");
+    } else {
+        $(".modalTexto").text(descripcion);
+    }
+
+    if (icono === undefined){
+        $(".modalIcono").html('<i class="fa-solid fa-question" style="color: #16161a;"></i>');
+    } else {
+        $(".modalIcono").html(icono);
+    }
+    
+}

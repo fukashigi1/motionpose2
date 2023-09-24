@@ -16,22 +16,46 @@
     <div class="centro">
         <h1>¿Cómo quieres comenzar?</h1>
         <div class="contenedorElementos">
-            <div class="elemento">
+            <div class="elemento" id="imagenElemento">
                 <i class="fa-solid fa-file-image" style="color: #ffffff;"></i>
                 Imagen
             </div>
-            <div class="elemento">
+            <div class="elemento" id="videoElemento">
                 <i class="fa-solid fa-file-video" style="color: #ffffff;"></i>
                 Video
             </div>
-            <div class="elemento">
+            <div class="elemento" id="3dElemento">
                 <i class="fa-solid fa-cube" style="color: #ffffff;"></i>
                 3D
             </div>
-            <div class="elemento">
+            <div class="elemento" id="animacionElemento">
                 <i class="fa-solid fa-hand-sparkles" style="color: #ffffff;"></i>
                 Animación
             </div>
+        </div>
+    </div>
+    <div class="modalCrearProyecto">
+        <div class="modalCrearProyectoHeader">
+            <div class="modalCrearProyectoTitulo">Creando nuevo proyecto</div>
+            <i class="fa-solid fa-xmark exit" style="color: #16161a;" id="cerrarVentana"></i>
+        </div>
+        <div class="modalCrearProyectoCuerpo">
+            <form>
+                <div style="margin-top: 10px">
+                    <label id="nombreLabel" for="nombre" class="labelInput" >Nombre del proyecto</label>
+                    <input id="nombre" type="text" class="input" maxlength="30">
+                </div>
+                <select name="select" class="input" id="selectorElemento" style="width: 102.5%; height: 43px;">
+                    <option value="imagen">Imagen</option>
+                    <option value="video">Video</option>
+                    <option value="3d">3D</option>
+                    <option value="animacion">Animación</option>
+                  </select>
+            </form>
+        </div>
+        <div class="modalCrearProyectoFooter">
+            <button class="modalCrearProyectoBoton" id="siguienteModal">Siguiente</button>
+            <button class="modalCrearProyectoBoton" id="cancelarModal">Cancelar</button>
         </div>
     </div>
     <footer>

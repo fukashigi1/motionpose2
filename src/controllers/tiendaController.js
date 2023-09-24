@@ -36,7 +36,29 @@ controller.comprar = async (req, res) => {
                         console.error(msg);
                         res.json({ Exito: false, msg: msg });
                     }else{
-                        res.json({ Exito: true, msg: "Gracias por confiar en nosotros, por favor disfruta de tu nueva membresía."});
+                        if(req.session.loggedin == true){
+                            conexion.query('SELECT tipo_usuario FROM usuarios WHERE correo = ?', [req.session.correo], (error, filas) => {
+                                if (error) {
+                                    msg = error.code;
+                                    console.error(msg);
+                                    res.json({ Exito: false, msg: msg });
+                                } else {
+                                    req.session.tipo_usuario = filas[0].tipo_usuario;
+                                    console.log("session: " + req.session.tipo_usuario);
+                                    console.log("SESSION");
+                                    console.log(req.session);
+                                    req.session.save((err) => {
+                                        if (err) {
+                                          console.error(err);
+                                          res.json({ Exito: false, msg: err });
+                                        }
+                                        // Redirige o envía una respuesta al cliente
+                                        res.json({ Exito: true, msg: "Gracias por confiar en nosotros, por favor disfruta de tu nueva membresía."});
+                                      });
+                                }
+                            });
+                        }
+                        
                     }
                 }
             });
