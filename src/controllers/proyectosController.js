@@ -41,4 +41,8 @@ controller.obtenerProyectos = async (req, res) => {
     });
 };
 
+/*controller.cambiarNombre = async (req, res) => {
+    
+}*/
+
 module.exports = controller;

@@ -2,7 +2,7 @@ $(document).ready(function(){
     let nav = '';
     nav += '<div class="header">';
     nav += '    <img src="img/motion_pose_background4.png" class="imgLogo">';
-    nav += '    <ul>';
+    nav += '    <ul class="ulNav">';
     nav += '        <a id="inicio">Inicio</a>';
     nav += '        <a id="misProyectos">Mis proyectos</a>';
     nav += '        <a id="miCuenta" >Mi cuenta</a>';
@@ -59,11 +59,13 @@ $(document).ready(function(){
                 "display": "none"
             });
             }, "100");
-            $(".modalFlotante").css({
-                "opacity": "0",
-                "height": "30vh",
-                "width": "40vh"
-            });
+
+        $(".modalFlotante").css({
+            "opacity": "0",
+            "height": "30vh",
+            "width": "40vh"
+        });
+
         $(".fondoModal").css({
             "display": "none"
         });
@@ -75,11 +77,13 @@ $(document).ready(function(){
                 "display": "none"
             });
             }, "100");
-            $(".modalFlotante").css({
-                "opacity": "0",
-                "height": "30vh",
-                "width": "40vh"
-            });
+
+        $(".modalFlotante").css({
+            "opacity": "0",
+            "height": "30vh",
+            "width": "40vh"
+        });
+
         $(".fondoModal").css({
             "display": "none"
         });
@@ -126,19 +130,19 @@ function ejecutarModal(titulo, descripcion, icono){
         "display": "inline-block"
     }); 
     
-    if (titulo === undefined){
+    if (titulo === undefined || titulo == ''){
         $(".modalTitulo").text("Ha ocurrido un error :(");
     } else {
         $(".modalTitulo").text(titulo);
     }
 
-    if (descripcion === undefined){
+    if (descripcion === undefined || descripcion == ''){
         $(".modalTexto").text("No sabemos que ha ocurrido.");
     } else {
         $(".modalTexto").text(descripcion);
     }
 
-    if (icono === undefined){
+    if (icono === undefined || descripcion == ''){
         $(".modalIcono").html('<i class="fa-solid fa-question" style="color: #16161a;"></i>');
     } else {
         $(".modalIcono").html(icono);

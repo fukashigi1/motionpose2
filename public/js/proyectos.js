@@ -4,6 +4,43 @@ $(document).ready(function(){
         window.location.href = 'lobby';
     });
 
+    // Menu de contexto
+    var elementoClick;
+    $("body").on("contextmenu", ".elemento", function(e){
+        elementoClick = this.id;
+        $(".menuContexto").css({
+            "display": "inline-block"
+        }); 
+        $(".menuContexto").css({
+            opacity: "1",
+            left: e.pageX + "px",
+            top: e.pageY + "px"
+        });
+        $(".ul").css({
+            "height": "100%"
+        });
+        return false;
+    });
+
+    $(".li").on("click", function(){
+        let idLi = $(this).attr("id");
+
+        if(idLi == "cambiarNombre") {
+            console.log(elementoClick);
+        }
+    });
+
+    $('html').click(function(){
+        ocultarMenuContexto();
+    });
+
+    $('html').contextmenu(function(){
+        ocultarMenuContexto();
+    });
+
+
+    // Ajax para obtener elementos
+
     $.ajax({
         url: '/proyectos/obtenerproyectos',
         method: 'GET',
@@ -35,18 +72,19 @@ function desplegarProyectos(proyectos){
         $(".contenedorElementos").html(boton);
 
     } else {
-        let elementoProyecto = '<button class="nuevoProyecto" id="nuevoProyectoHidden">Nuevo proyecto</button>';
     
         for (let i = 0; i < proyectos.length; i++){
+            let elementoProyecto = '';
+            console.log(i);
             elementoProyecto += '<div class="elemento" id="' + proyectos[i].id_proyecto + '">';
 
-            if (proyectos[i].tipo_proyecto == "Imagen") {
+            if (proyectos[i].tipo_proyecto == "imagen") {
                 elementoProyecto += '    <i class="fa-solid fa-file-image" style="color: #ffffff;"></i>';
-            } else if (proyectos[i].tipo_proyecto == "Video"){
+            } else if (proyectos[i].tipo_proyecto == "video"){
                 elementoProyecto += '    <i class="fa-solid fa-file-video" style="color: #ffffff;"></i>';
-            } else if (proyectos[i].tipo_proyecto == "3D") {
+            } else if (proyectos[i].tipo_proyecto == "3d") {
                 elementoProyecto += '    <i class="fa-solid fa-cube" style="color: #ffffff;"></i>';
-            } else if (proyectos[i].tipo_proyecto == "Animacion"){
+            } else if (proyectos[i].tipo_proyecto == "animacion"){
                 elementoProyecto += '    <i class="fa-solid fa-hand-sparkles" style="color: #ffffff;"></i>';
             } else {
                 elementoProyecto += '    <i class="fa-solid fa-notdef" style="color: #ffffff;"></i>';
@@ -58,4 +96,19 @@ function desplegarProyectos(proyectos){
             $(".contenedorElementos").append(elementoProyecto);
         }
     }
+    $(".contenedorElementos").append('<button class="nuevoProyecto" id="nuevoProyectoHidden">Nuevo proyecto</button>');
+}
+
+function ocultarMenuContexto(){
+    setTimeout(() => {
+        $(".menuContexto").css({
+            "display": "none"
+        });
+        }, "100");
+    $(".menuContexto").css({
+        "opacity": "0"
+    });
+    $(".ul").css({
+        "height": "38px",
+    });
 }

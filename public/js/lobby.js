@@ -49,47 +49,37 @@ $(document).ready(function(){
     })
 
     $("#siguienteModal").on("click", function(){
-        
-        /*$.ajax({
-            url: '/crear',
-            method: 'POST',
-            dataType: 'json',
-            data: JSON.stringify({
-                nombre: $("#nombre").val(),
-                correo: $("#correo").val(),
-                contrasena: $("#contrasena").val()
-            }),
-            contentType: 'application/json',
-            success: function(data) {
-                if(data.Exito){
-                    console.log(data);
-                    window.location.href = 'login'; 
-                    
-                }else{
-                    console.error("Solicitud POST DENEGADA");
-                }
-                $(".mostrarError").text(data.msg);
-                $(".mostrarError").css({
-                    "opacity": "1",
-                    "margin-top": "0px"
-                });
-            },
-            error: function(error) {
-                console.error(error);
-            }
-        });*/
-    });
 
-    $.ajax({
-        url: '/lobby/datos', // Reemplaza con la ruta correcta hacia tu función getUsuarios
-        method: 'GET',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function(data) {
-            console.log(data);
-        },
-        error: function(error) {
-            console.error(error);
+        if($("#nombre").val() == '' || $("#nombre").val() === undefined){
+            ejecutarModal('', 'El nombre del proyecto no puede estár vacío.', '<i class="fa-regular fa-face-surprise" style="color: #16161a;"></i>');
+        } else if ($("#nombre").val().length > 30){
+            ejecutarModal('', 'El nombre del proyecto puede tener como máximo 30 carácteres.', '<i class="fa-regular fa-face-surprise" style="color: #16161a;"></i>');
+        } else if ($("#selectorElemento").val() == '' || $("#selectorElemento").val() === undefined || ($("#selectorElemento").val() !== 'imagen' && $("#selectorElemento").val() !== 'video' && $("#selectorElemento").val() !== '3d' && $("#selectorElemento").val() !== 'animacion')) {
+            ejecutarModal('', 'Debes seleccionar una opción válida.', '<i class="fa-regular fa-face-surprise" style="color: #16161a;"></i>');
+        } else {
+            $.ajax({
+                url: '/lobby/crear',
+                method: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    nombre_proyecto: $("#nombre").val(),
+                    tipo_proyecto: $("#selectorElemento").val()
+                }),
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(data);
+                    if(data.Exito){
+                        
+                    }else{
+                        ejecutarModal('', data.msg, '<i class="fa-regular fa-face-sad-tear" style="color: #16161a;"></i>');
+                        console.error("Solicitud POST DENEGADA");
+                    }
+                },
+                error: function(error) {
+                    ejecutarModal();
+                    console.error(error);
+                }
+            });
         }
     });
 });

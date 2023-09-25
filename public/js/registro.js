@@ -182,7 +182,23 @@ function validarCorreo(email) {
     let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
 }
+
 function validarContraseña(contrasena) {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$&+,:;=?@#|'<>.^*()%!-]).{8,}$/;
-    return regex.test(contrasena);
+    if (contrasena.length < 8) {
+        return false;
+    }
+
+    if (!/[a-z]/.test(contrasena)) {
+        return false;
+    }
+
+    if (!/[A-Z]/.test(contrasena)) {
+        return false;
+    }
+
+    if (!/[\d@°!"#$%&/?¡¨*:_;'¿´+{}.,~^`()[\]-]/.test(contrasena)) {
+        return false;
+    }
+
+    return true;
 }
