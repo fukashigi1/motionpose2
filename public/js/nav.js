@@ -143,7 +143,7 @@ function ejecutarModal(titulo, descripcion, icono){
     }
 
     if (icono === undefined || descripcion == ''){
-        $(".modalIcono").html('<i class="fa-solid fa-question" style="color: #16161a;"></i>');
+        $(".modalIcono").html('<i class="fa-solid fa-circle-xmark" style="color: #16161a;"></i>');
     } else {
         $(".modalIcono").html(icono);
     }

@@ -53,6 +53,7 @@
     line-height: 22px;
     cursor: pointer;
     padding: 0.5vh;
+    user-select: none;
 }
 
 .li:hover {

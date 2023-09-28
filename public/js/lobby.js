@@ -51,11 +51,11 @@ $(document).ready(function(){
     $("#siguienteModal").on("click", function(){
 
         if($("#nombre").val() == '' || $("#nombre").val() === undefined){
-            ejecutarModal('', 'El nombre del proyecto no puede estár vacío.', '<i class="fa-regular fa-face-surprise" style="color: #16161a;"></i>');
+            ejecutarModal('', 'El nombre del proyecto no puede estár vacío.', '<i class="fa-solid fa-circle-xmark" style="color: #16161a;"></i>');
         } else if ($("#nombre").val().length > 30){
-            ejecutarModal('', 'El nombre del proyecto puede tener como máximo 30 carácteres.', '<i class="fa-regular fa-face-surprise" style="color: #16161a;"></i>');
+            ejecutarModal('', 'El nombre del proyecto puede tener como máximo 30 carácteres.', '<i class="fa-solid fa-circle-xmark" style="color: #16161a;"></i>');
         } else if ($("#selectorElemento").val() == '' || $("#selectorElemento").val() === undefined || ($("#selectorElemento").val() !== 'imagen' && $("#selectorElemento").val() !== 'video' && $("#selectorElemento").val() !== '3d' && $("#selectorElemento").val() !== 'animacion')) {
-            ejecutarModal('', 'Debes seleccionar una opción válida.', '<i class="fa-regular fa-face-surprise" style="color: #16161a;"></i>');
+            ejecutarModal('', 'Debes seleccionar una opción válida.', '<i class="fa-solid fa-circle-xmark" style="color: #16161a;"></i>');
         } else {
             $.ajax({
                 url: '/lobby/crear',
