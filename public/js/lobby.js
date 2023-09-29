@@ -12,27 +12,11 @@ $(document).ready(function(){
 
     // Crear nuevo proyecto formulario
 
-    $("#imagenElemento").on("click", function(){
-        animacionVentana();
-        $("#selectorElemento").val('imagen').change();
+    $(".elemento").on("click", function(){
+        desplegarModal($(this).attr("id"));
     });
 
-    $("#videoElemento").on("click", function(){
-        animacionVentana();
-        $("#selectorElemento").val('video').change();
-    });
-
-    $("#3dElemento").on("click", function(){
-        animacionVentana();
-        $("#selectorElemento").val('3d').change();
-    });
-
-    $("#animacionElemento").on("click", function(){
-        animacionVentana();
-        $("#selectorElemento").val('animacion').change();
-    });
-
-    $("#cerrarVentana, #cancelarModal").on("click", function(){
+    $("body").on("click", "#cerrarVentana, #cancelarModal", function(){
         setTimeout(() => {
             $(".modalCrearProyecto").css({
                 "display": "none"
@@ -48,7 +32,7 @@ $(document).ready(function(){
         });
     })
 
-    $("#siguienteModal").on("click", function(){
+    $("body").on("click", "#siguienteModal", function(){
 
         if($("#nombre").val() == '' || $("#nombre").val() === undefined){
             ejecutarModal('', 'El nombre del proyecto no puede estár vacío.', '<i class="fa-solid fa-circle-xmark" style="color: #16161a;"></i>');
@@ -84,19 +68,23 @@ $(document).ready(function(){
     });
 });
 
-function animacionVentana(){
-    setTimeout(() => {
-        $(".modalCrearProyecto").css({
-            "opacity": "1",
-            "height": "38vh",
-            "width": "55vh"
-        });
-        $(".fondoModal").css({
-            "display": "inline-block"
-        });
-        }, "100");
+function desplegarModal(elemento){
+    $(".modalCrearProyectoTitulo").text("Creando nuevo proyecto");
+    let cuerpo = '';
+    cuerpo += '<form>';
+    cuerpo += '            <div style="margin-top: 10px">';
+    cuerpo += '                <label id="nombreLabel" for="nombre" class="labelInput" >Nombre del proyecto</label>';
+    cuerpo += '                <input id="nombre" type="text" class="input" maxlength="30">';
+    cuerpo += '            </div>';
+    cuerpo += '            <select name="select" class="input" id="selectorElemento" style="width: 102.5%; height: 43px;">';
+    cuerpo += '                <option value="imagen">Imagen</option>';
+    cuerpo += '                <option value="video">Video</option>';
+    cuerpo += '                <option value="3d">3D</option>';
+    cuerpo += '                <option value="animacion">Animación</option>';
+    cuerpo += '              </select>';
+    cuerpo += '        </form>';
 
-    $(".modalCrearProyecto").css({
-        "display": "inline-block"
-    }); 
+    $(".modalCrearProyectoCuerpo").html(cuerpo);
+    $("#selectorElemento").val(elemento).change();
+    animacionVentana();
 }

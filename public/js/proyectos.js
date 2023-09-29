@@ -105,8 +105,9 @@ $(document).ready(function(){
                 });
             }
         } else if (idLi == "eliminar") {
-            let $elemento = $("#" + elementoClick);
-            // Globalizar ventana de lobby, para todo el proyecto.
+            let $elemento = $("#" + elementoClick).attr("id");
+            console.log($elemento);
+            animacionVentana();
         }
     });
 
@@ -154,7 +155,6 @@ function desplegarProyectos(proyectos){
     
         for (let i = 0; i < proyectos.length; i++){
             let elementoProyecto = '';
-            console.log(i);
             elementoProyecto += '<div class="elemento" id="' + proyectos[i].id_proyecto + '">';
 
             if (proyectos[i].tipo_proyecto == "imagen") {

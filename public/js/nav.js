@@ -29,8 +29,22 @@ $(document).ready(function(){
     modal += '    </div>';
     modal += ' </div>';
 
+    let modalGlobal = '';
+    modalGlobal += '<div class="modalCrearProyecto">';
+    modalGlobal += '    <div class="modalCrearProyectoHeader">';
+    modalGlobal += '        <div class="modalCrearProyectoTitulo"></div>';
+    modalGlobal += '        <i class="fa-solid fa-xmark exit" style="color: #16161a;" id="cerrarVentana"></i>';
+    modalGlobal += '    </div>';
+    modalGlobal += '    <div class="modalCrearProyectoCuerpo"></div>';
+    modalGlobal += '    <div class="modalCrearProyectoFooter">';
+    modalGlobal += '        <button class="modalCrearProyectoBoton" id="siguienteModal">Siguiente</button>';
+    modalGlobal += '        <button class="modalCrearProyectoBoton" id="cancelarModal">Cancelar</button>';
+    modalGlobal += '    </div>';
+    modalGlobal += '</div>';
+
     $('body').prepend(nav);
-    $('body').prepend(modal);
+    $('body').append(modal);
+    $('body').append(modalGlobal);
 
     $('html, body').animate({scrollTop:0}, '1');
 
@@ -148,4 +162,21 @@ function ejecutarModal(titulo, descripcion, icono){
         $(".modalIcono").html(icono);
     }
     
+}
+
+function animacionVentana(){
+    setTimeout(() => {
+        $(".modalCrearProyecto").css({
+            "opacity": "1",
+            "height": "38vh",
+            "width": "55vh"
+        });
+        $(".fondoModal").css({
+            "display": "inline-block"
+        });
+        }, "100");
+
+    $(".modalCrearProyecto").css({
+        "display": "inline-block"
+    }); 
 }
