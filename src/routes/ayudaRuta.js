@@ -7,6 +7,6 @@ router.use(express.json());
 
 router.get('/', ayudaController.view);
 
-
-
+// Esto es un test
+// segundo test
 module.exports = router;
