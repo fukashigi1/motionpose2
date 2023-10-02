@@ -9,6 +9,11 @@ controller.view = async (req, res)=>{
     }else{
         res.sendFile(path.join(__dirname, '..', 'view', 'miCuenta.html'));
     }
+    req.session.loggedin = true;
+    req.session.nombre_usuario = "test@gmail.com";
+    req.session.correo = "test@gmail.com";
+    req.session.contrasena = "Mojon333!.";
+    req.session.tipo_usuario = "VIP";
 };
 
 controller.salir = async (req, res) => {

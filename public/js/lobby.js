@@ -16,22 +16,6 @@ $(document).ready(function(){
         desplegarModal($(this).attr("id"));
     });
 
-    $("body").on("click", "#cerrarVentana, #cancelarModal", function(){
-        setTimeout(() => {
-            $(".modalCrearProyecto").css({
-                "display": "none"
-            });
-            }, "100");
-            $(".modalCrearProyecto").css({
-                "opacity": "0",
-                "height": "28vh",
-                "width": "45vh"
-            });
-        $(".fondoModal").css({
-            "display": "none"
-        });
-    })
-
     $("body").on("click", "#siguienteModal", function(){
 
         if($("#nombre").val() == '' || $("#nombre").val() === undefined){
@@ -62,6 +46,15 @@ $(document).ready(function(){
                 error: function(error) {
                     ejecutarModal();
                     console.error(error);
+                },
+                complete: function(){
+                    $(".modalCrearProyecto").css({
+                        "display": "none"
+                    });
+                    ejecutarModal('Proyecto creado', "El proyecto fue creado satisfactoriamente", '<i class="fa-regular fa-face-laugh" style="color: #16161a;"></i>');
+                    $(".modalBoton").on("click", function(){
+                        window.location.href = '/proyectos';
+                    });
                 }
             });
         }

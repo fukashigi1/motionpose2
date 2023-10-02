@@ -46,6 +46,8 @@ $(document).ready(function(){
     $('body').append(modal);
     $('body').append(modalGlobal);
 
+
+
     $('html, body').animate({scrollTop:0}, '1');
 
     $(window).scroll(function() {
@@ -126,6 +128,24 @@ $(document).ready(function(){
     $("#cerrarSesion").on("click", function(){
         window.location.href = 'lobby/salir';
     });
+
+    // Acción modal
+    $("body").on("click", "#cerrarVentana, #cancelarModal", function(){
+        setTimeout(() => {
+            $(".modalCrearProyecto").css({
+                "display": "none"
+            });
+            }, "100");
+            $(".modalCrearProyecto").css({
+                "opacity": "0",
+                "height": "28vh",
+                "width": "45vh"
+            });
+        $(".fondoModal").css({
+            "display": "none"
+        });
+    })
+
 });
 
 function ejecutarModal(titulo, descripcion, icono){

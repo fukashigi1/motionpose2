@@ -60,3 +60,8 @@
     background-color: white;
     color: #16161a;
 }
+
+span::selection {
+    background-color: #16161a;
+    color: #ffffff;
+}

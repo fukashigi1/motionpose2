@@ -106,8 +106,41 @@ $(document).ready(function(){
             }
         } else if (idLi == "eliminar") {
             let $elemento = $("#" + elementoClick).attr("id");
-            console.log($elemento);
-            animacionVentana();
+            let nombreElemento = $("#" + elementoClick).text();
+            console.log(nombreElemento);
+            desplegarModal(nombreElemento);
+            $("body").on("click", "#siguienteModal", function(){
+                $.ajax({
+                    url: '/proyectos/eliminarproyecto',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        id: $elemento
+                    }),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        console.log(data);
+                        if (data.Exito) {
+                            ejecutarModal('Proyecto eliminado', 'El proyecto "' + nombreElemento +' " fue eliminado satisfactoriamente.', '<i class="fa-regular fa-face-smile" style="color: #16161a;"></i>');
+                        } else {
+                            ejecutarModal('', data.msg, '<i class="fa-regular fa-face-sad-tear" style="color: #16161a;"></i>');
+                            console.error("Solicitud POST DENEGADA");
+                        }
+                    },
+                    error: function (error) {
+                        ejecutarModal("", error.msg);
+                        console.error(error);
+                    },
+                    complete: function() {
+                        llamarElementos();
+                        
+                        $(".modalCrearProyecto").css({
+                            "display": "none"
+                        });
+                    }
+                });
+                $("body").off("click", "#siguienteModal");
+            });
         }
     });
 
@@ -119,9 +152,13 @@ $(document).ready(function(){
         ocultarMenuContexto();
     });
 
-
     // Ajax para obtener elementos
+    llamarElementos();
+    
 
+});
+
+function llamarElementos() {
     $.ajax({
         url: '/proyectos/obtenerproyectos',
         method: 'GET',
@@ -141,18 +178,18 @@ $(document).ready(function(){
             console.error(error);
         }
     });
-
-});
+}
 
 function desplegarProyectos(proyectos){
 
     if (proyectos.length == 0) {
-        console.log("hola");
         let boton = '<button class="nuevoProyecto" id="nuevoProyecto">Nuevo proyecto</button>';
         $(".contenedorElementos").html(boton);
+        $(".centro h1").text("¿No tienes proyectos?");
 
     } else {
-    
+        $(".contenedorElementos").empty();
+        $(".centro h1").text("Continuar con un proyecto");
         for (let i = 0; i < proyectos.length; i++){
             let elementoProyecto = '';
             elementoProyecto += '<div class="elemento" id="' + proyectos[i].id_proyecto + '">';
@@ -174,8 +211,8 @@ function desplegarProyectos(proyectos){
     
             $(".contenedorElementos").append(elementoProyecto);
         }
+        $(".contenedorElementos").append('<button class="nuevoProyecto" id="nuevoProyectoHidden">Nuevo proyecto</button>');
     }
-    $(".contenedorElementos").append('<button class="nuevoProyecto" id="nuevoProyectoHidden">Nuevo proyecto</button>');
 }
 
 function ocultarMenuContexto(){
@@ -190,4 +227,12 @@ function ocultarMenuContexto(){
     $(".ul").css({
         "height": "38px",
     });
+}
+function desplegarModal(elemento){
+    $(".modalCrearProyectoTitulo").text("¿Está seguro?");
+    let cuerpo = '';
+    cuerpo += '<span style="font-size: 2vh;">¿Está seguro que desea eliminar el siguiente proyecto?<br><br>■ ' + elemento + '<br><br>Esta acción es irreversible.</span>';
+    
+    $(".modalCrearProyectoCuerpo").html(cuerpo);
+    animacionVentana();
 }
