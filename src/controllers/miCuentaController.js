@@ -13,7 +13,7 @@ controller.view = async (req, res)=>{
     req.session.nombre_usuario = "test@gmail.com";
     req.session.correo = "test@gmail.com";
     req.session.contrasena = "Mojon333!.";
-    req.session.tipo_usuario = "VIP";
+    req.session.tipo_usuario = "GRATIS";
 };
 
 controller.salir = async (req, res) => {

@@ -6,6 +6,11 @@ h1{
     padding-left: 5px;
 }
 
+h2::selection {
+    background-color: #16161a;
+    color: white;
+}
+
 label {
     display: block;
     font-family: monospace;

@@ -147,15 +147,14 @@ $(document).ready(function(){
     });
 });
 
+function desplegarHistorialCompras() {
+    let compras = '';
+    
+}
 
 function desplegarDatos(datos){
     $('#usuario').val(datos.nombre_usuario);
-
     $('#correo').val(datos.correo);
-
-    // Desencriptar
-    
-    console.log(datos.tipo_usuario);
     $('#membresia').val(datos.tipo_usuario);
 }
 
