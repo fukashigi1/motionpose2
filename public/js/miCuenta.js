@@ -149,7 +149,9 @@ $(document).ready(function(){
 
 function desplegarHistorialCompras() {
     let compras = '';
-    
+    compras += '' //4200 x 1.19 5000 Precio sin IVA = Precio con IVA / (1 + tasa del IVA/100)
+    // “Fecha de compra”, “Nombre del artículo”, “Valor del producto”, “Valor del IVA”, “Total pagado”.
+    // MEJOR HACER UNA TABLA :D
 }
 
 function desplegarDatos(datos){
