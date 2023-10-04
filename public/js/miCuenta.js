@@ -66,9 +66,15 @@ $(document).ready(function(){
         dataType: 'json',
         contentType: 'application/json',
         success: function(data) {
-            console.log(data);
-            desplegarDatos(data.datos)
-            correoInicial = data.datos.correo;
+            if (data.Exito) {
+                console.log(data);
+                desplegarDatos(data.datos);
+                desplegarHistorialCompras(data.historial);
+                correoInicial = data.datos.correo;
+                $("#mensaje").text(data.msg);
+            } else {
+                $("#mensaje").text(data.msg);
+            }
         },
         error: function(error) {
             console.error(error);
@@ -147,11 +153,47 @@ $(document).ready(function(){
     });
 });
 
-function desplegarHistorialCompras() {
-    let compras = '';
-    compras += '' //4200 x 1.19 5000 Precio sin IVA = Precio con IVA / (1 + tasa del IVA/100)
-    // “Fecha de compra”, “Nombre del artículo”, “Valor del producto”, “Valor del IVA”, “Total pagado”.
-    // MEJOR HACER UNA TABLA :D
+function desplegarHistorialCompras(datos) {
+    if (datos.length == 0) {
+        $("#mensaje").text("Por el momento no tienes compras.");
+    } else {
+        $("#mensaje").remove();
+        for (let i = 0; i < datos.length; i++) {
+            let compras = '';
+            compras += '<div class="compraElemento">';
+            compras += '    <div class="casilla">';
+            compras += '        <span class="spanTitulo">Producto</span>';
+            compras += '        <span>' + datos[i].nombre_producto + '</span>';
+            compras += '    </div>';
+            compras += '    <div class="casilla">';
+            compras += '        <span class="spanTitulo">Fecha de compra</span>';
+            compras += '        <span>' + formatearFecha(datos[i].fecha_compra) + '</span>';
+            compras += '    </div>';
+            compras += '    <div class="casilla">';
+            compras += '        <span class="spanTitulo">Valor sin IVA</span>';
+            compras += '        <span>$ ' + agregarSeparadorMiles((datos[i].precio / (1 + 19/100)).toFixed(2).replace(/\./g, ',')) + '</span>';
+            compras += '    </div>';
+            compras += '    <div class="casilla">';
+            compras += '        <span class="spanTitulo">IVA del producto</span>';
+            compras += '        <span>19% IVA $ ' + agregarSeparadorMiles((datos[i].precio - (datos[i].precio / (1 + 19/100))).toFixed(2).replace(/\./g, ',')) + '</span>';
+            compras += '    </div>';
+            compras += '    <div class="casilla">';
+            compras += '        <span class="spanTitulo">Total</span>';
+            compras += '        <span>$ ' +  agregarSeparadorMiles(datos[i].precio) + '</span>';
+            compras += '    </div>';
+            compras += '</div>';
+            $("#historialCompras").append(compras);
+        }
+    }
+
+}
+function formatearFecha(fecha) {
+    const d = new Date(fecha);
+    return `${(d.getDate() + '').padStart(2, '0')}/${(d.getMonth() + 1 + '').padStart(2, '0')}/${d.getFullYear()} ${(d.getHours() + '').padStart(2, '0')}:${(d.getMinutes() + '').padStart(2, '0')}`;
+}
+
+function agregarSeparadorMiles(numero) {
+    return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
 function desplegarDatos(datos){

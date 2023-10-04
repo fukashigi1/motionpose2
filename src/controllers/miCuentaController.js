@@ -12,7 +12,7 @@ controller.view = async (req, res)=>{
     req.session.loggedin = true;
     req.session.nombre_usuario = "test@gmail.com";
     req.session.correo = "test@gmail.com";
-    req.session.contrasena = "Mojon333!.";
+    req.session.contrasena = "a";
     req.session.tipo_usuario = "GRATIS";
 };
 
@@ -22,8 +22,74 @@ controller.salir = async (req, res) => {
     }
     res.redirect('/login');
 }
-controller.datos = async (req, res)=>{
-    res.json({datos: req.session});
+controller.datos = async (req, res) => {
+    let msg;
+    let historial = [];
+
+    try {
+        if (req.session.correo === undefined) {
+            msg = "Usted debe tener una sesión activa.";
+            console.error(msg);
+            res.json({ Exito: false, msg: msg });
+            return;
+        }
+
+        const compras = await new Promise((resolve, reject) => {
+            req.getConnection((error, conexion) => {
+                if (error) {
+                    msg = "Ha ocurrido un error inesperado en la consulta.";
+                    console.error(msg);
+                    reject(msg);
+                } else {
+                    conexion.query('SELECT id_producto, fecha_compra FROM compras WHERE correo = ?', [req.session.correo], (error, result) => {
+                        if (error) {
+                            msg = error.code;
+                            console.error(msg);
+                            reject(msg);
+                        } else {
+                            resolve(result);
+                        }
+                    });
+                }
+            });
+        });
+
+        for (let i = 0; i < compras.length; i++) {
+            const tienda = await new Promise((resolve, reject) => {
+                req.getConnection((error, conexion) => {
+                    if (error) {
+                        msg = "Ha ocurrido un error inesperado en la consulta.";
+                        console.error(msg);
+                        reject(msg);
+                    } else {
+                        conexion.query('SELECT nombre_producto, precio FROM tienda WHERE id_producto = ?', [compras[i].id_producto], (error, result) => {
+                            if (error) {
+                                msg = error.code;
+                                console.error(msg);
+                                reject(msg);
+                            } else {
+                                resolve(result);
+                            }
+                        });
+                    }
+                });
+            });
+
+            historial.push({
+                id_producto: compras[i].id_producto,
+                fecha_compra: compras[i].fecha_compra,
+                nombre_producto: tienda[0].nombre_producto,
+                precio: tienda[0].precio
+            });
+        }
+
+        if (historial.length == 0) {
+            msg = "Por el momento no tienes compras."
+        } 
+        res.json({ Exito: true, historial: historial, datos: req.session, msg: msg});
+    } catch (error) {
+        res.json({ Exito: false, msg: error });
+    }
 };
 
 controller.post = async (req, res) => {

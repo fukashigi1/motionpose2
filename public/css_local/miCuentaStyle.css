@@ -39,6 +39,43 @@ input:focus {
     border: 1px solid #000000b5;
 }
 
+.casilla {
+    display: flex;
+    flex-direction: column;
+    margin: 1vh;
+    padding: 1vh;
+    border: 1px solid #c7c7c7;
+    border-radius: 3px;
+}
+
+span {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+span::selection{
+    background-color: #16161a;
+    color: white;
+}
+
+.spanTitulo {
+    font-weight: bold;
+}
+
+.compraElemento {
+    border: 1px solid #16161a;
+    margin: 2vh;
+    margin-bottom: 5vh;
+    border-radius: 3px;
+    padding: 1vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-shadow: 10px 10px 14px 0px rgba(0,0,0,0.43);
+    -webkit-box-shadow: 10px 10px 14px 0px rgba(0,0,0,0.43);
+    -moz-box-shadow: 10px 10px 14px 0px rgba(0,0,0,0.43);
+}
+
 .noEditable {
     color: #00000082;
 }
@@ -105,4 +142,11 @@ input:focus{
 .mensaje::selection {
     background-color: #16161a;
     color: white;
+}
+
+#historialCompras {
+    display: inline-flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
 }
