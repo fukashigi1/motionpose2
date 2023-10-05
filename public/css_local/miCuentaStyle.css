@@ -60,13 +60,14 @@ span::selection{
 
 .spanTitulo {
     font-weight: bold;
+    font-size: 17px;
 }
 
 .compraElemento {
-    border: 1px solid #16161a;
+    border: 1px solid #16161a40;
     margin: 2vh;
     margin-bottom: 5vh;
-    border-radius: 3px;
+    border-radius: 7px;
     padding: 1vh;
     display: flex;
     flex-direction: row;

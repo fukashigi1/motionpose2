@@ -88,7 +88,7 @@ i::before {
     width: 23vh;
     height: 23vh;
     background-color: #16161a;
-    border-radius: 2.5vh;
+    border-radius: 10px;
     margin-top: 1.5vh;
     margin-left: 1vh;
     margin-right: 1vh;
