@@ -40,6 +40,7 @@ ul {
     float: right;
     margin-top: 36px;
     margin-right: 150px;
+    user-select: none;
 }
 
 ul a {

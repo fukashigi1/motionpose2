@@ -3,6 +3,41 @@ $(document).ready(function(){
     $("body").on("click", ".nuevoProyecto", function(){
         window.location.href = 'lobby';
     });
+ 
+    // Continuar con el proyecto
+    let elemento;
+    $("body").on("click", ".elemento", function() {
+        elemento = $(this).attr("id");
+        continuarProyecto($("#" + elemento + " label").text());
+    
+        $("body").off("click", "#siguienteModal");
+    
+        $("body").on("click", "#siguienteModal", function() {
+            $.ajax({
+                url: '/proyectos/continuar',
+                method: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    id: elemento
+                }),
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(data);
+                    if (data.Exito) {
+                    } else {
+                        console.error("Solicitud POST DENEGADA");
+                    }
+                },
+                error: function(error) {
+                    ejecutarModal("", error.msg);
+                    console.error(error);
+                }
+            });
+        });
+    });
+
+    
+    
 
     // Menu de contexto
     let elementoClick;
@@ -233,6 +268,15 @@ function desplegarModal(elemento){
     let cuerpo = '';
     cuerpo += '<span style="font-size: 2vh;">¿Está seguro que desea eliminar el siguiente proyecto?<br><br>■ ' + elemento + '<br><br>Esta acción es irreversible.</span>';
     
+    $(".modalCrearProyectoCuerpo").html(cuerpo);
+    animacionVentana();
+}
+
+function continuarProyecto(elemento){
+    $(".modalCrearProyectoTitulo").text("¿Continuar?");
+    let cuerpo = '';
+    cuerpo += '<span style="font-size: 2vh;">¿Quiere continuar con el proyecto?<br><br>■ ' + elemento + '</span>';
+    /// botones $("#siguienteModal")
     $(".modalCrearProyectoCuerpo").html(cuerpo);
     animacionVentana();
 }

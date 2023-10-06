@@ -96,6 +96,7 @@ ul {
     float: right;
     margin-top: 36px;
     margin-right: 150px;
+    user-select: none;
 }
 
 ul a {
@@ -104,6 +105,7 @@ ul a {
     font-family: monospace;
     padding: 10px;
     cursor: pointer;
+    user-select: none;
     text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
 }
 ul a:hover {
