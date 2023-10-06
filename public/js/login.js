@@ -82,6 +82,7 @@ $(document).ready(function(){
             break;
         }
         if(invalido == ""){
+
             $.ajax({
                 url: '/login', 
                 method: 'POST',

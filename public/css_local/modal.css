@@ -1,0 +1,243 @@
+.modalGlobal {
+    transition: all 0.3s;
+    height: 38vh;
+    width: 55vh;
+    opacity: 0;
+    display: none;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    border-radius: 10px;
+    box-shadow: 1px 1px 12px 10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 1px 12px 10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 1px 12px 10px rgba(0,0,0,0.75);
+    overflow: hidden;
+}
+
+.modalGlobalHeader {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #00000012;
+}
+
+.modalGlobalTitulo {
+    color: #16161a;
+    font-size: 2.5vh;
+    margin: 1vh;
+    display: inline-block;
+    font-family: monospace;
+    margin-left: 2vh;
+}
+
+.modalGlobalTitulo::selection {
+    color: rgb(255, 255, 255);
+    background: rgb(0, 0, 0);
+}
+
+.modalGlobalCuerpo {
+    height: 78.1%;
+    margin-top: 5vh;
+    color: #16161a;
+    font-family: monospace;
+    padding: 2vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: center;
+}
+
+.modalGlobalFooter{
+    background-color: #00000012;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.modalGlobalBoton {
+    transition: all 0.1s;
+    width: 13vh;
+    height: 4vh;
+    margin: 1.5vh;
+    font-family: monospace;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 3px;
+    float: right;
+}
+
+.modalGlobalBoton:hover {
+    background-color: rgb(0, 0, 0);
+    border: 3px double rgb(255, 255, 255);
+    color: white;
+}
+
+.exit {
+    color: #16161a;
+    font-size: 3vh;
+    position: absolute;
+    right: 1px;
+    width: 4vh;
+    margin: 1vh;
+    margin-right: 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+.labelInput {
+    transition: all 0.5s;
+    color: #6f6f83;
+    font-family: monospace;
+    position: relative;
+    bottom: -31px;
+    font-size: 15px;
+    user-select: none;
+    cursor: text;
+
+}
+
+.input {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #16161aba;
+    font-size: 15px;
+    font-family: monospace;
+    color: #16161a;
+    padding-left: 5px;
+}
+
+.input option {
+    background-color: #16161a;
+    color: white;
+}
+
+.input option:hover {
+    background-color: white;
+}
+
+.input::selection {
+    background-color: #16161a;
+    color: white;
+}
+
+.modalGlobalCuerpo form {
+    width: 98%;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+
+
+
+/*NOTIFICACION MODAL*/
+.modalFlotante {
+    transition: all 0.3s;
+    height: 30vh;
+    width: 40vh;
+    opacity: 0;
+    display: none;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    z-index: 110;
+    border-radius: 10px;
+    box-shadow: 1px 1px 12px 10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 1px 12px 10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 1px 12px 10px rgba(0,0,0,0.75);
+    overflow: hidden;
+}
+
+.modalHeader {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #00000012;
+}
+
+.modalTitulo {
+    color: #16161a;
+    font-size: 2.5vh;
+    margin: 1vh;
+    display: inline-block;
+    font-family: monospace;
+    margin-left: 2vh;
+}
+
+.modalTitulo::selection {
+    color: rgb(255, 255, 255);
+    background: rgb(0, 0, 0);
+}
+
+.modalCuerpo {
+    height: 78.1%;
+    margin-top: 5vh;
+    color: #16161a;
+    font-family: monospace;
+    padding: 2vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+
+.modalTexto {
+    font-size: 1.5vh;
+    text-align: center;
+}
+
+.modalTexto::selection {
+    color: rgb(255, 255, 255);
+    background: rgb(0, 0, 0);
+}
+
+.modalFooter {
+    background-color: #00000012;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.modalBoton {
+    transition: all 0.1s;
+    width: 13vh;
+    height: 4vh;
+    margin: 1vh;
+    font-family: monospace;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.modalBoton:hover {
+    background-color: rgb(0, 0, 0);
+    border: 3px double rgb(255, 255, 255);
+    color: white;
+}
+
+.fondoModal {
+    height: 100%;
+    width: 100%;
+    background-color: #0000004d;
+    position: absolute;
+    z-index: 100;
+    margin: 0;
+    top: 0;
+    display: none;
+}

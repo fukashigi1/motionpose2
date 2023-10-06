@@ -140,4 +140,45 @@ controller.eliminarProyecto = async (req, res) => {
     }
 }
 
+controller.continuar = async (req, res) => {
+    let msg;
+    if (req.body.id == 0 || req.body.id == null || req.body.id == undefined) {
+        msg = "El id es inválido";
+        console.log(msg);
+        res.json({Exito: false, msg: msg});
+    } else {
+        if (req.session.correo === undefined) {
+            msg = "Usted debe tener una sesión activa.";
+            console.log(msg);
+            res.json({ Exito: false, msg: msg });
+        } else {
+            req.getConnection((error, conexion) => {
+                if (error) {
+                    msg = "Ocurrió un error inesperado en la conexión.";
+                    console.log(msg);
+                    res.json({ Exito: false, msg: msg });
+                } else {
+                    conexion.query('SELECT * FROM proyectos WHERE id_proyecto = ? AND correo = ?', [req.body.id, req.session.correo], (error, respuesta) => {
+                        if (error) {
+                            msg = "Error en la consulta a la base de datos.";
+                            console.log(msg);
+                            res.json({Exito: false, msg: msg});
+                        } else {
+                            if (respuesta.length == 0) {
+                                msg = "Error en la consulta a la base de datos.";
+                                console.log(msg);
+                                res.json({Exito: false, msg: msg});
+                            } else {
+                                console.log(respuesta);
+                                req.session.tipo_proyecto = respuesta[0].tipo_proyecto;
+                                res.json({Exito: true, msg: "Proyecto encontrado.", tipo: respuesta[0].tipo_proyecto});
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+}
+
 module.exports = controller;

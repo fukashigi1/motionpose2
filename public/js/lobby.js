@@ -37,7 +37,13 @@ $(document).ready(function(){
                 success: function(data) {
                     console.log(data);
                     if(data.Exito){
-                        
+                        $(".modalGlobal").css({
+                            "display": "none"
+                        });
+                        ejecutarModal('Proyecto creado', "El proyecto fue creado satisfactoriamente", '<i class="fa-regular fa-face-laugh" style="color: #16161a;"></i>');
+                        $(".modalBoton").on("click", function(){
+                            window.location.href = '/proyectos';
+                        });
                     }else{
                         ejecutarModal('', data.msg, '<i class="fa-regular fa-face-sad-tear" style="color: #16161a;"></i>');
                         console.error("Solicitud POST DENEGADA");
@@ -46,15 +52,6 @@ $(document).ready(function(){
                 error: function(error) {
                     ejecutarModal();
                     console.error(error);
-                },
-                complete: function(){
-                    $(".modalCrearProyecto").css({
-                        "display": "none"
-                    });
-                    ejecutarModal('Proyecto creado', "El proyecto fue creado satisfactoriamente", '<i class="fa-regular fa-face-laugh" style="color: #16161a;"></i>');
-                    $(".modalBoton").on("click", function(){
-                        window.location.href = '/proyectos';
-                    });
                 }
             });
         }
@@ -62,7 +59,7 @@ $(document).ready(function(){
 });
 
 function desplegarModal(elemento){
-    $(".modalCrearProyectoTitulo").text("Creando nuevo proyecto");
+    $(".modalGlobalTitulo").text("Creando nuevo proyecto");
     let cuerpo = '';
     cuerpo += '<form>';
     cuerpo += '            <div style="margin-top: 10px">';
@@ -77,7 +74,7 @@ function desplegarModal(elemento){
     cuerpo += '              </select>';
     cuerpo += '        </form>';
 
-    $(".modalCrearProyectoCuerpo").html(cuerpo);
+    $(".modalGlobalCuerpo").html(cuerpo);
     $("#selectorElemento").val(elemento).change();
     animacionVentana();
 }

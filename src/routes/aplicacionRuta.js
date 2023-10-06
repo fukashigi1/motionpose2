@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const tiendaController = require('../controllers/tiendaController');
+const aplicacionController = require('../controllers/aplicacionController');
 
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
-router.get('/', tiendaController.view);
-
-router.post('/comprar', tiendaController.comprar)
+router.get('/', aplicacionController.view);
 module.exports = router;

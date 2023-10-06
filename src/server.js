@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const myConnection = require('express-myconnection');
 const app = express();
 const compression = require('compression');
+
 const session = require('express-session');
 
 // Configuración
@@ -43,8 +44,9 @@ app.use(express.static('public', {
   }));
   
 app.get('/', (req, res)=>{
-    res.sendFile(path.join(__dirname, 'view', 'index.html'))
+    res.sendFile(path.join(__dirname, 'view', 'index.html'));
 }); 
+
 // Importación de rutas
 const usuarioRuta = require('./routes/usuarios');
 const registroRuta = require('./routes/registroRuta');
@@ -54,6 +56,7 @@ const miCuentaRuta = require('./routes/miCuentaRuta');
 const tiendaRuta = require('./routes/tiendaRuta');
 const ayudaRuta = require('./routes/ayudaRuta');
 const imagenRuta = require('./routes/imagenRuta');
+const aplicacionRuta = require('./routes/aplicacionRuta');
 
 // Rutas
 app.use('/login', usuarioRuta); 
@@ -64,6 +67,7 @@ app.use('/cuenta', miCuentaRuta);
 app.use('/tienda', tiendaRuta);
 app.use('/ayuda', ayudaRuta);
 app.use('/imagen', imagenRuta);
+app.use('/aplicacion', aplicacionRuta);
 
 app.listen(app.get('port'), ()=>{
     console.log('Server corriendo en puerto: ' + app.get('port'));

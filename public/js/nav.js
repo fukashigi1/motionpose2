@@ -30,15 +30,15 @@ $(document).ready(function(){
     modal += ' </div>';
 
     let modalGlobal = '';
-    modalGlobal += '<div class="modalCrearProyecto">';
-    modalGlobal += '    <div class="modalCrearProyectoHeader">';
-    modalGlobal += '        <div class="modalCrearProyectoTitulo"></div>';
+    modalGlobal += '<div class="modalGlobal">';
+    modalGlobal += '    <div class="modalGlobalHeader">';
+    modalGlobal += '        <div class="modalGlobalTitulo"></div>';
     modalGlobal += '        <i class="fa-solid fa-xmark exit" style="color: #16161a;" id="cerrarVentana"></i>';
     modalGlobal += '    </div>';
-    modalGlobal += '    <div class="modalCrearProyectoCuerpo"></div>';
-    modalGlobal += '    <div class="modalCrearProyectoFooter">';
-    modalGlobal += '        <button class="modalCrearProyectoBoton" id="siguienteModal">Siguiente</button>';
-    modalGlobal += '        <button class="modalCrearProyectoBoton" id="cancelarModal">Cancelar</button>';
+    modalGlobal += '    <div class="modalGlobalCuerpo"></div>';
+    modalGlobal += '    <div class="modalGlobalFooter">';
+    modalGlobal += '        <button class="modalGlobalBoton" id="siguienteModal">Siguiente</button>';
+    modalGlobal += '        <button class="modalGlobalBoton" id="cancelarModal">Cancelar</button>';
     modalGlobal += '    </div>';
     modalGlobal += '</div>';
 
@@ -132,11 +132,11 @@ $(document).ready(function(){
     // Acción modal
     $("body").on("click", "#cerrarVentana, #cancelarModal", function(){
         setTimeout(() => {
-            $(".modalCrearProyecto").css({
+            $(".modalGlobal").css({
                 "display": "none"
             });
             }, "100");
-            $(".modalCrearProyecto").css({
+            $(".modalGlobal").css({
                 "opacity": "0",
                 "height": "28vh",
                 "width": "45vh"
@@ -186,7 +186,7 @@ function ejecutarModal(titulo, descripcion, icono){
 
 function animacionVentana(){
     setTimeout(() => {
-        $(".modalCrearProyecto").css({
+        $(".modalGlobal").css({
             "opacity": "1",
             "height": "38vh",
             "width": "55vh"
@@ -196,7 +196,7 @@ function animacionVentana(){
         });
         }, "100");
 
-    $(".modalCrearProyecto").css({
+    $(".modalGlobal").css({
         "display": "inline-block"
     }); 
 }

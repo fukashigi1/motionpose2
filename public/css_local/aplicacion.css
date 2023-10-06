@@ -1,3 +1,81 @@
 body {
+    margin: 0;
+    background-color: #202025;
+    font-family: monospace;
+}
+
+.navOpciones {
+    color: white;
+    font-size: 2vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    margin: 0;
+    margin-left: 10px;
+}
+.navOpciones li {
+    list-style-type: none;
+    cursor: pointer;
+    margin-right: 20px;
+    user-select: none;
+}
+
+.navOpciones li:hover {
+    text-decoration: underline;
+}
+
+header {
+    margin: 0;
+    background-color: #16161a;
+    border-bottom: 1px solid #333333;
+}
+
+.contenedorAplicacion {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.contenedorUsuarioCamara {
+    height: 50vh;
+    width: 70vh;
+    background-color: white;
+    margin-top: 20vh;
+    border-radius: 4px;
+}
+
+.contenedorMediaPipe {
+    height: 50vh;
+    width: 70vh;
+    background-color: wheat;
+    margin-top: 20vh;
+    border-radius: 4px;
+}
+
+.exportarBoton {
+    transition: all 0.1s;
+    position: absolute;
+    bottom: 65px;
+    right: 10px;
+    width: 21vh;
+    height: 5vh;
+    margin: 1.5vh;
+    font-family: monospace;
+    font-size: 2vh;
+    cursor: pointer;
+    color: white;
     background-color: black;
+    border: 1px solid white;
+    border-radius: 3px;
+}
+
+.exportarBoton:hover {
+    background-color: rgb(255, 255, 255);
+    border: 3px double rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
 }
