@@ -1,3 +1,4 @@
+let boton;
 $(document).ready(function(){
     
     $("body").on("click", ".nuevoProyecto", function(){
@@ -10,9 +11,10 @@ $(document).ready(function(){
         elemento = $(this).attr("id");
         continuarProyecto($("#" + elemento + " label").text());
     
-        $("body").off("click", "#siguienteModal");
+        $("body").off("click", "#continuarProyecto");
     
-        $("body").on("click", "#siguienteModal", function() {
+        $("body").on("click", "#continuarProyecto", function() {
+            console.log("click");
             $.ajax({
                 url: '/proyectos/continuar',
                 method: 'POST',
@@ -22,8 +24,8 @@ $(document).ready(function(){
                 }),
                 contentType: 'application/json',
                 success: function(data) {
-                    console.log(data);
                     if (data.Exito) {
+                        window.location.href = '/aplicacion';
                     } else {
                         console.error("Solicitud POST DENEGADA");
                     }
@@ -144,7 +146,7 @@ $(document).ready(function(){
             let nombreElemento = $("#" + elementoClick).text();
             console.log(nombreElemento);
             desplegarModal(nombreElemento);
-            $("body").on("click", "#siguienteModal", function(){
+            $("body").on("click", "#eliminarProyecto", function(){
                 $.ajax({
                     url: '/proyectos/eliminarproyecto',
                     method: 'POST',
@@ -269,6 +271,10 @@ function desplegarModal(elemento){
     cuerpo += '<span style="font-size: 2vh;">¿Está seguro que desea eliminar el siguiente proyecto?<br><br>■ ' + elemento + '<br><br>Esta acción es irreversible.</span>';
     
     $(".modalCrearProyectoCuerpo").html(cuerpo);
+
+    $(".modalCrearProyectoFooter").empty();
+    $(".modalCrearProyectoFooter").append('<button class="modalCrearProyectoBoton" id="eliminarProyecto">Siguiente</button>');
+    $(".modalCrearProyectoFooter").append('<button class="modalCrearProyectoBoton" id="cancelarModal">Cancelar</button>');
     animacionVentana();
 }
 
@@ -278,5 +284,9 @@ function continuarProyecto(elemento){
     cuerpo += '<span style="font-size: 2vh;">¿Quiere continuar con el proyecto?<br><br>■ ' + elemento + '</span>';
     /// botones $("#siguienteModal")
     $(".modalCrearProyectoCuerpo").html(cuerpo);
+
+    $(".modalCrearProyectoFooter").empty();
+    $(".modalCrearProyectoFooter").append('<button class="modalCrearProyectoBoton" id="continuarProyecto">Siguiente</button>');
+    $(".modalCrearProyectoFooter").append('<button class="modalCrearProyectoBoton" id="cancelarModal">Cancelar</button>');
     animacionVentana();
 }
