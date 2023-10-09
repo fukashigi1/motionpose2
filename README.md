@@ -36,6 +36,6 @@ Las versiones se distinguen por 4 objetos (X.Y.Z.FECHA).
 
 - El tercer número (Z) indica la actualización o parche de la funcionalidad que se está trabajando;
 
-  Por cada actualización o push que se haga al repositorio se deberá sumar 1 a la versión (Z), por ejemplo, la versión que está en el repositorio es la (0.22.19.07102023), hiciste un cambio en el módulo actual (.22), por lo tanto la version Z cambiará a la .20. Finalmente quedando como (0.22.20.200623).
+  Por cada actualización o push que se haga al repositorio se deberá sumar 1 a la versión (Z), por ejemplo, la versión que está en el repositorio es la (0.22.19.07102023), hiciste un cambio en el módulo actual (.22), por lo tanto la version Z cambiará a la .20. Finalmente quedando como (0.22.20.07102023).
  
 - El cuarto número (FECHA) indica la fecha de actualización, por ejemplo si hoy es 07-10-2023, el útlimo número de la versión será 07102023.
