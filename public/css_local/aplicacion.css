@@ -45,15 +45,19 @@ header {
     height: 50vh;
     width: 70vh;
     background-color: white;
-    margin-top: 20vh;
+    margin-top: 10vh;
     border-radius: 4px;
+}
+
+.contenedorUsuarioCamara video {
+    
 }
 
 .contenedorMediaPipe {
     height: 50vh;
     width: 70vh;
     background-color: wheat;
-    margin-top: 20vh;
+    margin-top: 10vh;
     border-radius: 4px;
 }
 
@@ -78,4 +82,94 @@ header {
     background-color: rgb(255, 255, 255);
     border: 3px double rgb(0, 0, 0);
     color: rgb(0, 0, 0);
+}
+
+.ocultar {
+    display: none;
+}
+
+.keyboardBoton {
+    height: 5vh;
+    width: 8vh;
+    background-color: #cbcbcb;
+    border: 2px solid #6d6d6d;
+    border-radius: 1vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10vh;
+}
+
+.keyboardBoton span {
+    background-color: #ffffff;
+    color: black;
+    height: 85%;
+    width: 80%;
+    border-radius: 0.5vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: -0.5vh;
+    border: 2px solid #b9b9b9;
+    box-shadow: -1px 7px 10px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: -1px 7px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: -1px 7px 10px 0px rgba(0,0,0,0.5);
+    user-select: none;
+
+}
+
+.herramientaFooter {
+    position: absolute;
+    bottom: 49px;
+    width: 100%;
+    height: 24vh;
+    background-color: #16161a;
+    border: 1px solid #333333;
+    display: flex;
+}
+.herramienta {
+    height: 100%;
+    width: 80%;
+    overflow: auto;
+}
+
+.acciones {
+    height: 100%;
+    width: 30%;
+    border-left: 1px solid #333333;
+}
+
+.titulo {
+    font-size: 2vh;
+    color: white;
+    border-bottom: 1px solid #333333;
+    padding: 3px;
+}
+
+.titulo i {
+    color: #ffffff; 
+    float: right; 
+    margin-right: 5px; 
+    cursor: pointer;
+    user-select: none;
+}
+
+.ayuda {
+    height: 100%;
+    width: 30%;
+    border-left: 1px solid #333333;
+}
+
+.captura {
+    height: 68%;
+    width: 24vh;
+    margin: 2vh;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: white;
 }

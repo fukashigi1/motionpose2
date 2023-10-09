@@ -6,4 +6,5 @@ router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
 router.get('/', aplicacionController.view);
+router.get('/datosproyecto', aplicacionController.obtenerDatosProyecto);
 module.exports = router;

@@ -103,6 +103,15 @@
     cursor: text;
 
 }
+ 
+.modalIcono i {
+    
+    /* color: #ffffff; */
+    /* width: 100%; */
+    font-size: 13vh;
+    margin-top: 1.5vh;
+    margin-bottom: 3vh;
+}
 
 .input {
     width: 100%;

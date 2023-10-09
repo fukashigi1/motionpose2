@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    v = '1.2.1.09102023';
+
+    let version = '';
+    version = '<div style="position: sticky; font-size: 2vh; color: white; bottom: 0;">' + v + '</div>';
+
     let nav = '';
     nav += '<div class="header">';
     nav += '    <img src="img/motion_pose_background4.png" class="imgLogo">';
@@ -45,6 +50,7 @@ $(document).ready(function(){
     $('body').prepend(nav);
     $('body').append(modal);
     $('body').append(modalGlobal);
+    $('body').append(version);
 
 
 

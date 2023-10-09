@@ -170,6 +170,7 @@ controller.continuar = async (req, res) => {
                                 res.json({Exito: false, msg: msg});
                             } else {
                                 console.log(respuesta);
+                                req.session.nombre_proyecto = respuesta[0].nombre_proyecto;
                                 req.session.tipo_proyecto = respuesta[0].tipo_proyecto;
                                 res.json({Exito: true, msg: "Proyecto encontrado.", tipo: respuesta[0].tipo_proyecto});
                             }

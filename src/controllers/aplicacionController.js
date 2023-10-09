@@ -2,6 +2,14 @@ const controller = {};
 const path = require('path');
 
 controller.view = async (req, res)=>{
+    req.session.loggedin = true;
+    req.session.nombre_usuario = "test@gmail.com";
+    req.session.correo = "test@gmail.com";
+    req.session.contrasena = "Mojon333!.";
+    req.session.tipo_usuario = "VIP";
+    req.session.tipo_proyecto = "imagen";
+    req.session.nombre_proyecto = "123123123123123";
+
     if(req.session.loggedin != true){
         //res.redirect('/login');
         res.sendFile(path.join(__dirname, '..', 'view', 'proyecto.html'));
@@ -20,10 +28,13 @@ controller.view = async (req, res)=>{
             res.redirect('/proyectos'); //a
         }
     }
-    req.session.loggedin = true;
-    req.session.nombre_usuario = "test@gmail.com";
-    req.session.correo = "test@gmail.com";
-    req.session.contrasena = "Mojon333!.";
-    req.session.tipo_usuario = "GRATIS";
+};
+
+controller.obtenerDatosProyecto = async (req, res) => {
+    if (req.session.nombre_proyecto == '' || req.session.nombre_proyecto === undefined) {
+        res.json({Exito: false, msg: "Hubo un error obteniendo la información del proyecto."});
+    } else {
+        res.json({Exito: true, nombre_proyecto: req.session.nombre_proyecto, tipo_proyecto: req.session.tipo_proyecto});
+    }
 };
 module.exports = controller;
