@@ -17,7 +17,7 @@ controller.view = async (req, res)=>{
                 res.sendFile(path.join(__dirname, '..', 'view', 'animacion.html'));
             }
         } else {
-            res.redirect('/proyectos');
+            res.redirect('/proyectos'); //a
         }
     }
     req.session.loggedin = true;
