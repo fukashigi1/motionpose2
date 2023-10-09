@@ -182,7 +182,7 @@ $(document).ready(function(){
         });
         }
     });
-
+// a
     $('html').click(function(){
         ocultarMenuContexto();
     });
