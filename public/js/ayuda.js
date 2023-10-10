@@ -10,10 +10,16 @@ $(document).ready(function(){
         }
     });
 
-    // Crear nuevo proyecto formulario
+    $("p").css({
+        "margin-left": "150px",
+        "margin-right": "150px",
+        "font-size": "2.2vh",
+        "line-height": "30px",
+        "margin-bottom": "30px"
+    });
 
-    $('.elemento').click(function() {
-        var icono = $(this).find('i');
+    $('.pregunta').click(function() {
+        var icono = $(this).find('span');
 
         icono.toggleClass('rotado');
         $(this).find('.pregunta-respuesta').slideToggle();
