@@ -8,8 +8,8 @@ Motion Pose MP.
 ## Autores
 
 - [@Mathias Garthoff Mattei](https://github.com/fukashigi1)
-- [@Damary Lay Espinoza](https://github.com/)
-- [@Camilo Pereira e](https://github.com/droflax)
+- [@Damary Lay Espinoza](https://github.com/Damariri)
+- [@Camilo Pereira e](https://github.com/Droflax)
 
 
 ## Documentación
