@@ -46,15 +46,14 @@ header {
     width: 70vh;
     margin-top: 10vh;
     border-radius: 7px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
     overflow: hidden;
     border: 1px solid #333333;
 }
 
 .contenedorUsuarioCamara video {
-    
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 
@@ -65,6 +64,11 @@ header {
     border-radius: 7px;
     overflow: hidden;
     border: 1px solid #333333;
+}
+.contenedorMediaPipe video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .exportarBoton {
@@ -95,18 +99,15 @@ header {
 }
 
 .keyboardBoton {
-    height: 5vh;
-    width: 8vh;
     background-color: #cbcbcb;
     border: 2px solid #6d6d6d;
     border-radius: 1vh;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    align-content: center;
     justify-content: flex-start;
     align-items: center;
-    margin: 10vh;
+    margin: 1vh;
 }
 
 .keyboardBoton span {
@@ -180,10 +181,22 @@ header {
     border: 1px solid #333333;
     overflow: hidden;
     text-align: center;
+    cursor: pointer;
 }
 
 .captura img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.tutorialSpaceBar {
+    position: absolute;
+    top: 9vh;
+    left: 25%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }

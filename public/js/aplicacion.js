@@ -22,6 +22,15 @@ $(document).ready(function(){
 
     $("body").on("click", "#tomarCaptura", function(){
         screenShot();
+        $(".tutorialSpaceBar").remove();
+    });
+
+    $("body").keyup(function(e){
+        if(e.keyCode == 32){
+            e.preventDefault();
+            screenShot();
+            $(".tutorialSpaceBar").remove();
+        }
     });
 
     $("body").on("click", ".exit", function(){
@@ -64,7 +73,7 @@ $(document).ready(function(){
 
 let test = 0;
 function screenShot() {
-    const videoElement = document.querySelector('.contenedorUsuarioCamara video');
+    const videoElement = document.querySelector('.contenedorMediaPipe video');
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     
