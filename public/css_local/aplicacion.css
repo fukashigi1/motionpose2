@@ -200,3 +200,17 @@ header {
     align-items: center;
     justify-content: center;
 }
+
+.contenedorControl {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    color: white;
+    align-items: center;
+    font-size: 1.5vh;
+}
+.contenedorControl i {
+    font-size: 4vh;
+    padding: 1vh;
+    cursor: pointer;
+}
