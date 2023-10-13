@@ -1,6 +1,6 @@
 $(document).ready(function(){
     v = '0.3.3.12102023';
-
+    //test
     let version = '';
     version = '<div style="position: sticky; font-size: 2vh; color: white; bottom: 0;">' + v + '</div>';
 
