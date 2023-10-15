@@ -54,6 +54,7 @@ header {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: scaleX(-1);
 }
 
 
@@ -66,6 +67,11 @@ header {
     border: 1px solid #333333;
 }
 .contenedorMediaPipe video {
+    width: 0%;
+    height: 0%;
+    object-fit: cover;
+}
+.contenedorMediaPipe canvas {
     width: 100%;
     height: 100%;
     object-fit: cover;

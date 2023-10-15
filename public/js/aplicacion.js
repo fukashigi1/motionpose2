@@ -72,19 +72,20 @@ $(document).ready(function(){
 });
 
 let test = 0;
+
 function screenShot() {
-    const videoElement = document.querySelector('.contenedorMediaPipe video');
+    const canvasElement = document.querySelector('.output_canvas'); // Reemplaza 'tu-clase-de-canvas' con la clase de tu elemento <canvas>
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
-    
-    canvas.width = videoElement.videoWidth;
-    canvas.height = videoElement.videoHeight;
-    context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
-    canvas.toBlob(function(blob) {
-        const timestamp = new Date().getTime(); // Usar una marca de tiempo como nombre por defecto
+    canvas.width = canvasElement.width; // Usa el ancho del elemento <canvas>
+    canvas.height = canvasElement.height; // Usa el alto del elemento <canvas>
+    context.drawImage(canvasElement, 0, 0, canvas.width, canvas.height);
+
+    canvas.toBlob(function (blob) {
+        const timestamp = new Date().getTime();
         const formattedDate = new Date(timestamp).toLocaleDateString('es-ES').replace(/\D/g, '');
-        const fileName = `${getDatos().nombre_proyecto}_${test}_${formattedDate}.png`; // Nombre del archivo
+        const fileName = `${getDatos().nombre_proyecto}_${test}_${formattedDate}.png`;
         blob.name = fileName;
         const url = URL.createObjectURL(blob);
         const captura = `<div class="captura" style="color: white"><img src="${url}"></div>`;

@@ -11,6 +11,12 @@
     
     <script src="js/jquery/code.jquery.com_jquery-3.7.0.min.js"></script>
     <script src="js/aplicacion.js"></script>
+    
+    <script src="js/mediapipe/cdn.jsdelivr.net_npm_@mediapipe_control_utils@0.6_control_utils.js" crossorigin="anonymous"></script>
+    <script src="js/mediapipe/cdn.jsdelivr.net_npm_@mediapipe_control_utils_3d@0.3_control_utils_3d.js" crossorigin="anonymous"></script>
+    <script src="js/mediapipe/cdn.jsdelivr.net_npm_@mediapipe_drawing_utils@0.3_drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="js/mediapipe/cdn.jsdelivr.net_npm_@mediapipe_hands@0.4_hands.js" crossorigin="anonymous"></script>
+    <script type="module" src="js/mediapipe/mpReconocimiento.mjs"></script>
 </head>
 <body>
     <header>
@@ -23,14 +29,15 @@
             <li>Shaders</li>
         </ul>
     </header>
+    <div class="control-panel" style="display: none">
+    </div>
     <div class="contenedorAplicacion">
+        <h1 id="coordenadas" style="position: absolute;"></h1>
         <div class="contenedorUsuarioCamara">
-            <video autoplay></video>
+            <video autoplay class="input_video selfie" ></video>
         </div>
         <div class="contenedorMediaPipe">
-            <video autoplay muted loop>
-                <source src="video/background_video2.mp4" type=video/mp4>
-            </video>
+            <canvas class="output_canvas"></canvas> 
         </div>
         <div class="herramientaFooter">
             <div class="herramienta">
