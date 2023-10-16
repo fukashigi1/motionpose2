@@ -1,3 +1,7 @@
+let datos = {};
+function getDatos() {
+    return datos;
+}
 $(document).ready(function(){
     cargarModal();
     cargarFlotante();
@@ -14,6 +18,19 @@ $(document).ready(function(){
     $("#volverBoton").on("click", function() {
         $(".ayuda").addClass("ocultar");
         $(".acciones").removeClass("ocultar");
+    });
+
+    $("body").on("click", "#tomarCaptura", function(){
+        screenShot();
+        $(".tutorialSpaceBar").remove();
+    });
+
+    $("body").keyup(function(e){
+        if(e.keyCode == 32){
+            e.preventDefault();
+            screenShot();
+            $(".tutorialSpaceBar").remove();
+        }
     });
 
     $("body").on("click", ".exit", function(){
@@ -54,9 +71,45 @@ $(document).ready(function(){
     });
 });
 
+let test = 0;
+
+function screenShot() {
+    const canvasElement = document.querySelector('.output_canvas'); // Reemplaza 'tu-clase-de-canvas' con la clase de tu elemento <canvas>
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    canvas.width = canvasElement.width; // Usa el ancho del elemento <canvas>
+    canvas.height = canvasElement.height; // Usa el alto del elemento <canvas>
+    context.drawImage(canvasElement, 0, 0, canvas.width, canvas.height);
+
+    canvas.toBlob(function (blob) {
+        const timestamp = new Date().getTime();
+        const formattedDate = new Date(timestamp).toLocaleDateString('es-ES').replace(/\D/g, '');
+        const fileName = `${getDatos().nombre_proyecto}_${test}_${formattedDate}.png`;
+        blob.name = fileName;
+        const url = URL.createObjectURL(blob);
+        const captura = `<div class="captura" style="color: white"><img src="${url}"></div>`;
+        $(captura).insertAfter(".herramienta .titulo");
+    });
+    test++;
+}
+
+function urlToFile(url, fileName, mimeType) {
+    return fetch(url)
+        .then(response => response.arrayBuffer())
+        .then(buffer => new File([buffer], fileName, { type: mimeType }));
+}
+
 function capturarWebCam(camera) {
     if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
-        navigator.mediaDevices.getUserMedia({video: {facingMode: camera}});
+        const videoElement = document.querySelector('.contenedorUsuarioCamara video');
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: camera } })
+            .then(function (stream) {
+                videoElement.srcObject = stream;
+            })
+            .catch(function (error) {
+                ejecutarEmergente("Error del dispositivo", "No se puede acceder a la cámara: " + error.message);
+            });
     } else {
         ejecutarEmergente("Error del dispositivo", "Lo siento, al parecer tu navegador no soporta la ejecución de video.");
     }
@@ -71,6 +124,7 @@ function datosProyecto() {
         success: function(data) {
             if (data.Exito) {
                 console.log(data);
+                datos = data;
                 document.title = data.nombre_proyecto;
             } else {
                 ejecutarEmergente("", data.msg);
