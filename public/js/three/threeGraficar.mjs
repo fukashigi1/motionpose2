@@ -3,14 +3,17 @@ const canvas = document.getElementById('output_canvas');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ canvas });
-camera.position.z = 1;
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
+camera.position.z = 0.2;
 
 const spheres = []; // Almacena las esferas
 
 // Función para crear esferas en una ubicación específica
 function createSphere(x, y, z) {
-    const geometry = new THREE.SphereGeometry(0.01, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    const geometry = new THREE.SphereGeometry(0.008, 5, 5);
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
     const sphere = new THREE.Mesh(geometry, material);
     sphere.position.set(x, y, z);
     scene.add(sphere);
@@ -26,15 +29,7 @@ function clearSpheres() {
 }
 
 // Actualiza el tamaño del renderizador cuando cambie el tamaño del canvas
-window.addEventListener('resize', () => {
-    const newWidth = canvas.clientWidth;
-    const newHeight = canvas.clientHeight;
 
-    camera.aspect = newWidth / newHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(newWidth, newHeight);
-});
 
 // Función para actualizar las esferas en tiempo real con nuevas coordenadas
 function updateSpheres(newCoordinates) {
@@ -44,7 +39,7 @@ function updateSpheres(newCoordinates) {
     if (newCoordinates != null){
         for (let i = 0; i < newCoordinates.length; i++) {
             console.log(newCoordinates[i].x, newCoordinates[i].y, newCoordinates[i].z);
-            createSphere(newCoordinates[i].x, newCoordinates[i].y, newCoordinates[i].z);
+            createSphere(newCoordinates[i].x, -newCoordinates[i].y, -newCoordinates[i].z);
         }
     } 
 }
@@ -68,5 +63,4 @@ setTimeout(() => {
     // Comienza el bucle de actualización
     updateLoop();
 }, 0);
-
 
