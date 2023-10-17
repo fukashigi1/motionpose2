@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    v = '0.4.1.15102023';
+    v = '0.4.2.17102023';
     
     let version = '';
     version = '<div style="position: sticky; font-size: 2vh; color: white; bottom: 0;">' + v + '</div>';
@@ -55,20 +55,6 @@ $(document).ready(function(){
 
 
     $('html, body').animate({scrollTop:0}, '1');
-
-    $(window).scroll(function() {
-        var distanciaTop = $(window).scrollTop();
-        if (distanciaTop >= 20) {
-            $(".header").css("background-color", "#16161a");
-        } else {
-            $(".header").css("background-color", "#ffffff00");
-        }
-        });
-
-        $('#volverArriba').on('click', function(e) {
-            e.preventDefault();
-            $('html, body').animate({scrollTop:0}, '300');
-    });
 
     //Modal
     $(".ejecutarModal").on("click", function(){
