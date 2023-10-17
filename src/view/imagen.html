@@ -66,7 +66,11 @@
                 </div>
                 <div class="contenedorControl">
                     <span>Tomar una captura temporizada.</span>
-                    <i class="fa-solid fa-clock" id="tomarCaptura" style="color: #ffffff;"></i>
+                    <i class="fa-solid fa-clock" id="tomarCapturaTemp" style="color: #ffffff;"></i>
+                </div>
+                <div id="inputContainer" style="display: none; margin-left: 2vh; width: 40vh; height: 15vh;">
+                    <label for="inputSec" style="color: #ffffff;">Ingrese los segundos:</label>
+                    <input type="number" value="0" min="1" max="25" style="margin-left: 5px; width: 4vh;" id="inputSec"/>
                 </div>
             </div>
             <div class="ayuda ocultar">
@@ -77,6 +81,7 @@
             </div>
         </div>
     </div>
+    <div id="overlay"></div>
 
 
     

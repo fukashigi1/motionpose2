@@ -25,6 +25,28 @@ $(document).ready(function(){
         $(".tutorialSpaceBar").remove();
     });
 
+    $("body").on("click", "#tomarCapturaTemp", function(){
+        $("#inputContainer").slideDown();
+        $("#inputSec").change(function(){
+            var count = parseInt($(this).val());
+            var countdownElement = $('<div class="countdown">' + count + '</div>');
+            $('body').append(countdownElement);
+            $("#overlay").css("display", "block");
+            var countdownInterval = setInterval(function() {
+                count--;
+                countdownElement.text(count);
+                if (count <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.remove();
+                    screenShot(); // Llama a la función screenShot() una vez que se completa la cuenta regresiva
+                    $("#overlay").css("display", "none");
+                    $("#inputSec").val(0);
+                }
+            }, 1000);
+            $("#inputContainer").hide();
+        });
+    });
+
     $("body").keyup(function(e){
         if(e.keyCode == 32){
             e.preventDefault();
