@@ -4,9 +4,9 @@ $(document).ready(function(){
     footer += '    <p>';
     footer += '        Motion Pose MP ~ 2023';
     footer += '    </p>';
-    footer += '    <a>Políticas de privacidad</a>';
-    footer += '    <a>Términos y condiciones</a>';
-    footer += '    <a>Manual de usuario</a>';
+    footer += '    <a id="politicas">Políticas de privacidad</a>';
+    footer += '    <a id="terminos">Términos y condiciones</a>';
+    footer += '    <a id="manual">Manual de usuario</a>';
     footer += '    <a id="volverArriba" style="float: right;">Volver arriba</a>';
     footer += '</footer>';
     
@@ -24,5 +24,15 @@ $(document).ready(function(){
         $('#volverArriba').on('click', function(e) {
             e.preventDefault();
             $('html, body').animate({scrollTop:0}, '300');
+    });
+
+    $("#politicas").on("click", function(){
+        window.location.href = '/politicas';
+    });
+    $("#terminos").on("click", function(){
+        window.location.href = '/terminos';
+    });
+    $("#manual").on("click", function(){
+        window.location.href = '/manual';
     });
 });
