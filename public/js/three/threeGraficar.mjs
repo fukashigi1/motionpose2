@@ -2,7 +2,7 @@ import { obtenerNuevasCoordenadas } from '../mediapipe/mpReconocimiento.mjs';
 const canvas = document.getElementById('output_canvas');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ canvas });
+const renderer = new THREE.WebGLRenderer({ canvas, preserveDrawingBuffer: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
@@ -26,6 +26,23 @@ function clearSpheres() {
         scene.remove(sphere);
     }
     spheres.length = 0;
+}
+guardarImagen();
+export function guardarImagen() {
+    var imgData, imgNode;
+
+    try {
+        var strMime = "image/jpeg";
+
+        imgData = renderer.domElement.toDataURL(strMime);
+
+        return imgData;
+
+    } catch (e) {
+        console.error(e);
+        return;
+    }
+
 }
 
 // Actualiza el tamaño del renderizador cuando cambie el tamaño del canvas

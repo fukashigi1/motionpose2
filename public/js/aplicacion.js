@@ -1,3 +1,5 @@
+import { guardarImagen } from '../js/three/threeGraficar.mjs';
+
 let datos = {};
 function getDatos() {
     return datos;
@@ -74,23 +76,12 @@ $(document).ready(function(){
 let test = 0;
 
 function screenShot() {
-    const canvasElement = document.querySelector('.output_canvas'); // Reemplaza 'tu-clase-de-canvas' con la clase de tu elemento <canvas>
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-
-    canvas.width = canvasElement.width; // Usa el ancho del elemento <canvas>
-    canvas.height = canvasElement.height; // Usa el alto del elemento <canvas>
-    context.drawImage(canvasElement, 0, 0, canvas.width, canvas.height);
-
-    canvas.toBlob(function (blob) {
-        const timestamp = new Date().getTime();
-        const formattedDate = new Date(timestamp).toLocaleDateString('es-ES').replace(/\D/g, '');
-        const fileName = `${getDatos().nombre_proyecto}_${test}_${formattedDate}.png`;
-        blob.name = fileName;
-        const url = URL.createObjectURL(blob);
-        const captura = `<div class="captura" style="color: white"><img src="${url}"></div>`;
-        $(captura).insertAfter(".herramienta .titulo");
-    });
+    
+    const timestamp = new Date().getTime();
+    const formattedDate = new Date(timestamp).toLocaleDateString('es-ES').replace(/\D/g, '');
+    const fileName = `${getDatos().nombre_proyecto}_${test}_${formattedDate}.png`;
+    const captura = `<div class="captura" style="color: white"><img src="${guardarImagen()}" data-nombre_archivo="${fileName}"></div>`;
+    $(captura).insertAfter(".herramienta .titulo");
     test++;
 }
 
