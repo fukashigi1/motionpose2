@@ -25,6 +25,40 @@ $(document).ready(function(){
         $(".tutorialSpaceBar").remove();
     });
 
+    $("body").on("click", "#tomarCapturaTemp", function(){
+        $("#inputContainer").slideDown();
+        $("#inputSec").change(function(){
+            console.log($("#inputSec").val());
+            if($("#inputSec").val()<=0 && $("#inputSec").val()!=""){
+                ejecutarEmergente("Error", "Los segundos no pueden ser cero o valores negativos");
+                return;
+            }
+            else if($("#inputSec").val()>0){
+                var count = parseInt($(this).val());
+                var countdownElement = $('<div class="countdown">' + count + '</div>');
+                $('body').append(countdownElement);
+                $("#overlay").css("display", "block");
+                $(".tutorialSpaceBar").remove();
+                var countdownInterval = setInterval(function() {
+                    count--;
+                    countdownElement.text(count);
+                    if (count <= 0) {
+                        clearInterval(countdownInterval);
+                        countdownElement.remove();
+                        screenShot(); // Llama a la función screenShot() una vez que se completa la cuenta regresiva
+                        $("#overlay").css("display", "none");
+                        $("#inputSec").val("");
+                    }
+                }, 1000);
+                $("#inputContainer").hide();
+                
+            }else{
+                ejecutarEmergente("Error","Ingrese la cantidad de segundos");
+                return;
+            }
+        });
+    });
+
     $("body").keyup(function(e){
         if(e.keyCode == 32){
             e.preventDefault();
