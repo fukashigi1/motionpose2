@@ -1,35 +1,16 @@
 
 const mpHands = window;
-const drawingUtils = window;
 const controls = window;
-const controls3d = window;
 // Our input frames will come from here.
 const videoElement = document.getElementsByClassName('input_video')[0];
-const canvasElement = document.getElementsByClassName('output_canvas')[0];
 const controlsElement = document.getElementsByClassName('control-panel')[0];
-const canvasCtx = canvasElement.getContext('2d');
 const coordenadas = document.getElementById('coordenadas');
 
 const config = { locateFile: (file) => { //esta wea llama al modelo de entrenamiento hand_landmarker.task
         return `https://cdn.jsdelivr.net/npm/@mediapipe/hands@${mpHands.VERSION}/${file}`;
 } };
 
-// We'll add this to our control panel later, but we'll save it here so we can
-// call tick() each time the graph runs.
 const fpsControl = new controls.FPS();
-// Optimization: Turn off animated spinner after its hiding animation is done.
-/*const landmarkContainer = document.getElementsByClassName('landmark-grid-container')[0];
-
-const grid = new controls3d.LandmarkGrid(landmarkContainer, {
-    connectionColor: 0xCCCCCC,
-    definedColors: [{ name: 'Left', value: 0xffa500 }, { name: 'Right', value: 0x00ffff }],
-    range: 0.2,
-    fitToGrid: true,
-    landmarkSize: 2,
-    numCellsPerAxis: 4,
-    showHidden: false,
-    centered: true,
-});*/
 
 function extractData(landmarks){
     //ESTA FUNCION TRANSFORMA LOS DATOS DE OBJETO A FLOATS, SE ALMACENA TODO EN LA LISTA
@@ -58,34 +39,10 @@ function onResults(results) {
     // Update the frame rate.
     fpsControl.tick();
     // Draw the overlays.
-    canvasCtx.save();
-    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
-    if (results.multiHandLandmarks && results.multiHandedness) {
-        for (let index = 0; index < results.multiHandLandmarks.length; index++) {
-            const classification = results.multiHandedness[index];
-            const isRightHand = classification.label === 'Right';
-            const landmarks = results.multiHandLandmarks[index];
-
-            //console.log(results.multiHandLandmarks[index]);
-
-            //extractData(landmarks)
-
-            drawingUtils.drawConnectors(canvasCtx, landmarks, mpHands.HAND_CONNECTIONS, { color: isRightHand ? '#00FF00' : '#FF0000' });
-            drawingUtils.drawLandmarks(canvasCtx, landmarks, {
-                color: isRightHand ? '#00FF00' : '#FF0000',
-                fillColor: isRightHand ? '#FF0000' : '#00FF00',
-                radius: (data) => {
-                    return drawingUtils.lerp(data.from.z, -0.15, .1, 10, 1);
-                }
-            });
-        }
-    }
-    canvasCtx.restore();
     if (results.multiHandWorldLandmarks.length > 0) {
         // We only get to call updateLandmarks once, so we need to cook the data to
         // fit. The landmarks just merge, but the connections need to be offset.
-        const landmarks = results.multiHandWorldLandmarks.reduce((prev, current) => [...prev, ...current], []);
+        //const landmarks = results.multiHandWorldLandmarks.reduce((prev, current) => [...prev, ...current], []);
 
         const colors = [];
         let connections = [];
@@ -99,12 +56,25 @@ function onResults(results) {
                 color: classification.label,
             });
         }
-        console.log([landmarks, connections, colors]);
+        setLandmark(results.multiHandWorldLandmarks[0]);
         //extractData(landmarks)
         //grid.updateLandmarks(landmarks, connections, colors);
     }
 }
-
+let landmarkExportar;
+function setLandmark(landmarks){
+    landmarkExportar = landmarks;
+}
+setTimeout(() => {
+    landmarkExportar = null
+}, 0);
+export function obtenerNuevasCoordenadas() {
+    if (landmarkExportar !== undefined) {
+        return landmarkExportar;
+    } else {
+        return [0,0,0];
+    }
+}
 const hands = new mpHands.Hands(config);
 hands.onResults(onResults);
 new controls
@@ -130,8 +100,6 @@ new controls
                 width = window.innerWidth;
                 height = width * aspect;
             }
-            canvasElement.width = width;
-            canvasElement.height = height;
             await hands.send({ image: input });
         },
     }),
