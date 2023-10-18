@@ -71,10 +71,51 @@ $(document).ready(function(){
             "display": "none"
         });
     });
+
+    // Botones nav
+    $('#volver').on("click", function(){
+        ejecutarAccion('Abandonar', '¿Está seguro que desea abandonar el proyecto sin guardar?<br><br>■ ' + datos.nombre_proyecto);
+        $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="guardarSalir">Guardar y salir</button><button class="modalGlobalBoton" id="salirSinGuardar">Salir sin guardar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
+    });
+    $('#guardar').on("click", function(){
+        $(".modalFooter").html('<button class="modalBoton">Aceptar</button>');
+        guardarEstado();
+    });
+    $('#exportar').on("click", function(){
+        
+    });
+    $('#dispositivo').on("click", function(){
+        
+    });
+    $('#opciones').on("click", function(){
+        
+    });
+    $('#shaders').on("click", function(){
+        
+    });
+
+
+    $("body").on("click", '#guardarSalir', function(){
+        $(".modalFooter").html('<button class="modalBoton" id="aceptarGuardado">Aceptar</button>');
+        guardarEstado();
+    });
+    $("body").on("click", '#salirSinGuardar', function(){
+        window.location.href = 'proyectos';
+    });
+    $("body").on("click", '#cancelarAccion', function(){
+        cerrarVentana();
+    });
+
+    $("body").on("click", "#aceptarGuardado", function(){
+        window.location.href = 'proyectos';
+    })
 });
 
-let test = 0;
+function guardarEstado(){
+    ejecutarEmergente('Proyecto guardado', 'El proyecto se ha guardado satisfactoriamente.', '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
+}
 
+let test = 0;
 function screenShot() {
     
     const timestamp = new Date().getTime();
@@ -83,12 +124,6 @@ function screenShot() {
     const captura = `<div class="captura" style="color: white"><img src="${guardarImagen()}" data-nombre_archivo="${fileName}"></div>`;
     $(captura).insertAfter(".herramienta .titulo");
     test++;
-}
-
-function urlToFile(url, fileName, mimeType) {
-    return fetch(url)
-        .then(response => response.arrayBuffer())
-        .then(buffer => new File([buffer], fileName, { type: mimeType }));
 }
 
 function capturarWebCam(camera) {
@@ -127,6 +162,13 @@ function datosProyecto() {
     })
 }
 
+function ejecutarAccion(titulo, descripcion, botones){
+    $(".modalGlobalTitulo").text(titulo);
+    $(".modalGlobalCuerpo").html('<span style="font-size: 2vh;">' + descripcion + '</span>');
+    
+    animacionVentana();
+}
+
 function ejecutarEmergente(titulo, descripcion, icono){
     setTimeout(() => {
         $(".modalFlotante").css({
@@ -161,6 +203,22 @@ function ejecutarEmergente(titulo, descripcion, icono){
         $(".modalIcono").html(icono);
     }
     
+}
+
+function cerrarVentana(){
+    setTimeout(() => {
+        $(".modalGlobal").css({
+            "display": "none"
+        });
+        }, "100");
+        $(".modalGlobal").css({
+            "opacity": "0",
+            "height": "28vh",
+            "width": "45vh"
+        });
+    $(".fondoModal").css({
+        "display": "none"
+    });
 }
 
 function animacionVentana(){
