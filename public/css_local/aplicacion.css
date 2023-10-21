@@ -238,6 +238,26 @@ header {
     z-index: 9999;
 }
 
+.seleccionado {
+    border: 2px solid white;
+}
+
+input[type='checkbox'] {
+    accent-color: black;
+    font-size: 2vh;
+    width: 1.5vh;
+    height: 2vh;
+}
+
+.divCheckbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.contenedorCheckbox{
+    margin-top: 2vh;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
