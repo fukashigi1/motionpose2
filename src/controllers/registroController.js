@@ -35,13 +35,13 @@ controller.post = async (req, res) => {
                             res.json({ Exito: false, msg: msg });
                         } else {
                             // Insertar nuevo usuario
-                            conexion.query("INSERT INTO usuarios (nombre_usuario, contrasena, correo) VALUES (?, ?, ?)", [req.body.nombre, req.body.contrasena, req.body.correo], (error, resultado) => {
+                            conexion.query("INSERT INTO usuarios (nombre_usuario, contrasena, correo, telefono) VALUES (?, ?, ?, ?)", [req.body.nombre, req.body.contrasena, req.body.correo, req.body.telefono], (error, resultado) => {
                                 if (error) {
                                     msg = error.code;
                                     console.error(msg);
                                     res.json({ Exito: false, msg: msg });
                                 } else {
-                                    res.json({ Exito: true, msg: "Usuario registrado exitosamente.", correo: req.body.correo, contrasena: req.body.contrasena});
+                                    res.json({ Exito: true, msg: "Usuario registrado exitosamente.", correo: req.body.correo, contrasena: req.body.contrasena, telefono: req.body.telefono});
                                 }
                             });
                         }

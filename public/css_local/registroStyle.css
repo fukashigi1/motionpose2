@@ -92,7 +92,6 @@ a{
 #registrarseBoton {
     transition: all 0.2s;
     cursor: pointer;
-    position: absolute;
     bottom: 0;
     right: 0;
     margin: 15px;
@@ -177,5 +176,5 @@ a{
     top: 50%;
     transform: translate(0, -50%);
     margin-left: 124px;
-    overflow: hidden;
+    overflow-y: auto;
 }

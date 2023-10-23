@@ -24,6 +24,17 @@ $(document).ready(function(){
         }
     });
 
+    $("#telefono").on("focus", function(){
+        $("#telefonoLabel").css("bottom", "-8px");
+        $("#telefonoLabel").css("background-color", "white");
+    })
+    $("#telefono").on("blur", function(){
+        if($("#telefono").val() == ""){        
+            $("#telefonoLabel").css("bottom", "-31px");
+            $("#telefonoLabel").css("background-color", "transparent");
+        }
+    });
+
     $("#contrasena").on("focus", function(){
         $("#contrasenaLabel").css("bottom", "-8px");
         $("#contrasenaLabel").css("background-color", "white");
@@ -55,6 +66,11 @@ $(document).ready(function(){
         $("#correoLabel").css("bottom", "-8px");
         $("#correoLabel").css("background-color", "white");
         $("#correo").focus();
+    });
+    $("#telefonoLabel").on("click", function(){
+        $("#telefonoLabel").css("bottom", "-8px");
+        $("#telefonoLabel").css("background-color", "white");
+        $("#telefono").focus();
     });
     $("#contrasenaLabel").on("click", function(){
         $("#contrasenaLabel").css("bottom", "-8px");
@@ -111,6 +127,15 @@ $(document).ready(function(){
                 console.log(validarCorreo($("#correo").val()));
                 invalido = "El correo ingresado es inválido.";
             }
+
+            if ($("#telefono").val() == ""){
+                invalido = "El telefono es obligatorio.";
+                break;
+            }
+            if (validarTelefono($("#telefono").val()) == false) {
+                console.log(validarTelefono($("#telefono").val()));
+                invalido = "El teléfono debe contener 9 dígitos.";
+            }
     
             if ($("#contrasena").val() == ""){
                 invalido = "La contraseña es obligatoria.";
@@ -148,6 +173,7 @@ $(document).ready(function(){
                 data: JSON.stringify({
                     nombre: $("#nombre").val(),
                     correo: $("#correo").val(),
+                    telefono: $("#telefono").val(),
                     contrasena: $("#contrasena").val()
                 }),
                 contentType: 'application/json',
@@ -201,4 +227,9 @@ function validarContraseña(contrasena) {
     }
 
     return true;
+}
+
+function validarTelefono(telefono) {
+    const regex = /^[0-9]{9}$/;
+    return regex.test(telefono);
 }
