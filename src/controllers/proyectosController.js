@@ -172,6 +172,7 @@ controller.continuar = async (req, res) => {
                                 console.log(respuesta);
                                 req.session.nombre_proyecto = respuesta[0].nombre_proyecto;
                                 req.session.tipo_proyecto = respuesta[0].tipo_proyecto;
+                                req.session.id_proyecto = req.body.id;
                                 res.json({Exito: true, msg: "Proyecto encontrado.", tipo: respuesta[0].tipo_proyecto});
                             }
                         }

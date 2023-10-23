@@ -7,5 +7,5 @@ router.use(express.json());
 
 router.get('/', aplicacionController.view);
 router.get('/datosproyecto', aplicacionController.obtenerDatosProyecto);
-router.post('/imagenes', aplicacionController.imagenes)
+router.post('/guardar', aplicacionController.guardar)
 module.exports = router;

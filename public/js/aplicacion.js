@@ -5,6 +5,7 @@ function getDatos() {
     return datos;
 }
 
+let imagenesSubir = [];
 
 $(document).ready(function(){
     cargarModal();
@@ -63,7 +64,6 @@ $(document).ready(function(){
         });
     });
 
-    let imagenesSubir = [];
     $("#exportarImagenes").on("click", function(){
         $(".seleccionado").each(function(){
             imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
@@ -76,26 +76,7 @@ $(document).ready(function(){
         }
     });
 
-    /*const formData = new FormData();
-    for (let i = 0; i < imagenesSubir.length; i++ ){
-        let archivo = dataURLtoFile(imagenesSubir[i], datos.nombre_proyecto, 'image/' + mime);
-        formData.append('images', archivo);
-    }
-
-    $.ajax({
-        type: "POST",
-        url: "/aplicacion/imagenes", // La URL donde deseas enviar el archivo
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            console.log(response)
-        },
-        error: function (error) {
-            console.log(error);
-        },
-    });*/
-
+    
     $("body").on("click", "#exportar", function(){
         let $firstCheckedCheckbox = null;
         $("input[type='checkbox']").each(function() {
@@ -118,6 +99,11 @@ $(document).ready(function(){
             a.click(); 
         }
         imagenesSubir = [];
+    
+        $(".captura.seleccionado").each(function(){
+            $(this).removeClass("seleccionado");
+        });
+
         cerrarVentana();
     })
 
@@ -244,6 +230,32 @@ function dataURLtoFile(dataurl, filename, mime) {
 
 function guardarEstado(){
     ejecutarEmergente('Proyecto guardado', 'El proyecto se ha guardado satisfactoriamente.', '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
+
+    const formData = new FormData();
+
+    let contadorImagenes = 0;
+    $(".captura").each(function(){
+        let archivo = dataURLtoFile($(this).children().attr("src"), $(this).children().data("nombre_archivo") + ".png", 'image/png');
+        formData.append('images', archivo);
+        contadorImagenes += 1;
+    });
+
+    formData.append('cantidad_imagenes', contadorImagenes);
+    //formData.append('opciones');
+
+    $.ajax({
+        type: "POST",
+        url: "/aplicacion/guardar", // La URL donde deseas enviar el archivo
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (error) {
+            console.log(error);
+        },
+    });
 }
 
 let test = 0;
