@@ -189,26 +189,6 @@ p {
     margin-bottom: 70px;
 }
 
-footer {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 63vh;
-    border-top: 1px solid white;
-    margin-bottom: 50px;
-}
-footer p {
-    font-size: 20px;
-    margin-left: 25px;
-}
-
-footer a {
-    font-size: 20px;
-    margin-left: 25px;
-    cursor: pointer;
-}
-footer a:hover {
-    text-decoration: underline;
-}
 @media screen and (max-width: 1365px){        
     .ulNav{
        display: none;

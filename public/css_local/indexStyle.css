@@ -1,174 +1,160 @@
-body {
-    padding: 0;
-    margin: 0;
-    overflow-x: hidden;
-    color: white;
-    font-family: monospace;
-    background-color: #16161a;
+
+
+@media screen and (min-width: 1080px) and (max-width: 2400px) {
+    /* Ajustes de diseño específicos para esta resolución */
 }
 
-h1 {
-    font-size: 80px;
-    position: absolute;
-    bottom: 15%;
-    font-family: monospace;
-    text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
-    margin-left: 150px;
-    margin-right: 150px;
-    z-index: 10;
-}
-h2 {
-    font-size: 40px;
-    font-family: monospace;
-    border-bottom: 1px solid white;
-    padding-bottom: 5px;
-    margin-left: 150px;
-    margin-right: 150px;
-    padding-bottom: 10px;
-}
+/* Consulta de medios para pantallas con resolución de 1366x768 */
+@media screen and (min-width: 1365px) {
 
-h3 {
-    font-size: 25px;
-}
-
-video {
-    object-fit: cover;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-}
-
-p {
-    margin-left: 150px;
-    margin-right: 150px;
-    font-size: 20px;
-    line-height: 30px;
-    margin-bottom: 70px;
-}
-
-footer {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 200px;
-    border-top: 1px solid white;
-    margin-bottom: 50px;
-}
-footer p {
-    font-size: 20px;
-    margin-left: 25px;
-}
-
-footer a {
-    font-size: 20px;
-    margin-left: 25px;
-    cursor: pointer;
-}
-footer a:hover {
-    text-decoration: underline;
-}
-
-#imagenComoFunciona{
-    margin-left: 150px;
-    margin-right: 150px;
-    width: -webkit-fill-available;
-    border-radius: 7px;
-    padding: 150px;
-}
-
-.header {
-    transition: all 0.5s;
-    z-index: 100;
-    height: 100px;
-    width: 100%;
-    background-color: #ffffff00;
-    position: fixed;
-}
-
-.imgLogo {
-    width: 247px;
-    height: 67px;
-    cursor: pointer;
-    margin-top: 18px;
-    margin-left: 150px;
-}
-
-ul {
-    float: right;
-    margin-top: 36px;
-    margin-right: 150px;
-    user-select: none;
-}
-
-ul a {
-    transition: all 0.2s;
-    font-size: 19px;    
-    font-family: monospace;
-    padding: 10px;
-    cursor: pointer;
-    user-select: none;
-    text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
-}
-ul a:hover {
-    transition: all 0.2s;
-    padding: 8px;
-    font-size: 20px;    
-    text-decoration: underline;
-}
-
-.divTransicion{
-    position: absolute;
-    width: 100%;
-    height: 200px;
-    bottom: 0;
-    background: rgb(22,22,26);
-    background: linear-gradient(0deg, rgba(22,22,26,1) 2%, rgba(0,0,0,0) 100%);
-}
-
-.contenedorImagenes {
-    margin-left: 150px;
-    margin-right: 150px;
-    text-align: center;
-}
-
-.contenedorDesarrolladores {
-    margin-left: 150px;
-    margin-right: 150px;
-    text-align: center;
-}
-
-.imagenesComoFunciona {
-    width: 350px;
-    height: 350px;
-    overflow: hidden;
-    object-fit: cover;
-    border-radius: 7px;
-}
-
-.imagenesDesarrolladores {
-    width: 80%;
-    border-radius: 7px;
-}
-
-.imagen {
-    display: inline-block;
-    max-width: 512px;
-}
-
-.imagen p {
-    padding-left: 30px;
-    padding-right: 30px;
-    font-size: 20px;
-    text-align: justify;
-    margin: 0;
-}
-
-::selection {
-    color: black;
-    background: white;
-}
-
-@media screen and (max-width: 1365px){        
-    ul{
-       display: none;
+    body {
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;
+        color: white;
+        font-family: monospace;
+        background-color: #16161a;
+    }
+    
+    h1 {
+        font-size: 3vw;
+        position: absolute;
+        bottom: 15vh;
+        font-family: monospace;
+        text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
+        margin-left: 6vw;
+        margin-right: 6vw;
+        z-index: 10;
+    }
+    h2 {
+        font-size: 3vw;
+        font-family: monospace;
+        border-bottom: 1px solid white;
+        margin-left: 11vw;
+        margin-right: 11vw;
+        padding-bottom: 1.3vh;
+    }
+    
+    h3 {
+        font-size: 1.83vw;
+    }
+    
+    video {
+        object-fit: cover;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+    }
+    
+    p {
+        margin-left: 11vw;
+        margin-right: 11vw;
+        font-size: 1.46vw;
+        line-height: 2.2vw;
+        margin-bottom: 9vh;
+    }
+    
+    #imagenComoFunciona{
+        margin-left: 11vw;
+        margin-right: 11vw;
+        width: -webkit-fill-available;
+        border-radius: 0.7vw;
+        padding: 11%;
+    }
+    
+    .header {
+        transition: all 0.5s;
+        z-index: 100;
+        height: 9vh;
+        width: 100%;
+        background-color: #ffffff00;
+        position: fixed;
+    }
+    
+    .imgLogo {
+        width: 11vw;
+        height: 5vh;
+        cursor: pointer;
+        margin-top: 2vh;
+        margin-left: 6.25vw;
+    }
+    
+    ul {
+        float: right;
+        margin-top: 3.3vh;
+        margin-right: 7.8vw;
+        user-select: none;
+    }
+    
+    ul a {
+        transition: all 0.2s;
+        font-size: 1.2vw;  
+        font-family: monospace;
+        padding: 0.521vw;
+        cursor: pointer;
+        user-select: none;
+        text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
+    }
+    ul a:hover {
+        transition: all 0.2s;
+        padding: 0.8vw;
+        font-size: 1.35vw;    
+        text-decoration: underline;
+    }
+    
+    .divTransicion{
+        position: absolute;
+        width: 100%;
+        height: 20vh;
+        bottom: 0;
+        background: rgb(22,22,26);
+        background: linear-gradient(0deg, rgba(22,22,26,1) 2%, rgba(0,0,0,0) 100%);
+    }
+    
+    .contenedorImagenes {
+        margin-left: 11vw;
+        margin-right: 11vw;
+        text-align: center;
+    }
+    
+    .contenedorDesarrolladores {
+        margin-left: 11vw;
+        margin-right: 11vw;
+        text-align: center;
+    }
+    
+    .imagenesComoFunciona {
+        /*width: 25.6vw;
+        width: 33.4%;*/
+        width: 26.6vw;
+        height: 45.55vh;
+        margin-bottom: 0.5vh;
+        overflow: hidden;
+        object-fit: cover;
+        border-radius: 0.7vw;
+    }
+    
+    .imagenesDesarrolladores {
+        width: 80%;
+        border-radius: 0.7vw;
+    }
+    
+    .imagen {
+        display: inline-block;
+        max-width: 32vw;
+        margin-bottom: 1.5vh;
+    }
+    
+    .imagen p {
+        padding-left: 3.9vh;
+        padding-right: 3.9vh;
+        font-size: 1.465vw;
+        text-align: justify;
+        margin: 0;
+    }
+    
+    ::selection {
+        color: black;
+        background: white;
     }
 }
