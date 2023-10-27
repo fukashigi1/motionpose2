@@ -1,0 +1,72 @@
+@import url(../css/all.css);
+
+footer{
+    margin-left: 11vw;
+    margin-right: 11vw;
+    margin-top: 20vh;
+    border-top: 1px solid white;
+    margin-bottom: 7vh;
+}
+
+footer p{
+    font-size: 1.47vw;
+    margin-left: 1.85vw;
+}
+
+footer a{
+    font-size: 1.45vw;
+    margin-left: 1.80vw;
+    cursor: pointer;
+}
+
+footer a:hover{
+    text-decoration: underline;
+}
+.footerButtons{
+    display: inline-block;
+}
+
+
+@media screen and (max-width: 1080px) and (max-height: 2600px) {
+    footer{
+        margin-left: 9vw;
+        margin-right: 9vw;
+        margin-bottom: 2vw;
+        margin-top: 10vw;
+        user-select: none;
+    }
+
+    footer p {
+        text-align: center;
+        font-size: 4.47vw;
+    }
+
+    .footerButtons{
+        display: inline-grid;
+        justify-items: left;
+        transform: translateY(-3.8vw);
+    }
+
+    footer a{
+        font-size: 3.45vw;
+        margin-left: -5.2vw;
+        padding-inline: 4vw;
+        background: #242429;
+        margin-bottom: 1.6vw;
+        border-radius: 15vw;
+    }
+
+    .footerButtons a{
+        line-height: 10.6vw;
+    }
+
+    footer #volverArriba{
+        margin-top: 8.4vw;
+        padding-block: 3.3vw;
+        margin-right: -5.6vw;
+    }
+
+    .header-top{
+        background-color: #16161a !important;
+    }
+}
