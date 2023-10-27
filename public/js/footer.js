@@ -18,9 +18,9 @@ $(document).ready(function(){
         var distanciaTop = $(window).scrollTop();
         if (distanciaTop >= 20) {
             $(".header").css("background-color", "#16161a");
-          } else {
+        } else {
             $(".header").css("background-color", "#ffffff00");
-          }
+        }
     });
 
     $('.dropdown-menu').on('click', function(){
