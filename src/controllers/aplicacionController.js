@@ -103,6 +103,7 @@ controller.guardar = async (req, res) => {
                                             // insert into opciones, momentaneamente se generará una id opciones sin información, esa misma debe ir en data_proyecto_imagen
                                             // luego agrear instancias en data_proyecto_imagen
                                             // por cantidad de imagenes, si hay 10 imagenes se hacen 10 insert into, con su correspondiente id de imagen e id_opciones
+                                            //
                                         }
                                     });
                                 }
