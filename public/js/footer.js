@@ -1,8 +1,18 @@
 $(document).ready(function(){
-    if ($(window).width() <= 1080 && $(window).height() <= 2600) {
-        $(".navMenu").hide();
-        $(".navMenu").slideUp();
+    function navMenuToggle() {
+        if ($(window).width() <= 1080 && $(window).height() <= 2400) {
+            $(".navMenu").hide();
+            $(".navMenu").slideUp();
+        }else{
+            $(".navMenu").show();
+        }
     }
+    navMenuToggle();
+
+    $(window).resize(function() {
+        navMenuToggle();
+    });
+
     let footer = '';
     footer += '<footer>';
     footer += '    <p>Motion Pose MP ~ 2023</p>';
@@ -29,7 +39,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click', function(event) {
-        if (!$(event.target).closest('.dropdown-menu').length) {
+        if (!$(event.target).closest('.dropdown-menu').length && $(window).width() <= 1080 && $(window).height() <= 2400) {
             $(".navMenu").slideUp(300);
             $(".header").removeClass('header-top');
         }

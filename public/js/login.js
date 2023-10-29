@@ -52,7 +52,6 @@ $(document).ready(function(){
 
     $(".contenedorTitulo").css({
         'opacity' : '1',
-        'margin-left' : '100px'
     });
 
     $(".contenedorLogin").css({
