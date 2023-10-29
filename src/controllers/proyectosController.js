@@ -137,7 +137,7 @@ controller.eliminarProyecto = async (req, res) => {
                 }
             }
         });
-    }
+    }//
 }
 
 controller.continuar = async (req, res) => {
