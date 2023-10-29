@@ -4,7 +4,7 @@
 Software de Inteligencia Artificial mediante el uso del framework Mediapipe para la captura de movimientos graficados en un entorno 3D “Sobre una interfaz Web con estilos propios”
 Motion Pose MP.
 
-## Version
+## Versión
 - Versión de desarrollo 0.6.12.28102023
 ## Autores
 
