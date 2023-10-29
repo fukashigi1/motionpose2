@@ -1,38 +1,63 @@
 $(document).ready(function(){
     //$("#parrafoTest").html("<p>Hola " + JSON.stringify(usuarios) + "</p>"); // Muestra los datos en el HTML
     
-    // Estetica label login
-    $("#correo").on("focus", function(){
-        $("#correoLabel").css("bottom", "-8px");
-        $("#correoLabel").css("background-color", "white");
-    })
-    $("#correo").on("blur", function(){
-        if($("#correo").val() == ""){        
-            $("#correoLabel").css("bottom", "-31px");
-            $("#correoLabel").css("background-color", "transparent");
-        }
-    });
+    if ($(window).width() <= 1080 && $(window).height() <= 2400) {
+        // Estetica label login
+        $("#correo").on("focus", function(){
+            $("#correoLabel").css("bottom", "-1.7vw");
+            $("#correoLabel").css("background-color", "white");
+        })
+        $("#correo").on("blur", function(){
+            if($("#correo").val() == ""){        
+                $("#correoLabel").css("bottom", "-5.7vw");
+                $("#correoLabel").css("background-color", "transparent");
+            }
+        });
 
-    $("#contrasena").on("focus", function(){
-        $("#contrasenaLabel").css("bottom", "-8px");
-        $("#contrasenaLabel").css("background-color", "white");
-        $("#contrasenaLabel img").css("background-color", "white");
-    })
-    $("#contrasena").on("blur", function(){
-        if($("#contrasena").val() == ""){        
-            $("#contrasenaLabel").css("bottom", "-31px");
-            $("#contrasenaLabel").css("background-color", "transparent");
-            $("#contrasenaLabel img").css("background-color", "transparent");
-        }
-    });
+        $("#contrasena").on("focus", function(){
+            $("#contrasenaLabel").css("bottom", "-1.7vw");
+            $("#contrasenaLabel").css("background-color", "white");
+            $("#contrasenaLabel img").css("background-color", "white");
+        })
+        $("#contrasena").on("blur", function(){
+            if($("#contrasena").val() == ""){        
+                $("#contrasenaLabel").css("bottom", "-5.7vw");
+                $("#contrasenaLabel").css("background-color", "transparent");
+                $("#contrasenaLabel img").css("background-color", "transparent");
+            }
+        });
+    }else{
+        // Estetica label login
+        $("#correo").on("focus", function(){
+            $("#correoLabel").css("bottom", "-0.6vw");
+            $("#correoLabel").css("background-color", "white");
+        })
+        $("#correo").on("blur", function(){
+            if($("#correo").val() == ""){        
+                $("#correoLabel").css("bottom", "-2.1vw");
+                $("#correoLabel").css("background-color", "transparent");
+            }
+        });
+
+        $("#contrasena").on("focus", function(){
+            $("#contrasenaLabel").css("bottom", "-0.65vw");
+            $("#contrasenaLabel").css("background-color", "white");
+            $("#contrasenaLabel img").css("background-color", "white");
+        })
+        $("#contrasena").on("blur", function(){
+            if($("#contrasena").val() == ""){        
+                $("#contrasenaLabel").css("bottom", "-2.1vw");
+                $("#contrasenaLabel").css("background-color", "transparent");
+                $("#contrasenaLabel img").css("background-color", "transparent");
+            }
+        });
+    }
     //Click en label de input
     $("#correoLabel").on("click", function(){
-        $("#correoLabel").css("bottom", "-8px");
         $("#correoLabel").css("background-color", "white");
         $("#correo").focus();
     });
     $("#contrasenaLabel").on("click", function(){
-        $("#contrasenaLabel").css("bottom", "-8px");
         $("#contrasenaLabel").css("background-color", "white");
         $("#contrasena").focus();
     });
@@ -54,10 +79,10 @@ $(document).ready(function(){
         'opacity' : '1',
     });
 
-    $(".contenedorLogin").css({
+    /*$(".contenedorLogin").css({
         'width' : '28%',
         'height' : '63%'
-    });
+    });*/
     $("#volver").css({
         'left': '0',
         'opacity': '1'
