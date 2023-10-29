@@ -5,12 +5,12 @@ const multer = require('multer');
 controller.view = async (req, res)=>{
     req.session.loggedin = true;
     req.session.nombre_usuario = "test@gmail.com";
-    req.session.correo = "test@test.test";
+    req.session.correo = "test@gmail.com";
     req.session.contrasena = "Mojon333!.";
     req.session.tipo_usuario = "VIP";
     req.session.tipo_proyecto = "imagen";
-    req.session.nombre_proyecto = "asd";
-    req.session.id_proyecto = "52"
+    req.session.nombre_proyecto = "123";
+    req.session.id_proyecto = 54
 
     if(req.session.loggedin != true){
         //res.redirect('/login');
@@ -65,10 +65,9 @@ const fileValidation = (req, file, cb) => {
 const upload = multer({ storage: storage, fileFilter: fileValidation });
 
 controller.guardar = async (req, res) => {
+    let msg;
     if(req.session.tipo_proyecto == "imagen") {
-        const cantidad_imagenes = req.body.cantidad_imagenes;
-
-        upload.array('images', cantidad_imagenes)(req, res, (err) => {
+        upload.array('images', req.body.cantidad_imagenes)(req, res, (err) => {
             const imagenes = req.files;
             if (err) {
                 if (err instanceof multer.MulterError) {
@@ -95,17 +94,65 @@ controller.guardar = async (req, res) => {
                                     console.log(msg);
                                     res.json({ Exito: false, msg: msg });
                                 } else {
-                                    conexion.query('SELECT * FROM data_proyecto_imagen WHERE id_proyecto = ?', [req.session.id_proyecto], (error, data_proyecto_imagen) => {
-                                        if (data_proyecto_imagen.length != 0) {
-                                            // se encontró que existe un save y comparara las imagenes, si ya existen solo agregará las que no están.
-                                        } else {
-                                            // Si no se encuentra el proyecto entonces debe , añadir todas las imagenes a imagenes, 
-                                            // insert into opciones, momentaneamente se generará una id opciones sin información, esa misma debe ir en data_proyecto_imagen
-                                            // luego agrear instancias en data_proyecto_imagen
-                                            // por cantidad de imagenes, si hay 10 imagenes se hacen 10 insert into, con su correspondiente id de imagen e id_opciones
-                                            //
-                                        }
-                                    });
+                                    if (imagenes.length == 0) {
+                                        console.log("Guardar sin imagenes")
+                                    } else {
+                                        conexion.query('SELECT * FROM imagenes WHERE correo = ?', [req.session.correo], (error, resultadoImagenes) => {
+                                            if (error) {
+                                                msg = "No se encontró el proyecto.";
+                                                console.log(msg);
+                                                res.json({ Exito: false, msg: msg });
+                                            } else {
+                                                let imagenesExistentes = [];
+                                                for (let i = 0; i < resultadoImagenes.length; i++){
+                                                    imagenesExistentes.push(resultadoImagenes[i].nombre_imagen);
+                                                }
+                                                conexion.query('INSERT INTO opciones (correo) VALUES (?)', [req.session.correo], (error, resultadoOpciones) => { // Guardar las preferencias aquí
+                                                    if (error){
+                                                        msg = "Hubo un error guardando la información.";
+                                                        console.log(msg);
+                                                        res.json({ Exito: false, msg: msg });
+                                                    } else {
+                                                        let limite;
+                                                        if (req.session.tipo_usuario == 'VIP') {
+                                                            limite = 20;
+                                                        } else if (req.session.tipo_usuario == 'GRATIS'){
+                                                            limite = 10;
+                                                        }
+                                                        let msg;
+                                                        for (let i = 0; i < imagenes.length; i++) {
+                                                            if(!imagenesExistentes.includes(imagenes[i].filename)){
+                                                                if ((limite - imagenesExistentes.length) <= 0) {
+                                                                    console.log("corte")
+                                                                    msg = 'El proyecto ha sido guardado satisfactoriamente, sin embargo usted posee una membresía "' + req.session.tipo_usuario + '", la cual tiene un limite de ' + limite + ' imagenes en nuestra base de datos.<br>Es por eso que solo se han guardado ' + i + ' imagenes.';
+                                                                    break;
+                                                                } else {
+                                                                    limite--;
+                                                                    conexion.query('INSERT INTO imagenes (correo, nombre_imagen) VALUES(?, ?)', [req.session.correo, imagenes[i].filename], (error, resultadoInsert) => {
+                                                                        if (error) {
+                                                                            msg = "Error al subir un archivo a la base de datos.";
+                                                                            console.log(msg);
+                                                                            res.json({ Exito: false, msg: msg });
+                                                                        } 
+                                                                    });
+                                                                } 
+                                                            } else {
+                                                                msg = "El proyecto ha sido guardado satisfactoriamente."
+                                                            }
+                                                        }
+                                                        res.json({ Exito: true, msg: msg }); // No hay mensaje 
+                                                    }
+                                                })
+                                            }
+                                        });
+                                        
+                                        
+                                    }
+                                    // Si no se encuentra el proyecto entonces debe , añadir todas las imagenes a imagenes, 
+                                    // insert into opciones, momentaneamente se generará una id opciones sin información, esa misma debe ir en data_proyecto_imagen
+                                    // luego agrear instancias en data_proyecto_imagen
+                                    // por cantidad de imagenes, si hay 10 imagenes se hacen 10 insert into, con su correspondiente id de imagen e id_opciones
+                                    //
                                 }
                             }
                         });

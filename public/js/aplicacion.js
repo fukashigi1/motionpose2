@@ -229,7 +229,6 @@ function dataURLtoFile(dataurl, filename, mime) {
 }
 
 function guardarEstado(){
-    ejecutarEmergente('Proyecto guardado', 'El proyecto se ha guardado satisfactoriamente.', '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
 
     const formData = new FormData();
 
@@ -242,6 +241,9 @@ function guardarEstado(){
 
     formData.append('cantidad_imagenes', contadorImagenes);
     //formData.append('opciones');
+    for (const value of formData.values()) {
+        console.log(value);
+    }
 
     $.ajax({
         type: "POST",
@@ -250,7 +252,9 @@ function guardarEstado(){
         processData: false,
         contentType: false,
         success: function (response) {
-            console.log(response);
+            if (response.Exito) {
+                ejecutarEmergente('Proyecto guardado', response.msg, '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
+            }
         },
         error: function (error) {
             console.log(error);
