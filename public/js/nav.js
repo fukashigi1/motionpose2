@@ -4,17 +4,19 @@ $(document).ready(function(){
     version = '<div style="position: sticky; font-size: 2vh; color: white; bottom: 0;">' + v + '</div>';
 
     let nav = '';
-    nav += '<div class="header">';
-    nav += '    <img src="img/motion_pose_background4.png" class="imgLogo">';
-    nav += '    <ul class="ulNav">';
-    nav += '        <a id="inicio">Inicio</a>';
-    nav += '        <a id="misProyectos">Mis proyectos</a>';
-    nav += '        <a id="miCuenta" >Mi cuenta</a>';
-    nav += '        <a id="tienda">Tienda</a>';
-    nav += '        <a id="ayuda">Ayuda</a>';
-    nav += '        <a id="cerrarSesion">Cerrar sesión</a>';
-    nav += '    </ul>';
-    nav += '</div>';
+    nav += '    <div class="header">';
+    nav += '        <img src="img/motion_pose_background4.png" class="imgLogo">';
+    nav += '        <div></div>';
+    nav += '        <i class="fa-solid fa-square-caret-down dropdown-menu"></i>';
+    nav += '        <ul class="ulNav">';
+    nav += '            <a id="inicio">Inicio</a>';
+    nav += '            <a id="misProyectos">Mis proyectos</a>';
+    nav += '            <a id="miCuenta" >Mi cuenta</a>';
+    nav += '            <a id="tienda">Tienda</a>';
+    nav += '            <a id="ayuda">Ayuda</a>';
+    nav += '            <a id="cerrarSesion">Cerrar sesión</a>';
+    nav += '        </ul>';
+    nav += '    </div>';
 
     let modal = '';
     modal += '<div class="fondoModal"></div>';
@@ -50,7 +52,30 @@ $(document).ready(function(){
     $('body').append(modal);
     $('body').append(modalGlobal);
     $('body').append(version);
+    function navMenuToggle() {
+        if ($(window).width() <= 1080 && $(window).height() <= 2400) {
+            $(".ulNav").hide();
+            $(".ulNav").slideUp();
+        }else{
+            $(".ulNav").show();
+        }
+    }
+    navMenuToggle();
 
+    $(window).resize(function() {
+        navMenuToggle();
+    });
+    $('.dropdown-menu').on('click', function(){
+        $(".ulNav").slideToggle(300);
+        $(".header").toggleClass('header-top');
+    });
+
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('.dropdown-menu').length && $(window).width() <= 1080 && $(window).height() <= 2400) {
+            $(".ulNav").slideUp(300);
+            $(".header").removeClass('header-top');
+        }
+    });
 
 
     $('html, body').animate({scrollTop:0}, '1');

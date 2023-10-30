@@ -60,14 +60,6 @@ p {
     position: fixed;
 }
 
-.imgLogo {
-    width: 11vw;
-    height: 5vh;
-    cursor: pointer;
-    margin-top: 2vh;
-    margin-left: 6.25vw;
-}
-
 ul {
     float: right;
     margin-top: 3.3vh;
@@ -156,45 +148,9 @@ ul a:hover {
 }
 
 @media screen and (max-width: 1080px) and (max-height: 2600px) {
-    .imgLogo{
-        width: 40vw;
-        margin-top: 5vw;
-        height: 8vw;
-        margin-left: 4.25vw;
-    }
-
-    .navMenu{
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        margin-right: 0.6vw;
-        padding-right: 6vw;
-        margin-top: 5vw;
-        background: #16161a;
-        padding-left: 3.2vw;
-        border-radius: 2vw;
-    }
-
-    .navMenu a{
-        line-height: 13vw;
-        font-size: 4.5vw;
-    }
 
     .header {
         height: 8vh;
-    }
-
-    .header i{
-        position: absolute;
-        margin-top: 1vw;
-        font-size: 6.5vw;
-        padding: 5vw;
-        display: inline-block;
-    }
-
-    .header div{
-        width: 39.2vw;
-        display: inline-block;
     }
 
     h1{
@@ -261,4 +217,24 @@ ul a:hover {
         padding-inline: 1vw;
     }
 
+    footer{
+        padding-top: 0 !important;
+    }
+
+    .navMenu{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-right: 0.6vw;
+        padding-right: 6vw;
+        margin-top: 5vw;
+        background: #16161a;
+        padding-left: 3.2vw;
+        border-radius: 2vw;
+    }
+
+    .navMenu a{
+        line-height: 13vw;
+        font-size: 4.5vw;
+    }
 }
