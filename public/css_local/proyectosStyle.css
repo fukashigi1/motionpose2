@@ -65,3 +65,10 @@ span::selection {
     background-color: #16161a;
     color: #ffffff;
 }
+
+@media screen and (max-width: 1080px) and (max-height: 2600px) {
+    .centro{
+        top: 32vh !important;
+        margin-bottom: 46vh;
+    }
+}

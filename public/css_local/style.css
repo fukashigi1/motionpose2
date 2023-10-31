@@ -60,6 +60,7 @@ footer a:hover{
         margin-bottom: 2vw;
         margin-top: 10vw;
         user-select: none;
+        padding-top: 13vh;
     }
 
     footer p {
@@ -114,22 +115,108 @@ footer a:hover{
     }
 
     .header div {
-        width: 39.2vw;
+        width: 35.2vw;
         display: inline-block;
     }
 
     .header i {
         position: absolute;
-        margin-top: 1vw;
+        margin-top: 1.8vw;
         font-size: 6.5vw;
         padding: 5vw;
         display: inline-block;
+        color: white;
+        background-color: #ffffff00;
     }
 
     .imgLogo {
-        width: 40vw;
+        width: 46vw;
         margin-top: 5vw;
-        height: 8vw;
+        height: 11vw;
         margin-left: 4.25vw;
     }
+    .elemento{
+        width: 16.5vh;
+        height: 16.5vh;
+    }
+    .elemento i{
+        font-size: 8vh;
+    }
+    h1{
+        font-size: 2.7vh;
+        padding-top: 4vw;
+    }
+    .centro{
+        top: 25vh;
+    }
+    #nuevoProyectoHidden{
+        top: -6vh;
+        font-size: 4vw;
+        left: 1vh;
+    }
+    .noEditable{
+        margin-bottom: 5vw;
+    }
+    .spanTitulo{
+        font-size: 5.5vw;
+    }
+    #historialCompras {
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+    .casilla span{
+        font-size: 4.5vw;
+    }
+    .compraElemento{
+        flex-direction: column;
+    }
+    .centro{
+        padding-bottom: 4vh;
+    }
+    .contenedor label{
+        font-size: 2.6vh;
+    }
+    .faq{
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+    .tituloFaq{
+        font-size: 3.1vh;
+    }
+    .pregunta{
+        width: 85vw;
+        height: 100%;
+        margin-left: 1vw;
+        margin-right: 1vw;
+        display: inline-block;
+    }
+    .pregunta-titulo{
+        width: 77vw;
+        display: inline-block;
+        font-size: 5.1vw;
+    }
+    .pregunta-respuesta{
+        margin-left: 3vw !important;
+        margin-right: 3vw !important;
+        font-size: 2.2vh !important;
+        line-height: 5.5vw !important;
+    }
+    .pregunta span {
+        display: flex;
+        margin-top: 4vw;
+        font-size: 1.5em;
+        margin-inline-end: 3vw;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+.icono-rotado {
+    transition: all 0.5s;
+    transform: rotate(0deg);
+}
+/* Estilo cuando está rotado */
+.icono-rotado.rotado {
+    transition: all 0.5s;
+    transform: rotate(90deg);
 }

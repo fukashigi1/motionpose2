@@ -223,8 +223,10 @@ a{
         border-radius: 5vw;
     }
     .imgLogo{
-        width: 54.05vw;
-        height: 15.5vw;
+        width: 70vw !important;
+        margin-top: 12vw !important;
+        height: 20vw !important;
+        margin-left: 0.2vw !important;
     }
 
     .lateral{
