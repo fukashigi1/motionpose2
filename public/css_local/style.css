@@ -139,6 +139,9 @@ footer a:hover{
         width: 16.5vh;
         height: 16.5vh;
     }
+    .elemento:hover i::before {
+        font-size: 8.5vh;
+    }
     .elemento i{
         font-size: 8vh;
     }

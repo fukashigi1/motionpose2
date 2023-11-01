@@ -251,3 +251,118 @@
     top: 0;
     display: none;
 }
+
+@media screen and (max-width: 1080px) and (max-height: 2600px){
+    .modalGlobal {
+        transition: all 0.3s;
+        background-color: white;
+        position: absolute;
+        opacity: 1;
+        height: 34vh !important;
+        width: 39vh !important;
+    }
+    .modalGlobalHeader {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        background-color: #00000012;
+    }
+    .modalGlobalCuerpo {
+        height: 78.1%;
+        margin-top: 4vh;
+        color: #16161a;
+        font-family: monospace;
+        padding: 2vh;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: flex-start;
+        align-items: center;
+    }
+    .modalGlobalCuerpo form {
+        width: 98%;
+        text-align: center;
+        padding-left: 19px;
+        padding-right: 30px;
+    }
+    .modalGlobalCuerpo form div{
+        margin-top: unset !important;
+    }
+    .labelInput {
+        transition: all 0.5s;
+        color: #6f6f83;
+        font-family: monospace;
+        position: relative;
+        bottom: -9.5vw;
+        font-size: 5vw;
+        user-select: none;
+        cursor: text;
+    }
+    .modalFlotante {
+        height: 27vh !important;
+        width: 40vh !important;
+    }
+    .modalFlotante .modalTexto{
+        margin-top: -8vw;
+        font-size: 2.4vh;
+    }
+    .modalFlotante .modalBoton{
+        font-size: 4.4vw;
+    }
+    .modalIcono i{
+        font-size: 8vh;
+    }
+    .modalFlotante .modalCuerpo{
+        height: 78.1%;
+        margin-top: 0vh;
+        color: #16161a;
+        font-family: monospace;
+        padding: 2vh;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-content: center;
+        align-items: center;
+    }
+    .modalIcono i {
+        /* color: #ffffff; */
+        /* width: 100%; */
+        font-size: 8vh;
+        margin-top: 1.5vh;
+        margin-bottom: 0;
+    }
+    .modalFlotante .modalHeader{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        background-color: #00000012;
+    }
+    .input {
+        height: 13vw !important;
+        margin-bottom: 7vw;
+        border-radius: 5px;
+        border: 1px solid #16161aba;
+        font-size: 5vw;
+        font-family: monospace;
+        color: #16161a;
+        padding-left: 5px;
+    }
+    .modalGlobalBoton {
+        transition: all 0.1s;
+        min-width: 13vh;
+        height: 4vh;
+        font-size: 4.3vw;
+        margin: 1.5vh;
+        font-family: monospace;
+        cursor: pointer;
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 3px;
+        float: right;
+    }
+
+
+    
+}
