@@ -8,9 +8,6 @@ const compression = require('compression');
 
 const session = require('express-session');
 
-// Configuración
-
-
 // Configuración de acceso a la base de datos
 const hostDB = "localhost";
 const userDB = "root";
