@@ -92,6 +92,7 @@ $(document).ready(function(){
         'width' : '28%',
         'height' : '63%'
     });
+
     $("#volver").css({
         'left': '0',
         'opacity': '1'
