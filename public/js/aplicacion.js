@@ -254,6 +254,8 @@ function guardarEstado(){
         success: function (response) {
             if (response.Exito) {
                 ejecutarEmergente('Proyecto guardado', response.msg, '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
+            } else {
+                ejecutarEmergente('Ocurrió un error al guardar', response.msg, '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
             }
         },
         error: function (error) {

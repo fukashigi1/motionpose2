@@ -9,8 +9,8 @@ controller.view = async (req, res)=>{
     req.session.contrasena = "Mojon333!.";
     req.session.tipo_usuario = "VIP";
     req.session.tipo_proyecto = "imagen";
-    req.session.nombre_proyecto = "123";
-    req.session.id_proyecto = 54
+    req.session.nombre_proyecto = "sexo";
+    req.session.id_proyecto = 55;
 
     if(req.session.loggedin != true){
         //res.redirect('/login');
@@ -64,9 +64,11 @@ const fileValidation = (req, file, cb) => {
 
 const upload = multer({ storage: storage, fileFilter: fileValidation });
 
+var hola;
 controller.guardar = async (req, res) => {
     let msg;
     if(req.session.tipo_proyecto == "imagen") {
+
         upload.array('images', req.body.cantidad_imagenes)(req, res, (err) => {
             const imagenes = req.files;
             if (err) {
@@ -96,56 +98,92 @@ controller.guardar = async (req, res) => {
                                 } else {
                                     if (imagenes.length == 0) {
                                         console.log("Guardar sin imagenes")
+
+
                                     } else {
+                                        conexion.query('SELECT * FROM data_proyecto_imagen WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoProyecto) => {
+                                            if (error) {
+                                                msg = error;
+                                                console.log(msg);
+                                                res.json({ Exito: false, msg: msg });
+                                            } else {
+                                                if (resultadoProyecto.length > 1) {
+                                                    // SI EXSITE UN SAVE
+                                                } else {
+                                                    // SI NO EXISTE UN SAVE - AGREGAR COLUMNA ID PROYECTO A MIAMGENS NDSAKJN
+                                                }
+                                            }
+                                        })
                                         conexion.query('SELECT * FROM imagenes WHERE correo = ?', [req.session.correo], (error, resultadoImagenes) => {
                                             if (error) {
                                                 msg = "No se encontró el proyecto.";
                                                 console.log(msg);
                                                 res.json({ Exito: false, msg: msg });
                                             } else {
+                                                hola = resultadoImagenes;
                                                 let imagenesExistentes = [];
                                                 for (let i = 0; i < resultadoImagenes.length; i++){
                                                     imagenesExistentes.push(resultadoImagenes[i].nombre_imagen);
                                                 }
-                                                conexion.query('INSERT INTO opciones (correo) VALUES (?)', [req.session.correo], (error, resultadoOpciones) => { // Guardar las preferencias aquí
+                                                conexion.query('SELECT * FROM opciones WHERE correo = ?', [req.session.correo], (error, resultadoSelectOpciones) => {
                                                     if (error){
-                                                        msg = "Hubo un error guardando la información.";
+                                                        msg = "Hubo un error obteniendo la información.";
                                                         console.log(msg);
                                                         res.json({ Exito: false, msg: msg });
                                                     } else {
-                                                        let limite;
-                                                        if (req.session.tipo_usuario == 'VIP') {
-                                                            limite = 20;
-                                                        } else if (req.session.tipo_usuario == 'GRATIS'){
-                                                            limite = 10;
+                                                        let query;
+                                                        let listaSQL;
+                                                        if (resultadoSelectOpciones.length < 1) {
+                                                            query = 'INSERT INTO opciones (correo) VALUES (?)';
+                                                            listaSQL = [req.session.correo]
+                                                        } else {
+                                                            query = 'UPDATE opciones SET correo = ? WHERE correo = ?';
+                                                            listaSQL = [req.session.correo, req.session.correo]
                                                         }
-                                                        let msg;
-                                                        for (let i = 0; i < imagenes.length; i++) {
-                                                            if(!imagenesExistentes.includes(imagenes[i].filename)){
-                                                                if ((limite - imagenesExistentes.length) <= 0) {
-                                                                    console.log("corte")
-                                                                    msg = 'El proyecto ha sido guardado satisfactoriamente, sin embargo usted posee una membresía "' + req.session.tipo_usuario + '", la cual tiene un limite de ' + limite + ' imagenes en nuestra base de datos.<br>Es por eso que solo se han guardado ' + i + ' imagenes.';
-                                                                    break;
-                                                                } else {
-                                                                    limite--;
-                                                                    conexion.query('INSERT INTO imagenes (correo, nombre_imagen) VALUES(?, ?)', [req.session.correo, imagenes[i].filename], (error, resultadoInsert) => {
-                                                                        if (error) {
-                                                                            msg = "Error al subir un archivo a la base de datos.";
-                                                                            console.log(msg);
-                                                                            res.json({ Exito: false, msg: msg });
-                                                                        } 
-                                                                    });
-                                                                } 
+                                                        conexion.query(query, listaSQL, (error, resultadoOpciones) => { // Guardar las preferencias aquí
+                                                            if (error){
+                                                                msg = "Hubo un error guardando la información.";
+                                                                console.log(error);
+                                                                res.json({ Exito: false, msg: msg });
                                                             } else {
+                                                                let limite;
+                                                                if (req.session.tipo_usuario == 'VIP') {
+                                                                    limite = 20;
+                                                                } else if (req.session.tipo_usuario == 'GRATIS'){
+                                                                    limite = 10;
+                                                                }
+                                                                let msg;
+                                                                for (let i = 0; i < imagenes.length; i++) {
+                                                                    if(!imagenesExistentes.includes(imagenes[i].originalname)){
+                                                                        if ((limite - imagenesExistentes.length) <= 0) {
+                                                                            //msg = 'El proyecto ha sido guardado satisfactoriamente, sin embargo usted posee una membresía "' + req.session.tipo_usuario + '", la cual tiene un limite de ' + limite + ' imagenes en nuestra base de datos.<br>Es por eso que solo se han guardado ' + i + ' imagenes.';
+                                                                            
+                                                                            msg = 'El proyecto ha sido guardado satisfactoriamente';
+                                                                            break;
+                                                                        } else {
+                                                                            limite--;
+                                                                            var a;
+                                                                            conexion.query('INSERT INTO imagenes (correo, nombre_imagen) VALUES(?, ?)', [req.session.correo, imagenes[i].originalname], (error, resultadoInsert) => {
+                                                                                if (error) {
+                                                                                    msg = "Error al subir un archivo a la base de datos.";
+                                                                                    console.log(msg);
+                                                                                    res.json({ Exito: false, msg: msg });
+                                                                                } else {
+                                                                                    a = resultadoInsert;
+                                                                                }
+                                                                            });
+                                                                        } 
+                                                                    }
+                                                                }
                                                                 msg = "El proyecto ha sido guardado satisfactoriamente."
+                                                                res.json({ Exito: true, msg: msg }); // No hay mensaje 
                                                             }
-                                                        }
-                                                        res.json({ Exito: true, msg: msg }); // No hay mensaje 
+                                                        })
                                                     }
-                                                })
+                                                });
                                             }
                                         });
-                                        
+                                        console.log(hola)
                                         
                                     }
                                     // Si no se encuentra el proyecto entonces debe , añadir todas las imagenes a imagenes, 
@@ -168,4 +206,4 @@ controller.guardar = async (req, res) => {
 
     }
 };
-module.exports = controller;
+module.exports = controller;    
