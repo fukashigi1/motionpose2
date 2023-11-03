@@ -1,0 +1,221 @@
+body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    color: white;
+    font-family: monospace;
+    background-color: #202024;
+}
+
+
+h1 {
+    font-size: 70px;
+    bottom: 15%;
+    text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
+    margin-left: 150px;
+    margin-right: 150px;
+    z-index: 10;
+}
+
+h2 {
+    font-size: 30px;
+    border-bottom: 1px solid white;
+    margin-left: 150px;
+    margin-right: 150px;
+
+}
+
+h3 {
+    font-size: 25px;
+    margin-left: -120px;
+    color: rgb(168, 168, 168);
+    text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
+}
+
+h4 {
+    font-size: 30px;
+    font-family: monospace;
+    margin-left: 150px;
+    margin-right: 150px;
+    color: rgb(187, 187, 187);
+}
+
+h5{
+    font-size: 30px;
+}
+
+h6{
+    margin-left: 150px;
+    margin-right: 150px;
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 70px;
+    text-align: justify;
+}
+
+p {
+    font-size: 20px;
+    line-height: 30px;
+    text-align: justify;
+}
+
+footer {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 200px;
+    border-top: 1px solid white;
+    margin-bottom: 50px;
+}
+footer p {
+    font-size: 20px;
+    margin-left: 25px;
+}
+
+footer a {
+    font-size: 20px;
+    margin-left: 25px;
+    cursor: pointer;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+.header {
+    transition: all 0.5s;
+    z-index: 100;
+    height: 100px;
+    width: 100%;
+    background-color: #ffffff00;
+    position: fixed;
+}
+
+.imgLogo {
+    width: 247px;
+    height: 67px;
+    cursor: pointer;
+    margin-top: 18px;
+    margin-left: 150px;
+}
+
+ul {
+    float: right;
+    margin-top: 36px;
+    margin-right: 150px;
+}
+
+ul a {
+    transition: all 0.2s;
+    font-size: 19px;    
+    font-family: monospace;
+    padding: 10px;
+    cursor: pointer;
+    text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
+}
+ul a:hover {
+    transition: all 0.2s;
+    padding: 8px;
+    font-size: 20px;    
+    text-decoration: underline;
+}
+
+.espaciador{
+    height: 150px;
+}
+
+::selection {
+    color: black;
+    background: white;
+}
+
+@media screen and (max-width: 1365px){        
+    ul{
+       display: none;
+    }
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+.contenedor {
+	max-width: 1000px;
+	width: 100%;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 30% auto;
+}
+
+aside {
+	padding: 0 15px;
+}
+
+aside .titulo {
+	margin-bottom: 10px;
+}
+
+aside .contenedor-temario {
+	padding-top: 20px;
+	position: sticky;
+	top: 0;
+}
+
+aside .lista {
+	list-style: none;
+	padding-left: 10px;
+	margin-left: 10px;
+    width: 100%;
+}
+
+aside .lista li {
+	position: relative;
+}
+
+aside .lista li a {
+	display: block;
+	color: #5a5a5a;
+	padding: 10px 10px;
+	text-decoration: none;
+	transition: .3s ease all;
+    margin-left: 50px;
+    width: 100%;
+}
+
+aside .lista li.activo a,
+aside .lista li a:hover {
+	color: #ffffff;
+}
+
+aside .lista li::before {
+	content: "";
+	display: block;
+	height: 13px;
+	width: 13px;
+	background: #2aaaca;;
+	border: 2px solid #0a423f;
+	position: absolute;
+	left: -19px;
+	top: calc(50% - 6px);
+	transform: rotate(45deg);
+	transition: .3s ease all;
+    margin-left: 50px;
+}
+
+aside .lista li.activo::before {
+	background: #2aaaca;
+	border: 2px solid #0a423f;
+}
+
+aside .lista li:hover::before {
+	border: 2px solid #99f8f3;
+}
+
+.card {
+	margin: 20px 0;
+	padding: 40px;
+    padding-top: 55px;
+    padding-bottom: 95px;
+	background-color: rgba(40, 40, 49, 0.8);
+    border-radius: 2%;
+    width: 100%;
+    box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
+}
