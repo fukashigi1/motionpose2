@@ -27,16 +27,17 @@ function clearSpheres() {
     }
     spheres.length = 0;
 }
-guardarImagen();
 export function guardarImagen() {
-    var imgData, imgNode;
+    var imgDataPNG, imgDataJPEG, imgNode;
 
     try {
-        var strMime = "image/jpeg";
+        var pngMime = "image/png";
+        var jpegMime = "image/jpeg";
 
-        imgData = renderer.domElement.toDataURL(strMime);
+        imgDataPNG = renderer.domElement.toDataURL(pngMime);
+        imgDataJPEG = renderer.domElement.toDataURL(jpegMime);
 
-        return imgData;
+        return [imgDataPNG, imgDataJPEG];
 
     } catch (e) {
         console.error(e);

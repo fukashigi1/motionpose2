@@ -4,6 +4,8 @@ let datos = {};
 function getDatos() {
     return datos;
 }
+
+
 $(document).ready(function(){
     cargarModal();
     cargarFlotante();
@@ -61,6 +63,89 @@ $(document).ready(function(){
         });
     });
 
+    let imagenesSubir = [];
+    $("#exportarImagenes").on("click", function(){
+        $(".seleccionado").each(function(){
+            imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
+        });
+        if (imagenesSubir.length > 0) {
+            let checkbox = '';
+            checkbox += '<div class="contenedorCheckbox"><div class="divCheckbox"><input type="checkbox" id="png"><label for="png">.PNG</label></div><div class="divCheckbox"><input type="checkbox" id="jpeg"><label for="jpeg">.JPEG</label></div></div>';
+            ejecutarAccion('Exportar imágenes', 'Por favor seleccione la extensión de imagen con la que desea exportar.<br>' + checkbox);
+            $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="exportar">Exportar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
+        }
+    });
+
+    /*const formData = new FormData();
+    for (let i = 0; i < imagenesSubir.length; i++ ){
+        let archivo = dataURLtoFile(imagenesSubir[i], datos.nombre_proyecto, 'image/' + mime);
+        formData.append('images', archivo);
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/aplicacion/imagenes", // La URL donde deseas enviar el archivo
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            console.log(response)
+        },
+        error: function (error) {
+            console.log(error);
+        },
+    });*/
+
+    $("body").on("click", "#exportar", function(){
+        let $firstCheckedCheckbox = null;
+        $("input[type='checkbox']").each(function() {
+            let $checkbox = $(this);
+            if ($checkbox.is(":checked") && !$firstCheckedCheckbox) {
+                $firstCheckedCheckbox = $checkbox;
+            }
+        });
+
+        let mime = $firstCheckedCheckbox.attr("id");
+
+        for (let i = 0; i < imagenesSubir.length; i++) {
+            var a = document.createElement("a"); 
+            if (mime == "png") {
+                a.href = imagenesSubir[i][0]; 
+            } else {
+                a.href = imagenesSubir[i][1]; 
+            }
+            a.download = imagenesSubir[i][2] + "." + mime;
+            a.click(); 
+        }
+        imagenesSubir = [];
+        cerrarVentana();
+    })
+
+    $("body").on("change", "#png, #jpeg", function () {
+        if ($(this).is(":checked")) {
+            // Si se selecciona un checkbox, deselecciona el otro
+            $("#png, #jpeg").not(this).prop("checked", false);
+        }
+    });
+
+
+    
+    // Seleccion de elementos   
+    $("body").on("click", ".captura", function(event) {
+        if (event.ctrlKey) {
+            $(this).toggleClass("seleccionado");
+        } else {
+            if ($(this).hasClass("seleccionado")) {
+                $(this).removeClass("seleccionado");
+            } else {
+                $(".captura").removeClass("seleccionado");
+                $(this).addClass("seleccionado");
+            }
+        }
+    });
+    ////
+
+    // HOTKEYS
     $("body").keyup(function(e){
         if(e.keyCode == 32){
             e.preventDefault();
@@ -68,6 +153,7 @@ $(document).ready(function(){
             $(".tutorialSpaceBar").remove();
         }
     });
+    ////
 
     $("body").on("click", ".exit", function(){
         console.log("SEXO");
@@ -136,7 +222,7 @@ $(document).ready(function(){
     $("body").on("click", '#salirSinGuardar', function(){
         window.location.href = 'proyectos';
     });
-    $("body").on("click", '#cancelarAccion', function(){
+    $("body").on("click", '#cancelarAccion, #cerrarVentana', function(){
         cerrarVentana();
     });
 
@@ -145,17 +231,26 @@ $(document).ready(function(){
     })
 });
 
+function dataURLtoFile(dataurl, filename, mime) {
+    var arr = dataurl.split(','),
+        bstr = atob(arr[arr.length - 1]), 
+        n = bstr.length, 
+        u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type:mime});
+}
+
 function guardarEstado(){
     ejecutarEmergente('Proyecto guardado', 'El proyecto se ha guardado satisfactoriamente.', '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
 }
 
 let test = 0;
 function screenShot() {
-    
     const timestamp = new Date().getTime();
-    const formattedDate = new Date(timestamp).toLocaleDateString('es-ES').replace(/\D/g, '');
-    const fileName = `${getDatos().nombre_proyecto}_${test}_${formattedDate}.png`;
-    const captura = `<div class="captura" style="color: white"><img src="${guardarImagen()}" data-nombre_archivo="${fileName}"></div>`;
+    const fileName = `${getDatos().nombre_proyecto}_${timestamp}`;
+    const captura = `<div class="captura" style="color: white"><img src="${guardarImagen()[0]}" data-jpeg="${guardarImagen()[1]}" data-nombre_archivo="${fileName}"></div>`;
     $(captura).insertAfter(".herramienta .titulo");
     test++;
 }
@@ -197,6 +292,12 @@ function datosProyecto() {
 }
 
 function ejecutarAccion(titulo, descripcion, botones){
+    if (titulo == undefined || titulo == null || titulo == '') {
+        titulo = 'Acción';
+    }
+    if (descripcion == undefined || descripcion == null || descripcion == '') {
+        descripcion = '¿Continuar?';
+    }
     $(".modalGlobalTitulo").text(titulo);
     $(".modalGlobalCuerpo").html('<span style="font-size: 2vh;">' + descripcion + '</span>');
     
