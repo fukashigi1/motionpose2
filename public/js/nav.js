@@ -1,7 +1,19 @@
 $(document).ready(function(){
-    v = '0.6.13.02112023';
-    let version = '';
-    version = '<div style="position: sticky; font-size: 2vh; color: white; bottom: 0;">' + v + '</div>';
+    $.ajax({
+        method: "GET",
+        url: 'config',
+        dataType: "json",
+        contentType: 'application/json',
+        success: function(data){
+            if (data.autorizado) {
+                let v = `${data.nombreProyecto} Version: ${data.versionProyecto}`;
+                $('body').append('<div style="background-color: black; position: sticky; font-size: 2vh; color: white; bottom: 0;">' + v + '</div>');
+            }
+        },
+        error: function(error){
+            console.error('No fue posible obtener la versión del proyecto.', error);
+        }
+    });
 
     let nav = '';
     nav += '<div class="header">';
@@ -49,7 +61,6 @@ $(document).ready(function(){
     $('body').prepend(nav);
     $('body').append(modal);
     $('body').append(modalGlobal);
-    $('body').append(version);
 
 
 
