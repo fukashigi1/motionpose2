@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    v = '0.5.3.17102023';
+    v = '0.7.1.03112023';
     let version = '';
     version = '<div style="position: sticky; font-size: 2vh; color: white; bottom: 0;">' + v + '</div>';
 
