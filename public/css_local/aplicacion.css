@@ -278,3 +278,135 @@ input[type=number] {
     z-index: 999;
     display: none;
 }
+
+/*VENTANA DE OPCIONES*/
+.modalOpciones {
+    position: absolute;
+    z-index: 1;
+    width: 70%;
+    height: 70%;
+    background-color: #43434b;
+    top: 15%;
+    left: 15%;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #6f6f6f;
+}
+
+.modalOpcionesTitulo {
+    width: 100%;
+    background-color: #16161a;
+    border-bottom: 1px solid #6f6f6f;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.modalOpcionesTitulo span {
+    color: white;
+    font-size: 2vh;
+    margin-left: 1vw;
+    padding: 0.5%;
+}
+
+.modalOpcionesTitulo i {
+    color: white;
+    font-size: 2.5vh;
+    margin-right: 1vw;
+    cursor: pointer;
+}
+
+.modalOpcionesCuerpo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.contenidoOpcionesCuerpo {
+    width: 20%;
+    height: 100%;
+    background-color: #1e1e25;
+    border-right: 1px solid #6f6f6f;
+    overflow: auto;
+}
+.contenidoOpcionesCuerpo ul {
+    list-style: none;
+    padding: 0;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.contenidoOpcionesCuerpo li {
+    padding: 2px;
+}
+
+.flechaDesplegable{
+    color: white;
+    font-size: 1vh;
+    padding-right: 0.5vw;
+}
+
+.infoOpcionesLi {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.contenidoOpcionesCuerpo span{
+    color: #c7c7c7;
+    display: block;
+    width: 100%;
+    font-size: 1.8vh;
+    cursor: pointer;
+}
+.contenidoOpcionesCuerpo span:hover{
+    color: rgb(236, 236, 236);
+    background-color: #16161a;
+}
+
+
+
+.modalOpcionesFooter {
+    width: 100%;
+    background-color: #16161a;
+    height: 8%;
+    border-top: 1px solid #6f6f6f;
+}
+
+.contenidoOpcionesDerecha {
+    width: 80%;
+    height: 100%;
+    background-color: #1e1e25;
+    overflow: auto;
+    padding-left: 2vw;
+}
+
+.contenidoOpcionesDerecha h2 {
+    color: white;
+    font-size: 3vh;
+}
+
+.contenedorOpcion {
+
+}
+
+.contenedorSpan {
+
+}
+.contenedorSpan span {
+    
+}
+
+.contenedorInput {
+
+}
+
+.contenedorInput input[type=checkbox]{
+    
+}
