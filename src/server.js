@@ -55,9 +55,9 @@ const tiendaRuta = require('./routes/tiendaRuta');
 const ayudaRuta = require('./routes/ayudaRuta');
 const imagenRuta = require('./routes/imagenRuta');
 const aplicacionRuta = require('./routes/aplicacionRuta');
-//const politicasRuta = require('./routes/politicsasRuta');
-//const terminosRuta = require('./routes/terminosRuta');
-//const manualRuta = require('./routes/manualRuta');
+const politicasRuta = require('./routes/politicasRuta');
+const terminosRuta = require('./routes/terminosRuta');
+const manualRuta = require('./routes/manualRuta');
 
 // Rutas
 app.use('/login', usuarioRuta); 
@@ -69,7 +69,6 @@ app.use('/tienda', tiendaRuta);
 app.use('/ayuda', ayudaRuta);
 app.use('/imagen', imagenRuta);
 app.use('/aplicacion', aplicacionRuta);
-
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, 'view', 'index.html'));
 }); 
@@ -82,10 +81,9 @@ app.get('/config', (req, res) => {
     res.json(config);
 });
 
-
-//app.use('/politicas', politicasRuta);
-//app.use('/terminos', terminosRuta);
-//app.use('/manual', manualRuta);
+app.use('/politicas', politicasRuta);
+app.use('/terminos', terminosRuta);
+app.use('/manual', manualRuta);
 
 app.listen(app.get('port'), ()=>{
     console.log('Server corriendo en puerto: ' + app.get('port') + ' en la versión: [' +  VERSION_PROYECTO + ']');
