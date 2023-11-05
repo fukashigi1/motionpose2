@@ -5,7 +5,7 @@ Software de Inteligencia Artificial mediante el uso del framework Mediapipe para
 Motion Pose MP.
 
 ## Versión
-- Versión de desarrollo 0.7.2.03112023
+- Versión de desarrollo 0.9.1.0511202
 ## Autores
 
 - [@Mathias Garthoff Mattei](https://github.com/fukashigi1)
