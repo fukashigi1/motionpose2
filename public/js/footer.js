@@ -19,7 +19,7 @@ $(document).ready(function(){
     footer += '    <div class="footerButtons"><a id="politicas">Políticas de privacidad</a>';
     footer += '    <a id="terminos">Términos y condiciones</a>';
     footer += '    <a id="manual">Manual de usuario</a></div>';
-    footer += '    <a id="volverArriba" style="float: right;">Volver arriba</a>';
+    footer += '    <a class="btnSubir" id="volverArriba" style="float: right;"><i class="fa-solid fa-chevron-up"></i></a>';
     footer += '</footer>';
     
     $('body').append(footer);

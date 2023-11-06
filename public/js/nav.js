@@ -7,14 +7,14 @@ $(document).ready(function(){
     nav += '    <div class="header">';
     nav += '        <img src="img/motion_pose_background4.png" class="imgLogo">';
     nav += '        <div></div>';
-    nav += '        <i class="fa-solid fa-square-caret-down dropdown-menu"></i>';
+    nav += '        <i class="fa-solid fa-bars dropdown-menu"></i>';
     nav += '        <ul class="ulNav">';
-    nav += '            <a id="inicio">Inicio</a>';
-    nav += '            <a id="misProyectos">Mis proyectos</a>';
-    nav += '            <a id="miCuenta" >Mi cuenta</a>';
-    nav += '            <a id="tienda">Tienda</a>';
-    nav += '            <a id="ayuda">Ayuda</a>';
-    nav += '            <a id="cerrarSesion">Cerrar sesión</a>';
+    nav += '            <a class="navMenu2" id="inicio">Inicio</a>';
+    nav += '            <a class="navMenu2" id="misProyectos">Mis proyectos</a>';
+    nav += '            <a class="navMenu2" id="miCuenta" >Mi cuenta</a>';
+    nav += '            <a class="navMenu2" id="tienda">Tienda</a>';
+    nav += '            <a class="navMenu2" id="ayuda">Ayuda</a>';
+    nav += '            <a class="navMenu2" id="cerrarSesion">Cerrar sesión</a>';
     nav += '        </ul>';
     nav += '    </div>';
 
