@@ -147,7 +147,6 @@ $(document).ready(function(){
             console.log(nombreElemento);
             desplegarModal(nombreElemento);
             $("body").on("click", "#eliminarProyecto", function(){
-            $("body").on("click", "#eliminarProyecto", function(){
                 $.ajax({
                     url: '/proyectos/eliminarproyecto',
                     method: 'POST',
@@ -179,7 +178,6 @@ $(document).ready(function(){
                 });
                 $("body").off("click", "#siguienteModal");
             });
-        });
         }
     });
 // a

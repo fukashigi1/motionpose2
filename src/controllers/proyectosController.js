@@ -9,9 +9,9 @@ controller.view = async (req, res)=>{
         res.sendFile(path.join(__dirname, '..', 'view', 'proyecto.html'));
     }
     req.session.loggedin = true;
-    req.session.nombre_usuario = "test@gmail.com";
-    req.session.correo = "test@gmail.com";
-    req.session.contrasena = "Mojon333!.";
+    req.session.nombre_usuario = "test";
+    req.session.correo = "test@test.test";
+    req.session.contrasena = "Tester_123";
     req.session.tipo_usuario = "GRATIS";
 };
 

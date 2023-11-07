@@ -3,14 +3,7 @@ const path = require('path');
 const multer = require('multer');
 
 controller.view = async (req, res)=>{
-    req.session.loggedin = true;
-    req.session.nombre_usuario = "test@gmail.com";
-    req.session.correo = "test@gmail.com";
-    req.session.contrasena = "Mojon333!.";
-    req.session.tipo_usuario = "VIP";
-    req.session.tipo_proyecto = "imagen";
-    req.session.nombre_proyecto = "sexo";
-    req.session.id_proyecto = 55;
+    console.log(req.session.correo);
 
     if(req.session.loggedin != true){
         //res.redirect('/login');
