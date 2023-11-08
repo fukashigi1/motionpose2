@@ -67,10 +67,20 @@
                         <span>Si habilitas esta opción, el proyecto se guardará automáticamente en intervalos de 10 segundos.</span>
                     </div>
                     <div class="contenedorInput">
-                        <input type="checkbox" id="guardadoAutomatico">
-                        <label for="guardadoAutomatico">Guardado automático</label>
+                        <input type="checkbox" id="opcionGuardadoAutomatico">
+                        <label for="opcionGuardadoAutomatico">Guardado automático</label>
                     </div>
                 </div>
+                <div class="contenedorOpcion">
+                    <div class="contenedorSpan">
+                        <span>Este valor se usará cuando se hace una toma de captura temporizada con el atajo de teclado.</span><br>
+                        <span style="color: rgb(158, 158, 158)">Puede elegir entre 1 segundo a 60 segundos.</span>
+                    </div>
+                    <div class="contenedorInput">
+                        <input type="text" id="opcionTemporizadorSegundos">
+                    </div>
+                </div>
+
                 <h2>Ajustes de exportación</h2>
                 <div class="contenedorOpcion">
                     <div class="contenedorSpan">
@@ -78,151 +88,41 @@
                         <span style="color: rgb(158, 158, 158)">No aparecerá la ventana de exportación si se elige una opción.</span>
                     </div>
                     <div class="contenedorInput">
-                        <select id="formatoImagen">
+                        <select id="opcionFormatoImagen">
                             <option selected value="0">Preguntar siempre</option>
                             <option value="exportarPNG">Exportar siempre en .PNG</option>
                             <option value="exportarJPEG">Exportar siempre en .JPEG</option>
                         </select>
-                        <label for="formatoImagen">Explicacion ejemplo input</label>
+                    </div>
+                </div>
+                
+                <h2>Atajos de teclado</h2>
+                <div class="contenedorOpcion">
+                    <div class="contenedorSpan">
+                        <span>Tomar una captura de imágen del modelo 3D.</span>
+                    </div>
+                    <div class="contenedorInput">
+                        <input type="text" id="opcionesHotCaptura" style="text-align: center;">
                     </div>
                 </div>
                 <div class="contenedorOpcion">
                     <div class="contenedorSpan">
-                        <span>Explicación</span>
+                        <span>Tomar una captura de imágen del modelo 3D con un temporizador.</span><br>
+                        <span style="color: rgb(158, 158, 158)">El valor por defecto del temporizador al usar este atajo de teclado es de <a id="segundosTemporizador" href="#opcionTemporizadorSegundos" style="color: #549fff; text-decoration: none;">5 segundos</a>.</span>
                     </div>
                     <div class="contenedorInput">
-                        <input type="checkbox">
-                        <label>Explicacion ejemplo input</label>
+                        <input type="text" id="opcionesHotTemporizador" style="text-align: center;">
                     </div>
                 </div>
                 <div class="contenedorOpcion">
                     <div class="contenedorSpan">
-                        <span>Explicación</span>
+                        <span>Exportar las imagenes seleccionadas.</span>
                     </div>
                     <div class="contenedorInput">
-                        <input type="checkbox">
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <h2>Otros</h2>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <input type="checkbox">
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <input type="checkbox">
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <select>
-                            <option selected>Hola</option>
-                        </select>
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <input type="checkbox">
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <select>
-                            <option selected>Hola</option>
-                        </select>
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <input type="checkbox">
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <select>
-                            <option selected>Hola</option>
-                        </select>
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <input type="checkbox">
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <select>
-                            <option selected>Hola</option>
-                            <option>SEXO ORAL SEXO ORAL</option>
-                        </select>
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <select>
-                            <option selected>Hola</option>
-                            <option>SEXO ORAL SEXO ORAL</option>
-                        </select>
-                        <label>Explicacion ejemplo input</label>
-                    </div>
-                </div>
-                <div class="contenedorOpcion">
-                    <div class="contenedorSpan">
-                        <span>Explicación</span>
-                    </div>
-                    <div class="contenedorInput">
-                        <select>
-                            <option selected>Hola</option>
-                            <option>SEXO ORAL SEXO ORAL</option>
-                        </select>
-                        <label>Explicacion ejemplo input</label>
+                        <input type="text" id="opcionesHotExportar" style="text-align: center;">
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modalOpcionesFooter">
-
         </div>
     </div>
 
@@ -243,7 +143,7 @@
                     <div class="tutorialSpaceBar">
                         <span>¡Presiona</span>
                         <div class="contenedorShortCuts"> 
-                            <div class="keyboardBoton" style="height: 5vh; width: 11vh;">
+                            <div class="keyboardBoton" style="height: 5vh; width: auto;">
                                 <span>Espacio</span>
                             </div>
                         </div>

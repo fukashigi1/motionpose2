@@ -73,13 +73,15 @@ app.use('/aplicacion', aplicacionRuta);
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, 'view', 'index.html'));
 }); 
+
+//APIS
 app.get('/config', (req, res) => {
     const config = {
         autorizado: true,
         nombreProyecto: NOMBRE_PROYECTO,
         versionProyecto: VERSION_PROYECTO
     }
-    res.json(config);
+    res.json(config); 
 });
 
 

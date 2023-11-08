@@ -7,12 +7,25 @@ function getDatos() {
 
 let imagenesSubir = [];
 
+let teclas = []
+let anterior;
+
+let data = {
+    hotkeys: {
+        opcionesHotCaptura: [['SPACE', 32], ['T', 84]],
+        opcionesHotTemporizador: [['T', 84]],
+        opcionesHotExportar: [['E', 69]]
+    }
+}
+
+let hotkeys = {};
+
 $(document).ready(function(){
     cargarModal();
     cargarFlotante();
     datosProyecto();
     capturarWebCam('user');  // user, environment
-
+    cargarOpciones(data); // cambiar por ajax
     
     $("#ayudaBoton").on("click", function() {
         console.log("holaaaa");
@@ -64,7 +77,7 @@ $(document).ready(function(){
         });
     });
 
-    $("#exportarImagenes").on("click", function(){
+    $("#exportarImagenes, #exportar").on("click", function(){
         $(".seleccionado").each(function(){
             imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
         });
@@ -72,12 +85,12 @@ $(document).ready(function(){
             let checkbox = '';
             checkbox += '<div class="contenedorCheckbox"><div class="divCheckbox"><input type="checkbox" id="png"><label for="png">.PNG</label></div><div class="divCheckbox"><input type="checkbox" id="jpeg"><label for="jpeg">.JPEG</label></div></div>';
             ejecutarAccion('Exportar imágenes', 'Por favor seleccione la extensión de imagen con la que desea exportar.<br>' + checkbox);
-            $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="exportar">Exportar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
+            $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="exportarModal">Exportar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
         }
     });
 
     
-    $("body").on("click", "#exportar", function(){
+    $("body").on("click", "#exportarModal", function(){
         let $firstCheckedCheckbox = null;
         $("input[type='checkbox']").each(function() {
             let $checkbox = $(this);
@@ -131,12 +144,35 @@ $(document).ready(function(){
     });
     ////
 
+    let hotCaptura = {}; // ESTo
+    codeSetHotKey(hotkeys.opcionesHotCaptura, hotCaptura)
+
+    function codeSetHotKey(hotkey, codeset){
+        for (let i = 0; i < hotkey.length; i++){
+            //console.log(hotkeys.opcionesHotCaptura[i][1])
+            codeset[hotkey[i][1]] = false;
+    
+            //console.log(teclaSoltada)
+        }
+    }
     // HOTKEYS
-    $("body").keyup(function(e){
-        if(e.keyCode == 32){
+    $("body").on("keydown", function(e){
+        // TOMAR CAPTURA
+        console.log(hotCaptura)
+        if(e.keyCode in hotCaptura){
+            hotCaptura[e.keyCode] = true;
+        }
+
+        let valores = Object.values(hotCaptura);
+        const sonTodosTrue = valores.every(elemento => elemento);
+        if(sonTodosTrue){
             e.preventDefault();
             screenShot();
             $(".tutorialSpaceBar").remove();
+        }
+    }).on('keyup', function (e) {
+        if (e.keyCode in hotCaptura) {
+            hotCaptura[e.keyCode] = false;
         }
     });
     ////
@@ -187,17 +223,57 @@ $(document).ready(function(){
         $(".modalFooter").html('<button class="modalBoton">Aceptar</button>');
         guardarEstado();
     });
-    $('#exportar').on("click", function(){
-        
-    });
+    
     $('#dispositivo').on("click", function(){
         
     });
-    $('#opciones').on("click", function(){
-        
+    $('#preferencias').on("click", function(){
+        $(".modalOpciones").css('display', 'block')
     });
     $('#shaders').on("click", function(){
         
+    });
+
+
+    // PREFERENCIAS 
+    $('input').on("keyup", function(e){
+        if(e.keyCode == 13) { //enter
+            $(this).trigger("blur");
+        }
+    })
+
+    $("#opcionTemporizadorSegundos").on("input", function(){
+        const inputValue = $(this).val();
+        const numericValue = inputValue.replace(/\D/g, ''); 
+        const sanitizedValue = Math.min(60, Math.max(0, numericValue)); 
+      
+        if (inputValue !== sanitizedValue.toString()) {
+          $(this).val(sanitizedValue);
+        }
+        $("#segundosTemporizador").text(`${sanitizedValue} segundos`);
+    }).on("focusout", function(){
+        if($(this).val() == 0) {
+            $(this).val('1')
+        }
+    });
+
+    $("#opcionesHotCaptura").on("click", function(){
+        $("#opcionesHotCaptura").val("");
+        detectorHotkey($("#opcionesHotCaptura"))
+    });
+
+    $("#opcionesHotTemporizador").on("click", function(){
+        $("#opcionesHotTemporizador").val("");
+        detectorHotkey($("#opcionesHotTemporizador"))
+    });
+
+    $("#opcionesHotExportar").on("click", function(){
+        $("#opcionesHotExportar").val("");
+        detectorHotkey($("#opcionesHotExportar"))
+    });
+    
+    $("#cerrarOpciones").on("click", function(){
+        $(".modalOpciones").css('display', "none");
     });
 
 
@@ -216,6 +292,39 @@ $(document).ready(function(){
         window.location.href = 'proyectos';
     })
 });
+
+function cargarOpciones(data){
+    hotkeys = data.hotkeys;
+    $(".keyboardBoton span").text(data.hotkeys.opcionesHotCaptura.map(([elemento, _]) => elemento).join(" + "));
+    $("#opcionesHotCaptura").val(data.hotkeys.opcionesHotCaptura.map(([elemento, _]) => elemento).join(" + "));
+    $("#opcionesHotTemporizador").val(data.hotkeys.opcionesHotTemporizador.map(([elemento, _]) => elemento).join(" + "));
+    $("#opcionesHotExportar").val(data.hotkeys.opcionesHotExportar.map(([elemento, _]) => elemento).join(" + "));
+}
+
+function detectorHotkey($input){
+    $input.on("keydown", function(e){
+        e.preventDefault()
+        
+        if(anterior != e.key.toUpperCase()){
+            if(teclas.length < 3) {
+                if (e.keyCode != 32) {
+                    teclas.push([e.key.toUpperCase(), e.keyCode])
+                } else {
+                    teclas.push(['SPACE', e.keyCode])
+                }
+                const teclasPrimerElemento = teclas.map(([elemento, _]) => elemento);
+                $input.val(teclasPrimerElemento.join(" + "));
+                let nuevoHotkey = [];
+                nuevoHotkey.push(teclas)
+                hotkeys[$input.attr('id')] = nuevoHotkey;
+            } 
+        }
+        anterior = e.key.toUpperCase();
+    });
+    $input.on("keyup", function(e){
+        teclas = [];
+    });
+}
 
 function dataURLtoFile(dataurl, filename, mime) {
     var arr = dataurl.split(','),
