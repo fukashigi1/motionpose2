@@ -1,4 +1,4 @@
-import { guardarImagen } from '../three/threeGraficar.mjs';
+import { guardarImagen } from '../js/three/threeGraficar.mjs';
 
 let datos = {};
 function getDatos() {
@@ -18,13 +18,11 @@ let data = {
     }
 }
 
-export function getHotkeys(){
-    return data.hotkeys;
-}
-
 let hotkeys = {};
 
 let opcionesHotCaptura = {}; 
+let opcionesHotTemporizador = {}; 
+let opcionesHotExportar = {}; 
 
 $(document).ready(function(){
     cargarModal();
@@ -151,35 +149,58 @@ $(document).ready(function(){
     ////
 
     codeSetHotKey(hotkeys.opcionesHotCaptura, opcionesHotCaptura)
+    codeSetHotKey(hotkeys.opcionesHotTemporizador, opcionesHotTemporizador)
+    codeSetHotKey(hotkeys.opcionesHotExportar, opcionesHotExportar)
 
     function codeSetHotKey(hotkey, codeset){
         for (let i = 0; i < hotkey.length; i++){
             //console.log(hotkeys.opcionesHotCaptura[i][1])
             codeset[hotkey[i][1]] = false;
     
-            //console.log(teclaSoltada)
         }
     }
     // HOTKEYS
     $("body").on("keydown", function(e){
-        // TOMAR CAPTURA
-        if(e.keyCode in opcionesHotCaptura){
-            opcionesHotCaptura[e.keyCode] = true;
-        }
+        // TOMAR CAPTURA - opcionesHotCaptura
 
-        let valores = Object.values(opcionesHotCaptura);
-        const sonTodosTrue = valores.every(elemento => elemento);
-        if(sonTodosTrue){
+        if(detectorHotkeyinKey(e, opcionesHotCaptura, true)){
             e.preventDefault();
             screenShot();
             $(".tutorialSpaceBar").remove();
         }
-    }).on('keyup', function (e) {
-        if (e.keyCode in opcionesHotCaptura) {
-            opcionesHotCaptura[e.keyCode] = false;
+
+        // TEMPORIZADOR - opcionesHotTemporizador
+        if(detectorHotkeyinKey(e, opcionesHotTemporizador, true)){
+            e.preventDefault();
+            
+
+            
+
+
+
+
+
+
+
+
+
         }
+
+    }).on('keyup', function (e) {
+        detectorHotkeyinKey(e, opcionesHotCaptura, false);
+
     });
     ////
+
+    function detectorHotkeyinKey(e, opcionesHot, bool){
+        if(e.keyCode in opcionesHot){
+            opcionesHot[e.keyCode] = bool;
+        }
+        let valores = Object.values(opcionesHotCaptura);
+        const sonTodosTrue = valores.every(elemento => elemento);
+        return sonTodosTrue;
+    }
+
 
     $("body").on("click", ".exit", function(){
         console.log("SEXO");
@@ -562,4 +583,3 @@ function cargarModal() {
 
     $("body").append(modalGlobal);
 }
-
