@@ -1,4 +1,4 @@
-import { guardarImagen } from '../js/three/threeGraficar.mjs';
+import { guardarImagen } from '../three/threeGraficar.mjs';
 
 let datos = {};
 function getDatos() {
@@ -18,7 +18,13 @@ let data = {
     }
 }
 
+export function getHotkeys(){
+    return data.hotkeys;
+}
+
 let hotkeys = {};
+
+let opcionesHotCaptura = {}; 
 
 $(document).ready(function(){
     cargarModal();
@@ -144,8 +150,7 @@ $(document).ready(function(){
     });
     ////
 
-    let hotCaptura = {}; // ESTo
-    codeSetHotKey(hotkeys.opcionesHotCaptura, hotCaptura)
+    codeSetHotKey(hotkeys.opcionesHotCaptura, opcionesHotCaptura)
 
     function codeSetHotKey(hotkey, codeset){
         for (let i = 0; i < hotkey.length; i++){
@@ -158,12 +163,11 @@ $(document).ready(function(){
     // HOTKEYS
     $("body").on("keydown", function(e){
         // TOMAR CAPTURA
-        console.log(hotCaptura)
-        if(e.keyCode in hotCaptura){
-            hotCaptura[e.keyCode] = true;
+        if(e.keyCode in opcionesHotCaptura){
+            opcionesHotCaptura[e.keyCode] = true;
         }
 
-        let valores = Object.values(hotCaptura);
+        let valores = Object.values(opcionesHotCaptura);
         const sonTodosTrue = valores.every(elemento => elemento);
         if(sonTodosTrue){
             e.preventDefault();
@@ -171,8 +175,8 @@ $(document).ready(function(){
             $(".tutorialSpaceBar").remove();
         }
     }).on('keyup', function (e) {
-        if (e.keyCode in hotCaptura) {
-            hotCaptura[e.keyCode] = false;
+        if (e.keyCode in opcionesHotCaptura) {
+            opcionesHotCaptura[e.keyCode] = false;
         }
     });
     ////
@@ -274,6 +278,7 @@ $(document).ready(function(){
     
     $("#cerrarOpciones").on("click", function(){
         $(".modalOpciones").css('display', "none");
+        lectorHotkeysNuevos()
     });
 
 
@@ -291,7 +296,28 @@ $(document).ready(function(){
     $("body").on("click", "#aceptarGuardado", function(){
         window.location.href = 'proyectos';
     })
+
+    
+
 });
+//Lector de hotkeys nuevos
+function lectorHotkeysNuevos(){
+    let elementosHotArray = $('[id^="opcionesHot"]').toArray();
+    for (let i = 0; i < elementosHotArray.length; i++) {
+        if ($(elementosHotArray[i]).attr('id') in hotkeys) {
+            let valor = hotkeys[$(elementosHotArray[i]).attr('id')];
+            let objetoMomentaneo = {}
+            if ($(elementosHotArray[i]).attr('id') == 'opcionesHotCaptura') {
+                for (let x = 0; x < valor.length; x++) {
+                    for (let z = 0; z < valor[x].length; z++) {
+                        objetoMomentaneo[valor[x][z][1]] = false;
+                    }
+                }
+                opcionesHotCaptura = objetoMomentaneo;
+            }
+        }
+    }
+}
 
 function cargarOpciones(data){
     hotkeys = data.hotkeys;
