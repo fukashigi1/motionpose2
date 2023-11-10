@@ -1,5 +1,7 @@
 import { guardarImagen } from '../js/three/threeGraficar.mjs';
 
+let tomandoTemporizada = false;
+
 let datos = {};
 function getDatos() {
     return datos;
@@ -11,18 +13,19 @@ let teclas = []
 let anterior;
 
 let data = {
+    opcionGuardadoAutomatico : false,
+    opcionTemporizadorSegundos: 4,
+    opcionFormatoImagen: 'exportarPNG',
     hotkeys: {
         opcionesHotCaptura: [['SPACE', 32], ['T', 84]],
-        opcionesHotTemporizador: [['T', 84]],
+        opcionesHotTemporizador: [['R', 82]],
         opcionesHotExportar: [['E', 69]]
     }
 }
-
-let hotkeys = {};
-
 let opcionesHotCaptura = {}; 
 let opcionesHotTemporizador = {}; 
 let opcionesHotExportar = {}; 
+let listaHotKeysFormateado = [opcionesHotCaptura, opcionesHotTemporizador, opcionesHotExportar];
 
 $(document).ready(function(){
     cargarModal();
@@ -47,16 +50,16 @@ $(document).ready(function(){
         $(".tutorialSpaceBar").remove();
     });
 
-    $("body").on("click", "#tomarCapturaTemp", function(){
-        $("#inputContainer").slideDown();
-        $("#inputSec").change(function(){
-            console.log($("#inputSec").val());
-            if($("#inputSec").val()<=0 && $("#inputSec").val()!=""){
+    function tomarCapturaTemp(segundos){
+        if (tomandoTemporizada == false) {
+            tomandoTemporizada = true;
+            if(segundos<=0 && segundos!=""){
                 ejecutarEmergente("Error", "Los segundos no pueden ser cero o valores negativos");
                 return;
             }
-            else if($("#inputSec").val()>0){
-                var count = parseInt($(this).val());
+            else if(segundos>0){
+                console.log(segundos)
+                var count = parseInt(segundos);
                 var countdownElement = $('<div class="countdown">' + count + '</div>');
                 $('body').append(countdownElement);
                 $("#overlay").css("display", "block");
@@ -72,12 +75,23 @@ $(document).ready(function(){
                         $("#inputSec").val("");
                     }
                 }, 1000);
+                setTimeout(() => { // Contador para impedir que tome otra temporizada durante una temporizada
+                    tomandoTemporizada = false;
+                  }, data.opcionTemporizadorSegundos * 1000);
+
                 $("#inputContainer").hide();
                 
             }else{
                 ejecutarEmergente("Error","Ingrese la cantidad de segundos");
                 return;
             }
+        }
+    }
+
+    $("body").on("click", "#tomarCapturaTemp", function(){
+        $("#inputContainer").slideDown();
+        $("#inputSec").change(function(){
+            tomarCapturaTemp($("#inputSec").val())
         });
     });
 
@@ -148,13 +162,13 @@ $(document).ready(function(){
     });
     ////
 
-    codeSetHotKey(hotkeys.opcionesHotCaptura, opcionesHotCaptura)
-    codeSetHotKey(hotkeys.opcionesHotTemporizador, opcionesHotTemporizador)
-    codeSetHotKey(hotkeys.opcionesHotExportar, opcionesHotExportar)
-
+    codeSetHotKey(data.hotkeys.opcionesHotCaptura, opcionesHotCaptura)
+    codeSetHotKey(data.hotkeys.opcionesHotTemporizador, opcionesHotTemporizador)
+    codeSetHotKey(data.hotkeys.opcionesHotExportar, opcionesHotExportar)
     function codeSetHotKey(hotkey, codeset){
         for (let i = 0; i < hotkey.length; i++){
             //console.log(hotkeys.opcionesHotCaptura[i][1])
+        
             codeset[hotkey[i][1]] = false;
     
         }
@@ -162,45 +176,41 @@ $(document).ready(function(){
     // HOTKEYS
     $("body").on("keydown", function(e){
         // TOMAR CAPTURA - opcionesHotCaptura
-
-        if(detectorHotkeyinKey(e, opcionesHotCaptura, true)){
+        if(detectorHotkeyinKey(true, e, opcionesHotCaptura)){
             e.preventDefault();
             screenShot();
             $(".tutorialSpaceBar").remove();
-        }
-
-        // TEMPORIZADOR - opcionesHotTemporizador
-        if(detectorHotkeyinKey(e, opcionesHotTemporizador, true)){
+        } else if(detectorHotkeyinKey(true, e, opcionesHotTemporizador )){// TEMPORIZADOR - opcionesHotTemporizador
+            
             e.preventDefault();
-            
-
-            
-
-
-
-
-
-
-
-
-
+            tomarCapturaTemp(data.opcionTemporizadorSegundos)
         }
-
     }).on('keyup', function (e) {
-        detectorHotkeyinKey(e, opcionesHotCaptura, false);
+        detectorHotkeyinKey(false);
 
     });
     ////
 
-    function detectorHotkeyinKey(e, opcionesHot, bool){
-        if(e.keyCode in opcionesHot){
-            opcionesHot[e.keyCode] = bool;
+    function detectorHotkeyinKey(bool, e, opcionesHot ){
+        if (bool){
+            if(e.keyCode in opcionesHot){
+                opcionesHot[e.keyCode] = true;
+            }
+            let valores = Object.values(opcionesHot);
+            const sonTodosTrue = valores.every(elemento => elemento);
+            return sonTodosTrue;
+        } else {
+            borrarAccion()
         }
-        let valores = Object.values(opcionesHotCaptura);
-        const sonTodosTrue = valores.every(elemento => elemento);
-        return sonTodosTrue;
     }
 
+    function borrarAccion(){
+        for (let i = 0; i < listaHotKeysFormateado.length; i++) {
+            Object.keys(listaHotKeysFormateado[i]).forEach(key => {
+                listaHotKeysFormateado[i][key] = false;
+            });
+        }
+    }
 
     $("body").on("click", ".exit", function(){
         console.log("SEXO");
@@ -325,8 +335,8 @@ $(document).ready(function(){
 function lectorHotkeysNuevos(){
     let elementosHotArray = $('[id^="opcionesHot"]').toArray();
     for (let i = 0; i < elementosHotArray.length; i++) {
-        if ($(elementosHotArray[i]).attr('id') in hotkeys) {
-            let valor = hotkeys[$(elementosHotArray[i]).attr('id')];
+        if ($(elementosHotArray[i]).attr('id') in data.hotkeys) {
+            let valor = data.hotkeys[$(elementosHotArray[i]).attr('id')];
             let objetoMomentaneo = {}
             if ($(elementosHotArray[i]).attr('id') == 'opcionesHotCaptura') {
                 for (let x = 0; x < valor.length; x++) {
@@ -341,7 +351,11 @@ function lectorHotkeysNuevos(){
 }
 
 function cargarOpciones(data){
-    hotkeys = data.hotkeys;
+    $("#opcionGuardadoAutomatico").prop('checked', data.opcionGuardadoAutomatico);
+    $("#opcionTemporizadorSegundos").val(data.opcionTemporizadorSegundos);
+    $("#segundosTemporizador").text(`${data.opcionTemporizadorSegundos} segundos`);
+    $(`#opcionFormatoImagen option[value=${data.opcionFormatoImagen}]`).attr('selected', 'selected');
+    //hotkeys
     $(".keyboardBoton span").text(data.hotkeys.opcionesHotCaptura.map(([elemento, _]) => elemento).join(" + "));
     $("#opcionesHotCaptura").val(data.hotkeys.opcionesHotCaptura.map(([elemento, _]) => elemento).join(" + "));
     $("#opcionesHotTemporizador").val(data.hotkeys.opcionesHotTemporizador.map(([elemento, _]) => elemento).join(" + "));
@@ -363,7 +377,7 @@ function detectorHotkey($input){
                 $input.val(teclasPrimerElemento.join(" + "));
                 let nuevoHotkey = [];
                 nuevoHotkey.push(teclas)
-                hotkeys[$input.attr('id')] = nuevoHotkey;
+                data.hotkeys[$input.attr('id')] = nuevoHotkey;
             } 
         }
         anterior = e.key.toUpperCase();
