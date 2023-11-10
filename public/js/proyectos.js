@@ -231,19 +231,19 @@ function desplegarProyectos(proyectos){
             let elementoProyecto = '';
             elementoProyecto += '<div class="elemento" id="' + proyectos[i].id_proyecto + '">';
 
-            if (proyectos[i].tipo_proyecto == "imagen") {
+            if (proyectos[i].id_tipo == "1") {
                 elementoProyecto += '    <i class="fa-solid fa-file-image" style="color: #ffffff;"></i>';
-            } else if (proyectos[i].tipo_proyecto == "video"){
+            } else if (proyectos[i].id_tipo == "2"){
                 elementoProyecto += '    <i class="fa-solid fa-file-video" style="color: #ffffff;"></i>';
-            } else if (proyectos[i].tipo_proyecto == "3d") {
+            } else if (proyectos[i].id_tipo == "3") {
                 elementoProyecto += '    <i class="fa-solid fa-cube" style="color: #ffffff;"></i>';
-            } else if (proyectos[i].tipo_proyecto == "animacion"){
+            } else if (proyectos[i].id_tipo == "4"){
                 elementoProyecto += '    <i class="fa-solid fa-hand-sparkles" style="color: #ffffff;"></i>';
             } else {
                 elementoProyecto += '    <i class="fa-solid fa-notdef" style="color: #ffffff;"></i>';
             }
             
-            elementoProyecto += '    <label>' + proyectos[i].nombre_proyecto + '</label>';
+            elementoProyecto += '    <label>' + proyectos[i].nombre + '</label>';
             elementoProyecto += '</div>';
     
             $(".contenedorElementos").append(elementoProyecto);

@@ -13,7 +13,7 @@ const hostDB = "localhost";
 const userDB = "root";
 const passwordDB = "";
 const portDB = 3306;
-const databaseDB = 'motionpose';
+const databaseDB = 'motionpose2';
 
 // Middlewares
 app.use(compression());

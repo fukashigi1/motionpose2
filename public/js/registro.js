@@ -1,8 +1,6 @@
 $(document).ready(function(){
     //Animaciones
-
-
-    $("#nombre").on("focus", function(){
+    {$("#nombre").on("focus", function(){
         $("#nombreLabel").css("bottom", "-8px");
         $("#nombreLabel").css("background-color", "white");
     })
@@ -83,9 +81,9 @@ $(document).ready(function(){
 
     $("#aceptarTerminos").css({
         'opacity': '1'
-    });
-    //Botones
+    });}
 
+    //Botones
     $("#volver").on("click", function(){
         window.location.href = '/login'; 
     });
@@ -96,6 +94,7 @@ $(document).ready(function(){
     // Boton para registrarse.
     $("#registrarseBoton").on("click", function(){
         let invalido = "";
+        
         // Validación de campos.
         while (true){
             if($("#nombre").val() == ""){
@@ -135,6 +134,7 @@ $(document).ready(function(){
             }
             break;
         }
+
         if(invalido == ""){
             console.log("EXITO REGISTRADO");
             $(".mostrarError").css({
@@ -154,8 +154,7 @@ $(document).ready(function(){
                 success: function(data) {
                     if(data.Exito){
                         console.log(data);
-                        window.location.href = 'login'; 
-                        
+                        window.location.href = 'login';
                     }else{
                         console.error("Solicitud POST DENEGADA");
                     }
