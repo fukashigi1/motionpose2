@@ -75,6 +75,7 @@ $(document).ready(function(){
                         $("#inputSec").val("");
                     }
                 }, 1000);
+                
                 setTimeout(() => { // Contador para impedir que tome otra temporizada durante una temporizada
                     tomandoTemporizada = false;
                   }, data.opcionTemporizadorSegundos * 1000);
