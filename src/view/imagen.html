@@ -27,10 +27,105 @@
             <li id="guardar">Guardar</li>
             <li id="exportar">Exportar</li>
             <li id="dispositivo">Dispositivo</li>
-            <li id="opciones">Opciones</li>
+            <li id="preferencias">Preferencias</li>
             <li id="shaders">Shaders</li>
         </ul>
     </header>
+
+    <div class="modalOpciones">
+        <div class="modalOpcionesTitulo">
+            <span>Preferencias</span>
+            <i class="fa-solid fa-xmark" id="cerrarOpciones"></i>
+        </div>
+        <div class="modalOpcionesCuerpo">
+            <div class="contenidoOpcionesCuerpo">
+                <ul>
+                    <li>
+                        <div class="infoOpcionesLi">
+                            <i class="fa-solid fa-chevron-right flechaDesplegable"></i>
+                            <span>Hola</span>
+                        </div>
+                        <ul style="padding-left: 2vw">
+                            <li>
+                                <div class="infoOpcionesLi">
+                                    <span>Hola</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="infoOpcionesLi">
+                                    <span>Hola</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="contenidoOpcionesDerecha">
+                <h2>Ajustes generales</h2>
+                <div class="contenedorOpcion">
+                    <div class="contenedorSpan">
+                        <span>Si habilitas esta opción, el proyecto se guardará automáticamente en intervalos de 10 segundos.</span>
+                    </div>
+                    <div class="contenedorInput">
+                        <input type="checkbox" id="opcionGuardadoAutomatico">
+                        <label for="opcionGuardadoAutomatico">Guardado automático</label>
+                    </div>
+                </div>
+                <div class="contenedorOpcion">
+                    <div class="contenedorSpan">
+                        <span>Este valor se usará cuando se hace una toma de captura temporizada con el atajo de teclado.</span><br>
+                        <span style="color: rgb(158, 158, 158)">Puede elegir entre 1 segundo a 60 segundos.</span>
+                    </div>
+                    <div class="contenedorInput">
+                        <input type="text" id="opcionTemporizadorSegundos">
+                    </div>
+                </div>
+
+                <h2>Ajustes de exportación</h2>
+                <div class="contenedorOpcion">
+                    <div class="contenedorSpan">
+                        <span>Puedes elegir en que formato se exportará la imagen por defecto.</span><br>
+                        <span style="color: rgb(158, 158, 158)">No aparecerá la ventana de exportación si se elige una opción.</span>
+                    </div>
+                    <div class="contenedorInput">
+                        <select id="opcionFormatoImagen">
+                            <option selected value="0">Preguntar siempre</option>
+                            <option value="exportarPNG">Exportar siempre en .PNG</option>
+                            <option value="exportarJPEG">Exportar siempre en .JPEG</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <h2>Atajos de teclado</h2>
+                <div class="contenedorOpcion">
+                    <div class="contenedorSpan">
+                        <span>Tomar una captura de imágen del modelo 3D.</span>
+                    </div>
+                    <div class="contenedorInput">
+                        <input type="text" id="opcionesHotCaptura" style="text-align: center;">
+                    </div>
+                </div>
+                <div class="contenedorOpcion">
+                    <div class="contenedorSpan">
+                        <span>Tomar una captura de imágen del modelo 3D con un temporizador.</span><br>
+                        <span style="color: rgb(158, 158, 158)">El valor por defecto del temporizador al usar este atajo de teclado es de <a id="segundosTemporizador" href="#opcionTemporizadorSegundos" style="color: #549fff; text-decoration: none;">5 segundos</a>.</span>
+                    </div>
+                    <div class="contenedorInput">
+                        <input type="text" id="opcionesHotTemporizador" style="text-align: center;">
+                    </div>
+                </div>
+                <div class="contenedorOpcion">
+                    <div class="contenedorSpan">
+                        <span>Exportar las imagenes seleccionadas.</span>
+                    </div>
+                    <div class="contenedorInput">
+                        <input type="text" id="opcionesHotExportar" style="text-align: center;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="control-panel" style="display: none">
     </div>
     <div class="contenedorAplicacion">
@@ -48,7 +143,7 @@
                     <div class="tutorialSpaceBar">
                         <span>¡Presiona</span>
                         <div class="contenedorShortCuts"> 
-                            <div class="keyboardBoton" style="height: 5vh; width: 11vh;">
+                            <div class="keyboardBoton" style="height: 5vh; width: auto;">
                                 <span>Espacio</span>
                             </div>
                         </div>

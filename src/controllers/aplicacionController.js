@@ -31,7 +31,6 @@ controller.view = async (req, res)=>{
             res.redirect('/proyectos'); //a
         }
     }
-    
 };
 
 controller.obtenerDatosProyecto = async (req, res) => {
