@@ -148,9 +148,10 @@ controller.guardar = async (req, res) => {
                                                                 res.json({ Exito: false, msg: msg });
                                                             } else {
                                                                 let limite;
-                                                                if (req.session.tipo_usuario == 'VIP') {
+                                                                if (req.session.id_tipo == 2 || req.session.id_tipo == 3) {
                                                                     limite = 20;
-                                                                } else if (req.session.tipo_usuario == 'GRATIS'){
+                                                                    
+                                                                } else if (req.session.id_tipo == 1){
                                                                     limite = 10;
                                                                 }
                                                                 let msg;
