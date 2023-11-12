@@ -125,7 +125,19 @@ controller.guardar = async (req, res) => {
                                                 for (let i = 0; i < resultadoImagenes.length; i++){
                                                     imagenesExistentes.push(resultadoImagenes[i].nombre_imagen);
                                                 }
-                                                conexion.query('SELECT * FROM opciones WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoSelectOpciones) => {
+                                                conexion.query('SELECT * FROM preferencias WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoSelectOpciones) => {
+                                                    /*UPDATE preferencias SET hotkey_captura = '[["SHIFT", 16], ["D", 68]]' WHERE id_preferencias = 1;*/
+                                                    let preferencias = {
+                                                        opcionGuardadoAutomatico : resultadoSelectOpciones[0].autoguardado,
+                                                        opcionTemporizadorSegundos: resultadoSelectOpciones[0].temporizador,
+                                                        opcionFormatoImagen: resultadoSelectOpciones[0].formato_imagen,
+                                                        hotkeys: {
+                                                            opcionesHotCaptura: JSON.parse(resultadoSelectOpciones[0].hotkey_captura),
+                                                            opcionesHotTemporizador: JSON.parse(resultadoSelectOpciones[0].hotkey_captura_temp),
+                                                            opcionesHotExportar: JSON.parse(resultadoSelectOpciones[0].hotkey_exportar)
+                                                        }
+                                                    };
+                                                    console.log(preferencias.hotkeys);
                                                     if (error){
                                                         msg = "Hubo un error obteniendo la información.";
                                                         console.log(msg);
@@ -134,10 +146,10 @@ controller.guardar = async (req, res) => {
                                                         let query;
                                                         let listaSQL;
                                                         if (resultadoSelectOpciones.length < 1) {
-                                                            query = 'INSERT INTO opciones (id_proyecto) VALUES (?)';
+                                                            query = 'INSERT INTO preferencias (id_proyecto) VALUES (?)';
                                                             listaSQL = [req.session.id_proyecto]
                                                         } else {
-                                                            query = 'UPDATE opciones SET id_proyecto = ? WHERE id_proyecto = ?';
+                                                            query = 'UPDATE preferencias SET id_proyecto = ? WHERE id_proyecto = ?';
                                                             listaSQL = [req.session.id_proyecto, req.session.id_proyecto]
                                                         }
                                                         conexion.query(query, listaSQL, (error, resultadoOpciones) => { // Guardar las preferencias aquí
@@ -177,7 +189,7 @@ controller.guardar = async (req, res) => {
                                                                     }
                                                                 }
                                                                 msg = "El proyecto ha sido guardado satisfactoriamente."
-                                                                res.json({ Exito: true, msg: msg }); // No hay mensaje 
+                                                                res.json({ Exito: true, msg: msg, preferencias: preferencias }); // No hay mensaje 
                                                             }
                                                         })
                                                     }
@@ -188,9 +200,9 @@ controller.guardar = async (req, res) => {
                                         
                                     }
                                     // Si no se encuentra el proyecto entonces debe , añadir todas las imagenes a imagenes, 
-                                    // insert into opciones, momentaneamente se generará una id opciones sin información, esa misma debe ir en data_proyecto_imagen
+                                    // insert into preferencias, momentaneamente se generará una id preferencias sin información, esa misma debe ir en data_proyecto_imagen
                                     // luego agrear instancias en data_proyecto_imagen
-                                    // por cantidad de imagenes, si hay 10 imagenes se hacen 10 insert into, con su correspondiente id de imagen e id_opciones
+                                    // por cantidad de imagenes, si hay 10 imagenes se hacen 10 insert into, con su correspondiente id de imagen e id_preferencias
                                     //
                                 }
                             }
