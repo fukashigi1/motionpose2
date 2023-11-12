@@ -92,7 +92,7 @@ $(document).ready(function(){
                     invalido = "La contraseña no puede estár vacía.";
                     break;
                 }
-                if(validarContraseña($("#contrasena").val()) == false) {
+                if(validarContraseña($("#contrasena").val())) {
                     invalido = "La contraseña debe contener al menos 8 carácteres, el uso de mayúsculas y carácteres especiales.";
                     break;
                 }else{
@@ -199,6 +199,7 @@ function agregarSeparadorMiles(numero) {
 function desplegarDatos(datos){
     $('#usuario').val(datos.nombre_usuario);
     $('#correo').val(datos.correo);
+    //if(datos.tipo_usuario ==)
     $('#membresia').val(datos.tipo_usuario);
 }
 

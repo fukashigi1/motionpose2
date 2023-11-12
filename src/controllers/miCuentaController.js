@@ -11,10 +11,12 @@ controller.view = async (req, res)=>{
     }
 
     req.session.loggedin = true;
-    req.session.nombre_usuario = "test@gmail.com";
-    req.session.correo = "test@gmail.com";
-    req.session.contrasena = "a";
-    req.session.tipo_usuario = "GRATIS";
+    req.session.id_usuario = 1;
+    req.session.nombre_usuario = "test";
+    req.session.correo = "test@test.test";
+    req.session.contrasena = "Tester_123";
+    req.session.id_tipo = 2;
+    req.session.tipo_usuario = 'VIP';
     
 };
 
@@ -43,7 +45,7 @@ controller.datos = async (req, res) => {
                     console.error(msg);
                     reject(msg);
                 } else {
-                    conexion.query('SELECT id_producto, fecha_compra FROM compras WHERE correo = ?', [req.session.correo], (error, result) => {
+                    conexion.query('SELECT id_producto, fecha_compra FROM compra WHERE id_usuario = ?', [req.session.id_usuario], (error, result) => {
                         if (error) {
                             msg = error.code;
                             console.error(msg);
@@ -64,7 +66,7 @@ controller.datos = async (req, res) => {
                         console.error(msg);
                         reject(msg);
                     } else {
-                        conexion.query('SELECT nombre_producto, precio FROM tienda WHERE id_producto = ?', [compras[i].id_producto], (error, result) => {
+                        conexion.query('SELECT nombre, precio FROM tienda WHERE id_producto = ?', [compras[i].id_producto], (error, result) => {
                             if (error) {
                                 msg = error.code;
                                 console.error(msg);
@@ -80,7 +82,7 @@ controller.datos = async (req, res) => {
             historial.push({
                 id_producto: compras[i].id_producto,
                 fecha_compra: compras[i].fecha_compra,
-                nombre_producto: tienda[0].nombre_producto,
+                nombre_producto: tienda[0].nombre,
                 precio: tienda[0].precio
             });
         }
@@ -109,7 +111,7 @@ controller.post = async (req, res) => {
                     res.json({ Exito: false, msg: msg });
                 } else {
                     // Verificar si el correo ya está en uso
-                    conexion.query('SELECT correo FROM usuarios WHERE correo = ?', [req.body.correo], (error, filas) => {
+                    conexion.query('SELECT correo FROM usuario WHERE correo = ?', [req.body.correo], (error, filas) => {
                         if (error) {
                             msg = error.code;
                             console.error(msg);
@@ -117,7 +119,7 @@ controller.post = async (req, res) => {
                         } else {
                             console.log("Correo inicial: " + req.body.correoInicial + " correo normal: " + req.body.correo);
                             if (req.body.correoInicial == req.body.correo){
-                                conexion.query("UPDATE usuarios SET nombre_usuario = '" + req.body.nombre_usuario + "', contrasena = '" + req.body.contrasena + "' WHERE correo = '" + req.body.correoInicial + "'", (error, resultado) => {
+                                conexion.query("UPDATE usuario SET nombre = '" + req.body.nombre_usuario + "', contrasena = '" + req.body.contrasena + "' WHERE correo = '" + req.body.correoInicial + "'", (error, resultado) => {
                                     console.log(req.body);
                                     if (error) {
                                         msg = error.code;
@@ -134,7 +136,7 @@ controller.post = async (req, res) => {
                                     console.error(msg);
                                     res.json({ Exito: false, msg: msg });
                                 }else{
-                                    conexion.query("UPDATE usuarios SET nombre_usuario = '" + req.body.nombre_usuario + "', contrasena = '" + req.body.contrasena + "', correo = '" + req.body.correo + "' WHERE correo = '" + req.body.correoInicial + "'", (error, resultado) => {
+                                    conexion.query("UPDATE usuario SET nombre = '" + req.body.nombre_usuario + "', contrasena = '" + req.body.contrasena + "', correo = '" + req.body.correo + "' WHERE correo = '" + req.body.correoInicial + "'", (error, resultado) => {
                                         if (error) {
                                             msg = error.code;
                                             console.error(msg);
@@ -158,7 +160,7 @@ controller.post = async (req, res) => {
                 res.json({ Exito: false, msg: msg });
             } else {
                 // Verificar si el correo ya está en uso
-                conexion.query('SELECT correo FROM usuarios WHERE correo = ?', [req.body.correo], (error, filas) => {
+                conexion.query('SELECT correo FROM usuario WHERE correo = ?', [req.body.correo], (error, filas) => {
                     if (error) {
                         msg = error.code;
                         console.error(msg);
@@ -166,7 +168,7 @@ controller.post = async (req, res) => {
                     } else {
                         console.log("Correo inicial: " + req.body.correoInicial + " correo normal: " + req.body.correo);
                         if (req.body.correoInicial == req.body.correo){
-                            conexion.query("UPDATE usuarios SET nombre_usuario = '" + req.body.nombre_usuario + "' WHERE correo = '" + req.body.correoInicial + "'", (error, resultado) => {
+                            conexion.query("UPDATE usuario SET nombre = '" + req.body.nombre_usuario + "' WHERE correo = '" + req.body.correoInicial + "'", (error, resultado) => {
                                 console.log(req.body);
                                 if (error) {
                                     msg = error.code;
@@ -183,7 +185,7 @@ controller.post = async (req, res) => {
                                 console.error(msg);
                                 res.json({ Exito: false, msg: msg });
                             }else{
-                                conexion.query("UPDATE usuarios SET nombre_usuario = '" + req.body.nombre_usuario + "' WHERE correo = '" + req.body.correoInicial + "'", (error, resultado) => {
+                                conexion.query("UPDATE usuario SET nombre = '" + req.body.nombre_usuario + "', correo = '" + req.body.correo + "' WHERE correo = '" + req.body.correoInicial + "'", (error, resultado) => {
                                     if (error) {
                                         msg = error.code;
                                         console.error(msg);

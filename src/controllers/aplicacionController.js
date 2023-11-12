@@ -4,13 +4,14 @@ const multer = require('multer');
 
 controller.view = async (req, res)=>{
     req.session.loggedin = true;
-    req.session.nombre_usuario = "test@gmail.com";
-    req.session.correo = "test@gmail.com";
-    req.session.contrasena = "Mojon333!.";
-    req.session.tipo_usuario = "VIP";
+    req.session.id_usuario = 1;
+    req.session.nombre_usuario = "test";
+    req.session.correo = "test@test.test";
+    req.session.contrasena = "Tester_123";
+    req.session.id_tipo = 2;
     req.session.tipo_proyecto = "imagen";
     req.session.nombre_proyecto = "sexo";
-    req.session.id_proyecto = 55;
+    req.session.id_proyecto = 1;
 
     if(req.session.loggedin != true){
         //res.redirect('/login');
@@ -84,7 +85,7 @@ controller.guardar = async (req, res) => {
                         console.log(msg);
                         res.json({ Exito: false, msg: msg });
                     } else {
-                        conexion.query('SELECT * FROM proyectos WHERE id_proyecto = ? AND correo = ?', [req.session.id_proyecto, req.session.correo], (error, proyectos) => {
+                        conexion.query('SELECT * FROM proyecto WHERE id_proyecto = ? AND id_usuario = ?', [req.session.id_proyecto, req.session.id_usuario], (error, proyectos) => {
                             if (error) {
                                 msg = "No se encontró el proyecto.";
                                 console.log(msg);
@@ -100,7 +101,7 @@ controller.guardar = async (req, res) => {
 
 
                                     } else {
-                                        conexion.query('SELECT * FROM data_proyecto_imagen WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoProyecto) => {
+                                        /*conexion.query('SELECT * FROM data_proyecto_imagen WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoProyecto) => {
                                             if (error) {
                                                 msg = error;
                                                 console.log(msg);
@@ -112,8 +113,8 @@ controller.guardar = async (req, res) => {
                                                     // SI NO EXISTE UN SAVE - AGREGAR COLUMNA ID PROYECTO A MIAMGENS NDSAKJN
                                                 }
                                             }
-                                        })
-                                        conexion.query('SELECT * FROM imagenes WHERE correo = ?', [req.session.correo], (error, resultadoImagenes) => {
+                                        })*/
+                                        conexion.query('SELECT * FROM imagenes WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoImagenes) => {
                                             if (error) {
                                                 msg = "No se encontró el proyecto.";
                                                 console.log(msg);
@@ -124,7 +125,7 @@ controller.guardar = async (req, res) => {
                                                 for (let i = 0; i < resultadoImagenes.length; i++){
                                                     imagenesExistentes.push(resultadoImagenes[i].nombre_imagen);
                                                 }
-                                                conexion.query('SELECT * FROM opciones WHERE correo = ?', [req.session.correo], (error, resultadoSelectOpciones) => {
+                                                conexion.query('SELECT * FROM opciones WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoSelectOpciones) => {
                                                     if (error){
                                                         msg = "Hubo un error obteniendo la información.";
                                                         console.log(msg);
@@ -133,11 +134,11 @@ controller.guardar = async (req, res) => {
                                                         let query;
                                                         let listaSQL;
                                                         if (resultadoSelectOpciones.length < 1) {
-                                                            query = 'INSERT INTO opciones (correo) VALUES (?)';
-                                                            listaSQL = [req.session.correo]
+                                                            query = 'INSERT INTO opciones (id_proyecto) VALUES (?)';
+                                                            listaSQL = [req.session.id_proyecto]
                                                         } else {
-                                                            query = 'UPDATE opciones SET correo = ? WHERE correo = ?';
-                                                            listaSQL = [req.session.correo, req.session.correo]
+                                                            query = 'UPDATE opciones SET id_proyecto = ? WHERE id_proyecto = ?';
+                                                            listaSQL = [req.session.id_proyecto, req.session.id_proyecto]
                                                         }
                                                         conexion.query(query, listaSQL, (error, resultadoOpciones) => { // Guardar las preferencias aquí
                                                             if (error){
@@ -146,9 +147,10 @@ controller.guardar = async (req, res) => {
                                                                 res.json({ Exito: false, msg: msg });
                                                             } else {
                                                                 let limite;
-                                                                if (req.session.tipo_usuario == 'VIP') {
+                                                                if (req.session.id_tipo == 2 || req.session.id_tipo == 3) {
                                                                     limite = 20;
-                                                                } else if (req.session.tipo_usuario == 'GRATIS'){
+                                                                    
+                                                                } else if (req.session.id_tipo == 1){
                                                                     limite = 10;
                                                                 }
                                                                 let msg;
@@ -162,7 +164,7 @@ controller.guardar = async (req, res) => {
                                                                         } else {
                                                                             limite--;
                                                                             var a;
-                                                                            conexion.query('INSERT INTO imagenes (correo, nombre_imagen) VALUES(?, ?)', [req.session.correo, imagenes[i].originalname], (error, resultadoInsert) => {
+                                                                            conexion.query('INSERT INTO imagenes (id_proyecto, nombre) VALUES(?, ?)', [req.session.id_proyecto, imagenes[i].originalname], (error, resultadoInsert) => {
                                                                                 if (error) {
                                                                                     msg = "Error al subir un archivo a la base de datos.";
                                                                                     console.log(msg);
