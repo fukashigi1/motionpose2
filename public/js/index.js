@@ -4,58 +4,85 @@ $(document).ready(function(){
     $(window).scroll(function() {
         var distanciaTop = $(window).scrollTop();
         if (distanciaTop >= 20) {
-          $(".header").css("background-color", "#16161a");
+        $(".header").css("background-color", "#16161a");
         } else {
-          $(".header").css("background-color", "#ffffff00");
+        $(".header").css("background-color", "#ffffff00");
         }
-      });
+    });
 
-      $('.imgLogo, #volverArriba').on('click', function(e) {
+    $('.imgLogo, #volverArriba').on('click', function(e) {
         e.preventDefault();
         $('html, body').animate({scrollTop:0}, '300');
-      });
+    });
       
-      let vid = document.getElementById("background-video"); 
-      $('.botonPausa').on('click', function(){
-          if ($('.botonPausa').text() == "Pausa"){
-              $('.botonPausa').text("Reproducir");
-              vid.pause();
-          }else{
-              $('.botonPausa').text("Pausa");
-              vid.play();
-          }
-      });
-      $("#probar").on("click", function(){
+    let vid = document.getElementById("background-video"); 
+    $('.botonPausa').on('click', function(){
+        if ($('.botonPausa').text() == "Pausa"){
+            $('.botonPausa').text("Reproducir");
+            vid.pause();
+        }else{
+            $('.botonPausa').text("Pausa");
+            vid.play();
+        }
+    });
+    $("#probar").on("click", function(){
         window.location.href = 'login'; 
-      });
-
-      // Desplazamiento barra de navegación
-      
-      $("#actualizaciones").click(function() {
-          // Obtener la posición del elemento de destino
-          var targetPosition = $("#actualizacionesParrafo").offset().top;
-          // Realizar el desplazamiento suave con transición
-          $("html, body").animate({
+    });
+    if ($(window).width() <= 1080 && $(window).height() <= 2600) {
+        // Desplazamiento barra de navegación
+        $("#actualizaciones").click(function() {
+            // Obtener la posición del elemento de destino
+            var targetPosition = $("#actualizacionesParrafo").offset().top;
+            // Realizar el desplazamiento suave con transición
+            $("html, body").animate({
+            scrollTop: targetPosition-210
+            }, 500); 
+        });
+        $("#comoFunciona").click(function() {
+            var targetPosition = $("#comoFuncionaParrafo").offset().top;
+            $("html, body").animate({
+            scrollTop: targetPosition-210
+            }, 500); 
+        });
+        $("#quienesSomos").click(function() {
+            var targetPosition = $("#quienesSomosParrafo").offset().top;
+            $("html, body").animate({
+            scrollTop: targetPosition-210
+            }, 500); 
+        });
+        $("#que").click(function() {
+            var targetPosition = $("#queParrafo").offset().top;
+            $("html, body").animate({
+            scrollTop: targetPosition-210
+            }, 500); 
+        });
+    }else{
+        // Desplazamiento barra de navegación
+        $("#actualizaciones").click(function() {
+            // Obtener la posición del elemento de destino
+            var targetPosition = $("#actualizacionesParrafo").offset().top;
+            // Realizar el desplazamiento suave con transición
+            $("html, body").animate({
             scrollTop: targetPosition-120
-          }, 500); 
-      });
-      $("#comoFunciona").click(function() {
-          var targetPosition = $("#comoFuncionaParrafo").offset().top;
-          $("html, body").animate({
+            }, 500); 
+        });
+        $("#comoFunciona").click(function() {
+            var targetPosition = $("#comoFuncionaParrafo").offset().top;
+            $("html, body").animate({
             scrollTop: targetPosition-120
-          }, 500); 
-      });
-      $("#quienesSomos").click(function() {
-          var targetPosition = $("#quienesSomosParrafo").offset().top;
-          $("html, body").animate({
+            }, 500); 
+        });
+        $("#quienesSomos").click(function() {
+            var targetPosition = $("#quienesSomosParrafo").offset().top;
+            $("html, body").animate({
             scrollTop: targetPosition-120
-          }, 500); 
-      });
-      $("#que").click(function() {
-          var targetPosition = $("#queParrafo").offset().top;
-          $("html, body").animate({
+            }, 500); 
+        });
+        $("#que").click(function() {
+            var targetPosition = $("#queParrafo").offset().top;
+            $("html, body").animate({
             scrollTop: targetPosition-120
-          }, 500); 
-      });
-      
+            }, 500); 
+        });
+    }
 });

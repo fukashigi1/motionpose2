@@ -7,28 +7,29 @@ body {
     background-color: #16161a;
 }
 
+footer{
+    border-top: 1px solid white;
+}
+
 h1 {
-    font-size: 80px;
+    font-size: 3vw;
     position: absolute;
-    bottom: 15%;
+    bottom: 15vh;
     font-family: monospace;
     text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-left: 6vw;
+    margin-right: 6vw;
     z-index: 10;
 }
 h2 {
-    font-size: 40px;
+    font-size: 3vw;
     font-family: monospace;
     border-bottom: 1px solid white;
-    padding-bottom: 5px;
-    margin-left: 150px;
-    margin-right: 150px;
-    padding-bottom: 10px;
+    padding-bottom: 1.3vh;
 }
 
 h3 {
-    font-size: 25px;
+    font-size: 1.83vw;
 }
 
 video {
@@ -37,127 +38,94 @@ video {
     height: 100vh;
     z-index: -1;
 }
-
+    
 p {
-    margin-left: 150px;
-    margin-right: 150px;
-    font-size: 20px;
-    line-height: 30px;
-    margin-bottom: 70px;
-}
-
-footer {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 200px;
-    border-top: 1px solid white;
-    margin-bottom: 50px;
-}
-footer p {
-    font-size: 20px;
-    margin-left: 25px;
-}
-
-footer a {
-    font-size: 20px;
-    margin-left: 25px;
-    cursor: pointer;
-}
-footer a:hover {
-    text-decoration: underline;
+    font-size: 1.46vw;
+    line-height: 2.2vw;
+    margin-bottom: 9vh;
 }
 
 #imagenComoFunciona{
-    margin-left: 150px;
-    margin-right: 150px;
     width: -webkit-fill-available;
-    border-radius: 7px;
-    padding: 150px;
+    border-radius: 0.7vw;
+    padding: 11%;
 }
 
 .header {
     transition: all 0.5s;
     z-index: 100;
-    height: 100px;
+    height: 9vh;
     width: 100%;
     background-color: #ffffff00;
     position: fixed;
 }
 
-.imgLogo {
-    width: 247px;
-    height: 67px;
-    cursor: pointer;
-    margin-top: 18px;
-    margin-left: 150px;
-}
-
 ul {
     float: right;
-    margin-top: 36px;
-    margin-right: 150px;
+    margin-top: 3.3vh;
+    margin-right: 7.8vw;
     user-select: none;
 }
 
 ul a {
     transition: all 0.2s;
-    font-size: 19px;    
+    font-size: 1.2vw;  
     font-family: monospace;
-    padding: 10px;
+    padding: 0.521vw;
     cursor: pointer;
     user-select: none;
     text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
 }
 ul a:hover {
     transition: all 0.2s;
-    padding: 8px;
-    font-size: 20px;    
+    padding: 0.8vw;
+    font-size: 1.35vw;    
     text-decoration: underline;
 }
 
 .divTransicion{
     position: absolute;
     width: 100%;
-    height: 200px;
+    height: 20vh;
     bottom: 0;
     background: rgb(22,22,26);
     background: linear-gradient(0deg, rgba(22,22,26,1) 2%, rgba(0,0,0,0) 100%);
 }
 
 .contenedorImagenes {
-    margin-left: 150px;
-    margin-right: 150px;
     text-align: center;
 }
 
 .contenedorDesarrolladores {
-    margin-left: 150px;
-    margin-right: 150px;
     text-align: center;
 }
 
 .imagenesComoFunciona {
-    width: 350px;
-    height: 350px;
+    /*width: 25.6vw;
+    width: 33.4%;*/
+    width: 26.6vw;
+    height: 45.55vh;
+    margin-bottom: 0.5vh;
     overflow: hidden;
     object-fit: cover;
-    border-radius: 7px;
+    border-radius: 0.7vw;
 }
 
 .imagenesDesarrolladores {
     width: 80%;
-    border-radius: 7px;
+    border-radius: 0.7vw;
 }
 
 .imagen {
     display: inline-block;
-    max-width: 512px;
+    max-width: 32vw;
+    margin-bottom: 1.5vh;
 }
 
 .imagen p {
-    padding-left: 30px;
-    padding-right: 30px;
-    font-size: 20px;
+    padding-left: 3.9vh;
+    padding-right: 3.9vh;
+    font-size: 1.465vw;
     text-align: justify;
     margin: 0;
 }
@@ -166,9 +134,126 @@ ul a:hover {
     color: black;
     background: white;
 }
+.header i{
+    display: none;
+}
 
-@media screen and (max-width: 1365px){        
-    ul{
-       display: none;
+.header div{
+    display: none;
+}
+
+.content{
+    margin-left: 11vw;
+    margin-right: 11vw;
+}
+
+
+@media screen and (max-width: 1080px) and (max-height: 2600px) {
+
+    .header {
+        height: 8vh;
+    }
+
+    h1{
+        font-size: 9vw;
+    }
+
+    h2{
+        font-size: 6vw;
+        margin-top: 15vw;
+    }
+
+    p{
+        font-size: 4.5vw;
+        line-height: 5.3vw;
+        margin-bottom: 10vw;
+    }
+
+    .content{
+        margin-left: 9.5vw;
+        margin-right: 9.5vw;
+    }
+
+    .imagenesComoFunciona{
+        height: 24.55vw;
+    }
+
+    #imagenComoFunciona{
+        padding: 4%;
+        margin-bottom: 7%;
+        margin-top: 2%;
+    }
+
+    .imagen{
+        max-width: none;
+        padding: 19px;
+        border: 1px solid white !important;
+    }
+
+    .imagen h3{
+        font-size: 4.83vw;
+        margin-block-start: 2vw;
+        margin-block-end: 2vw;
+    }
+
+    .imagen p {
+        padding-left: 5.9vw;
+        padding-right: 5.9vw;
+        font-size: 3.465vw;
+        text-align: justify;
+        margin: 0;
+        line-height: 4.8vw;
+    }
+
+    .imagenesDesarrolladores{
+        width: 85%;
+    }
+
+    ul a:hover {
+        transition: all 0.2s;
+        text-decoration: none;
+        font-size: 4.5vw;
+        background: #29292f;
+        padding-inline: 1vw;
+        color: #0091b6;
+    }
+
+    footer{
+        padding-top: 0 !important;
+    }
+
+    .btnSubir{
+        background-color: #003f4e;
+    }
+
+    .btnSubir:hover{
+        transition: all 0.4s;
+        background-color: #008db1;
+    }
+
+    .navMenu{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-right: 0.6vw;
+        padding-right: 6vw;
+        margin-top: 0vw;
+        background: #1d1d1d;
+        margin-left: 0.6vw;
+        padding-left: 6vw;
+        border-radius: 2vw;
+    }
+
+    .navMenu a{
+        line-height: 13vw;
+        font-size: 4.5vw;
+    }
+
+    .navMenu2{
+        width: 100%;
+        color: #ffff;
+        transition: all 0.2s;
+        padding: 0.8vw;
+        font-size: 1.35vw;    
     }
 }

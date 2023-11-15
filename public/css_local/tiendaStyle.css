@@ -69,3 +69,62 @@
     border: 3px double rgb(255, 255, 255);
     color: white;
 }
+@media screen and (max-width: 1080px) and (max-height: 2600px) {
+    .contenedorElementos {
+        width: 100%;
+        height: 82%;
+        overflow: hidden;
+        display: inline-flex;
+        margin-left: auto;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .contenedorVIP {
+        float: none;
+        width: unset;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .elementoVenta{
+        height: unset;
+    }
+    .contenedorDescripcion {
+        display: flex;
+        float: none;
+        width: unset;
+        height: 100%;
+        color: white;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .valorVIP {
+        display: inline-block;
+        font-size: 6.3vw;
+        width: 100%;
+        margin: 0 !important;
+    }
+    .descripcion {
+        font-size: 4vw;
+        max-width: 56vw;
+    }
+    .comprar {
+        transition: all 0.1s;
+        background-color: white;
+        border: 1px solid black;
+        height: 7vh;
+        width: 22vh;
+        cursor: pointer;
+        font-size: 5.3vw;
+        font-family: monospace;
+        border-radius: 2vw;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+    .contenedorVIP h2{
+        font-size: 3.2vh !important;
+    }
+}
