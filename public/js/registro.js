@@ -22,6 +22,17 @@ $(document).ready(function(){
         }
     });
 
+    $("#telefono").on("focus", function(){
+        $("#telefonoLabel").css("bottom", "-8px");
+        $("#telefonoLabel").css("background-color", "white");
+    })
+    $("#telefono").on("blur", function(){
+        if($("#telefono").val() == ""){        
+            $("#telefonoLabel").css("bottom", "-31px");
+            $("#telefonoLabel").css("background-color", "transparent");
+        }
+    });
+
     $("#contrasena").on("focus", function(){
         $("#contrasenaLabel").css("bottom", "-8px");
         $("#contrasenaLabel").css("background-color", "white");
@@ -54,6 +65,11 @@ $(document).ready(function(){
         $("#correoLabel").css("background-color", "white");
         $("#correo").focus();
     });
+    $("#telefonoLabel").on("click", function(){
+        $("#telefonoLabel").css("bottom", "-8px");
+        $("#telefonoLabel").css("background-color", "white");
+        $("#telefono").focus();
+    });
     $("#contrasenaLabel").on("click", function(){
         $("#contrasenaLabel").css("bottom", "-8px");
         $("#contrasenaLabel").css("background-color", "white");
@@ -74,6 +90,7 @@ $(document).ready(function(){
         'width' : '28%',
         'height' : '63%'
     });
+
     $("#volver").css({
         'left': '0',
         'opacity': '1'
@@ -109,6 +126,15 @@ $(document).ready(function(){
             if (validarCorreo($("#correo").val()) == false) {
                 console.log(validarCorreo($("#correo").val()));
                 invalido = "El correo ingresado es inválido.";
+            }
+
+            if ($("#telefono").val() == ""){
+                invalido = "El telefono es obligatorio.";
+                break;
+            }
+            if (validarTelefono($("#telefono").val()) == false) {
+                console.log(validarTelefono($("#telefono").val()));
+                invalido = "El teléfono debe contener 9 dígitos.";
             }
     
             if ($("#contrasena").val() == ""){
@@ -148,6 +174,7 @@ $(document).ready(function(){
                 data: JSON.stringify({
                     nombre: $("#nombre").val(),
                     correo: $("#correo").val(),
+                    telefono: $("#telefono").val(),
                     contrasena: $("#contrasena").val()
                 }),
                 contentType: 'application/json',
@@ -200,4 +227,9 @@ function validarContraseña(contrasena) {
     }
 
     return true;
+}
+
+function validarTelefono(telefono) {
+    const regex = /^[0-9]{9}$/;
+    return regex.test(telefono);
 }

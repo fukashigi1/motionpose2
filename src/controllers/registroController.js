@@ -39,7 +39,7 @@ controller.post = async (req, res) => {
                                     console.error(msg);
                                     res.json({ Exito: false, msg: msg });
                                 } else {
-                                    res.json({ Exito: true, msg: "Usuario registrado exitosamente.", correo: req.body.correo, contrasena: req.body.contrasena});
+                                    res.json({ Exito: true, msg: "Usuario registrado exitosamente.", correo: req.body.correo, contrasena: req.body.contrasena, telefono: req.body.telefono});
                                 }
                             });
                         }
