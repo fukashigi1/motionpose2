@@ -5,19 +5,21 @@ const mysql = require('mysql');
 const myConnection = require('express-myconnection');
 const app = express();
 const compression = require('compression');
-
+require('dotenv').config({ path: 'config.env' });
 const session = require('express-session');
 
-// Configuración
-
-
 // Configuración de acceso a la base de datos
-const hostDB = "localhost";
-const userDB = "root";
-const passwordDB = "";
-const portDB = 3306;
-const databaseDB = 'motionpose';
+const URLBD = process.env.CONEXION_BASEDATOS_URLBD;
+const USUARIOBD = process.env.CONEXION_BASEDATOS_USUARIOBD;
+const CONTRASENABD = process.env.CONEXION_BASEDATOS_CONTRASENABD;
+const PUERTOBD = process.env.CONEXION_BASEDATOS_PUERTOBD;
+const NOMBREBD = process.env.CONEXION_BASEDATOS_NOMBREBD;
 
+const URL_BASE = process.env.URL_BASE;
+
+const PUERTO_SERVIDOR = process.env.PUERTO_SERVIDOR;
+const NOMBRE_PROYECTO = process.env.NOMBRE_PROYECTO;
+const VERSION_PROYECTO = process.env.VERSION_PROYECTO;
 // Middlewares
 app.use(compression());
 
@@ -32,11 +34,11 @@ app.use((req, res, next) => {
 });
 
 app.use(myConnection(mysql, {
-    host: hostDB,
-    user: userDB,
-    password: passwordDB,
-    port: portDB,
-    database: databaseDB
+    host: URLBD,
+    user: USUARIOBD,
+    password: CONTRASENABD,
+    port: PUERTOBD,
+    database: NOMBREBD
 }, 'single'));
 
 app.use(session({
@@ -44,16 +46,12 @@ app.use(session({
     saveUninitialized: true
 }))
 
-app.set('port', process.env.PORT || 5555);
+app.set('port', process.env.PORT || PUERTO_SERVIDOR);
 
 app.use(express.static('public', {
     maxAge: 31536000, // Cache for 1 year
   }));
   
-app.get('/', (req, res)=>{
-    res.sendFile(path.join(__dirname, 'view', 'index.html'));
-}); 
-
 // Importación de rutas
 const usuarioRuta = require('./routes/usuarios');
 const registroRuta = require('./routes/registroRuta');
@@ -64,9 +62,9 @@ const tiendaRuta = require('./routes/tiendaRuta');
 const ayudaRuta = require('./routes/ayudaRuta');
 const imagenRuta = require('./routes/imagenRuta');
 const aplicacionRuta = require('./routes/aplicacionRuta');
-//const politicasRuta = require('./routes/politicsasRuta');
-//const terminosRuta = require('./routes/terminosRuta');
-//const manualRuta = require('./routes/manualRuta');
+const politicasRuta = require('./routes/politicasRuta');
+const terminosRuta = require('./routes/terminosRuta');
+const manualRuta = require('./routes/manualRuta');
 
 // Rutas
 app.use('/login', usuarioRuta); 
@@ -78,10 +76,25 @@ app.use('/tienda', tiendaRuta);
 app.use('/ayuda', ayudaRuta);
 app.use('/imagen', imagenRuta);
 app.use('/aplicacion', aplicacionRuta);
-//app.use('/politicas', politicasRuta);
-//app.use('/terminos', terminosRuta);
-//app.use('/manual', manualRuta);
+app.use('/imagenes', express.static(path.join(__dirname, '../Imagenes')));
+app.get('/', (req, res)=>{
+    res.sendFile(path.join(__dirname, 'view', 'index.html'));
+}); 
+
+//APIS
+app.get('/config', (req, res) => {
+    const config = {
+        autorizado: true,
+        nombreProyecto: NOMBRE_PROYECTO,
+        versionProyecto: VERSION_PROYECTO
+    }
+    res.json(config); 
+});
+
+app.use('/politicas', politicasRuta);
+app.use('/terminos', terminosRuta);
+app.use('/manual', manualRuta);
 
 app.listen(app.get('port'), ()=>{
-    console.log('Server corriendo en puerto: ' + app.get('port'));
+    console.log('Server corriendo en puerto: ' + app.get('port') + ' en la versión: [' +  VERSION_PROYECTO + ']');
 });

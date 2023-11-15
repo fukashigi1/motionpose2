@@ -8,6 +8,12 @@ controller.view = async (req, res)=>{
     }else{
         res.sendFile(path.join(__dirname, '..', 'view', 'tienda.html'));
     }
+    req.session.loggedin = true;
+    req.session.id_usuario = 1;
+    req.session.nombre_usuario = "test";
+    req.session.correo = "test@test.test";
+    req.session.contrasena = "Tester_123";
+    req.session.id_tipo = 2;
 };
 
 controller.comprar = async (req, res) => {
@@ -18,7 +24,7 @@ controller.comprar = async (req, res) => {
             console.error(msg);
             res.json({ Exito: false, msg: msg });
         } else {
-            conexion.query('SELECT nombre_producto FROM tienda WHERE id_producto = ?', [req.body.membresia], (error, compras) => {
+            conexion.query('SELECT nombre FROM tienda WHERE id_producto = ?', [req.body.membresia], (error, compras) => {
                 if (error) {
                     msg = "Ha ocurrido un error inesperado en la consulta.";
                     console.error(msg);
@@ -28,8 +34,8 @@ controller.comprar = async (req, res) => {
                         msg = "Producto inválido.";
                         console.error(msg);
                         res.json({ Exito: false, msg: msg });
-                    } else {
-                        conexion.query("UPDATE usuarios SET tipo_usuario = '" + compras[0].nombre_producto + "' WHERE correo = '" + req.session.correo + "'", (error, resultado) => {
+                    } else {/*conexion.query("UPDATE usuarios SET tipo_usuario = '" + compras[0].nombre_producto + "' WHERE correo = '" + req.session.correo + "'", (error, resultado)*/
+                        conexion.query("UPDATE usuario SET id_tipo = (SELECT id_tipo FROM usuario_tipo WHERE tipo = ?) WHERE id_usuario = ?", [compras[0].nombre, req.session.id_usuario], (error, resultado) => {
                             if (error) {
                                 msg = error.code;
                                 console.error(msg);
@@ -46,7 +52,7 @@ controller.comprar = async (req, res) => {
                                     res.json({ Exito: false, msg: msg });
                                 }else{
                                     if(req.session.loggedin == true){
-                                        conexion.query('SELECT tipo_usuario FROM usuarios WHERE correo = ?', [req.session.correo], (error, filas) => {
+                                        conexion.query('SELECT id_tipo FROM usuario WHERE id_usuario = ?', [req.session.id_usuario], (error, filas) => {
                                             if (error) {
                                                 msg = error.code;
                                                 console.error(msg);
@@ -58,7 +64,8 @@ controller.comprar = async (req, res) => {
                                                       console.error(err);
                                                       res.json({ Exito: false, msg: err });
                                                     } else {
-                                                        conexion.query('INSERT INTO compras (correo, id_producto) VALUES (?, ?)', [req.session.correo, req.body.membresia], (error, resultado) => {
+                                                        const fechaHoraActual = new Date();
+                                                        conexion.query('INSERT INTO compra (id_usuario, id_producto, fecha_compra) VALUES (?, ?, ?)', [req.session.id_usuario, req.body.membresia, fechaHoraActual.toISOString().slice(0, 19).replace('T', ' ')], (error, resultado) => {
                                                             if (error) {
                                                                 msg = error.code;
                                                                 console.error(msg);

@@ -40,7 +40,7 @@ label {
 }
 
 input {
-    width: 100%;
+    width: 90%;
     height: 40px;
     border-radius: 5px;
     border: 1px solid #16161aba;
@@ -92,7 +92,6 @@ a{
 #registrarseBoton {
     transition: all 0.2s;
     cursor: pointer;
-    position: absolute;
     bottom: 0;
     right: 0;
     margin: 15px;
@@ -131,7 +130,7 @@ a{
 
 .mostrarError {
     transition: all 0.2s;
-    margin-top: -56px;
+    margin-top: -40px;
     opacity: 0;
     color: #16161a;
     border-bottom: 1px solid #00000063;
@@ -168,7 +167,7 @@ a{
 }
 
 .contenedorLogin {
-    transition: all 0.5s;
+    transition: height 0.5s ease;
     width: 0%;
     height: 0%;
     border-radius: 10px;
@@ -255,5 +254,4 @@ a{
         padding-right: 0;
         margin-left: -2.6vw;
     }
-
 }

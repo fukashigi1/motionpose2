@@ -14,8 +14,6 @@ controller.post = async (req, res) => {
     bcrypt.hash(req.body.contrasena, 12).then(hash => {
         req.body.contrasena = hash;
 
-        console.log(req.body.contrasena);
-
         req.getConnection((error, conexion) => {
             if (error) {
                 msg = "Ha ocurrido un error inesperado en la consulta getConnection.";
@@ -23,7 +21,7 @@ controller.post = async (req, res) => {
                 res.json({ Exito: false, msg: msg });
             } else {
                 // Verificar si el correo ya está en uso
-                conexion.query('SELECT correo FROM usuarios WHERE correo = ?', [req.body.correo], (error, filas) => {
+                conexion.query('SELECT correo FROM usuario WHERE correo = ?', [req.body.correo], (error, filas) => {
                     if (error) {
                         msg = error.code;
                         console.error(msg);
@@ -35,13 +33,13 @@ controller.post = async (req, res) => {
                             res.json({ Exito: false, msg: msg });
                         } else {
                             // Insertar nuevo usuario
-                            conexion.query("INSERT INTO usuarios (nombre_usuario, contrasena, correo) VALUES (?, ?, ?)", [req.body.nombre, req.body.contrasena, req.body.correo], (error, resultado) => {
+                            conexion.query("INSERT INTO usuario (id_tipo, nombre, correo, contrasena, estado) VALUES (1, ?, ?, ?, 1)", [req.body.nombre, req.body.correo, req.body.contrasena], (error, resultado) => {
                                 if (error) {
                                     msg = error.code;
                                     console.error(msg);
                                     res.json({ Exito: false, msg: msg });
                                 } else {
-                                    res.json({ Exito: true, msg: "Usuario registrado exitosamente.", correo: req.body.correo, contrasena: req.body.contrasena});
+                                    res.json({ Exito: true, msg: "Usuario registrado exitosamente.", correo: req.body.correo, contrasena: req.body.contrasena, telefono: req.body.telefono});
                                 }
                             });
                         }
