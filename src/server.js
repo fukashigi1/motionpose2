@@ -69,6 +69,7 @@ app.use('/tienda', tiendaRuta);
 app.use('/ayuda', ayudaRuta);
 app.use('/imagen', imagenRuta);
 app.use('/aplicacion', aplicacionRuta);
+app.use('/imagenes', express.static(path.join(__dirname, '../Imagenes')));
 
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, 'view', 'index.html'));
