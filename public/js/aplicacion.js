@@ -22,12 +22,12 @@ let data = {
         opcionesHotExportar: [['E', 69]]
     }
 }
-let opcionesHotCaptura = {};
-let opcionesHotTemporizador = {};
-let opcionesHotExportar = {};
-let listaHotKeysFormateado = [opcionesHotCaptura, opcionesHotTemporizador, opcionesHotExportar];
+let opcionesHotCaptura = {}; 
+let opcionesHotTemporizador = {}; 
+let opcionesHotExportar = {}; 
 
-$(document).ready(function () {
+let hotkeysIniciales = []
+$(document).ready(function(){
     cargarModal();
     cargarFlotante();
     datosProyecto();
@@ -57,8 +57,7 @@ $(document).ready(function () {
                 ejecutarEmergente("Error", "Los segundos no pueden ser cero o valores negativos");
                 return;
             }
-            else if (segundos > 0) {
-                console.log(segundos)
+            else if(segundos>0){
                 var count = parseInt(segundos);
                 var countdownElement = $('<div class="countdown">' + count + '</div>');
                 $('body').append(countdownElement);
@@ -205,15 +204,54 @@ $(document).ready(function () {
         }
     }
 
-    function borrarAccion() {
-        for (let i = 0; i < listaHotKeysFormateado.length; i++) {
-            Object.keys(listaHotKeysFormateado[i]).forEach(key => {
-                listaHotKeysFormateado[i][key] = false;
-            });
-        }
+    function borrarAccion(){
+        Object.keys(opcionesHotCaptura).forEach(key => {
+            opcionesHotCaptura[key] = false;
+        });
+        Object.keys(opcionesHotTemporizador).forEach(key => {
+            opcionesHotTemporizador[key] = false;
+        });
     }
 
-    $("body").on("click", ".exit", function () {
+    //Lector de hotkeys nuevos hotkeysIniciales
+    function lectorHotkeysNuevos(){
+        let elementosHotArray = []
+        $('[id^="opcionesHot"]').each(function(){
+            elementosHotArray.push($(this))
+        })
+        let hotkeyCambiados = []
+        for (let i = 0; i < elementosHotArray.length; i++) {
+            if ($(elementosHotArray[i]).val() != $(hotkeysIniciales[i]).val()) {
+                hotkeyCambiados.push($(elementosHotArray[i]))
+            }
+        }
+
+
+        for (let i = 0; i < hotkeyCambiados.length; i++) {
+            console.log($(hotkeyCambiados[i]).attr('id'), data.hotkeys)
+            if ($(hotkeyCambiados[i]).attr('id') in data.hotkeys) {
+                let valor = data.hotkeys[$(hotkeyCambiados[i]).attr('id')];
+                let objetoMomentaneo = {}
+                if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotCaptura') {
+                    for (let x = 0; x < valor.length; x++) {
+                        for (let z = 0; z < valor[x].length; z++) {
+                            objetoMomentaneo[valor[x][z][1]] = false;
+                        }
+                    }
+                    opcionesHotCaptura = objetoMomentaneo;
+                } else if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotTemporizador') {
+                    console.log("aqui")
+                    for (let x = 0; x < valor.length; x++) {
+                        for (let z = 0; z < valor[x].length; z++) {
+                            objetoMomentaneo[valor[x][z][1]] = false;
+                        }
+                    }
+                    opcionesHotTemporizador = objetoMomentaneo;
+                }
+            }
+        }
+    }
+    $("body").on("click", ".exit", function(){
         console.log("SEXO");
         setTimeout(() => {
             $(".modalFlotante").css({
@@ -263,8 +301,15 @@ $(document).ready(function () {
     $('#dispositivo').on("click", function () {
 
     });
-    $('#preferencias').on("click", function () {
+    $('#preferencias').on("click", function(){
+        hotkeysIniciales = []
         $(".modalOpciones").css('display', 'block')
+        let arrayHotkeys = $('[id^="opcionesHot"]').clone();
+        for (let i = 0; i< arrayHotkeys.length; i++) {
+            hotkeysIniciales.push($(arrayHotkeys[i]))
+        }
+
+        //ENCONTRADO EL BUG, CUANDO SE AGREGA EL ELEMENTO JQUERY SE MANTIENE, NO ES UNA COPIA (cambiado de .toarray por .clone)
     });
     $('#shaders').on("click", function () {
 
@@ -311,6 +356,7 @@ $(document).ready(function () {
     $("#cerrarOpciones").on("click", function () {
         $(".modalOpciones").css('display', "none");
         lectorHotkeysNuevos()
+
     });
 
 
