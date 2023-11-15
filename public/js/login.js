@@ -2,7 +2,7 @@ $(document).ready(function(){
     //$("#parrafoTest").html("<p>Hola " + JSON.stringify(usuarios) + "</p>"); // Muestra los datos en el HTML
     
     // Estetica label login
-    $("#correo").on("focus", function(){
+    {$("#correo").on("focus", function(){
         $("#correoLabel").css("bottom", "-8px");
         $("#correoLabel").css("background-color", "white");
     })
@@ -24,9 +24,9 @@ $(document).ready(function(){
             $("#contrasenaLabel").css("background-color", "transparent");
             $("#contrasenaLabel img").css("background-color", "transparent");
         }
-    });
+    });}
     //Click en label de input
-    $("#correoLabel").on("click", function(){
+    {$("#correoLabel").on("click", function(){
         $("#correoLabel").css("bottom", "-8px");
         $("#correoLabel").css("background-color", "white");
         $("#correo").focus();
@@ -35,7 +35,7 @@ $(document).ready(function(){
         $("#contrasenaLabel").css("bottom", "-8px");
         $("#contrasenaLabel").css("background-color", "white");
         $("#contrasena").focus();
-    });
+    });}
     // Cambiar ojo de contraseña
     $("#contrasenaLabel img").on("click", function(){
         if($("#contrasenaLabel img").attr("src") == "icons/hide.png"){
@@ -49,8 +49,7 @@ $(document).ready(function(){
         }
     });
     // Titulo y contenedor animación
-
-    $(".contenedorTitulo").css({
+    {$(".contenedorTitulo").css({
         'opacity' : '1',
         'margin-left' : '100px'
     });
@@ -62,7 +61,7 @@ $(document).ready(function(){
     $("#volver").css({
         'left': '0',
         'opacity': '1'
-    });
+    });}
     $("#noCuenta").on("click", function(){
         window.location.href = 'registro'; 
     });

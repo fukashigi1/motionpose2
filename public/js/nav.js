@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $.ajax({
         method: "GET",
-        url: 'config',
+        url: '/config',
         dataType: "json",
         contentType: 'application/json',
         success: function(data){
