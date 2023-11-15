@@ -84,6 +84,7 @@ controller.crear = async (req, res) => {
                             } else {
                                 if (Object.values(filas[0])[0] < 10) {
                                     conexion.query('INSERT INTO proyecto (nombre, id_tipo, id_usuario) VALUES (?, ?, ?)', [req.body.nombre_proyecto, req.body.tipo_proyecto, req.session.id_usuario], (error, respuesta) => {
+                                        console.log(respuesta);
                                         if (error) {
                                             msg = error.code;
                                             console.error(msg);
@@ -94,8 +95,23 @@ controller.crear = async (req, res) => {
                                                 console.error(msg);
                                                 res.json({ Exito: false, msg: msg });
                                             } else {
-                                                console.log(respuesta);
-                                                res.json({ Exito: true, msg: "Proyecto creado satisfactoriamente." });
+                                                conexion.query('INSERT INTO preferencias (id_proyecto) VALUES (?)', [respuesta.insertId], (error, response) => {
+                                                    console.log(response);
+                                                    if (error) {
+                                                        msg = error.code;
+                                                        console.error(msg);
+                                                        res.json({ Exito: false, msg: msg });
+                                                    } else {
+                                                        if (response.affectedRows == 0) {
+                                                            msg = "Ocurrió un error inesperado en la consulta."
+                                                            console.error(msg);
+                                                            res.json({ Exito: false, msg: msg });
+                                                        } else {
+                                                            console.log(response);
+                                                            res.json({ Exito: true, msg: "Proyecto creado satisfactoriamente." });
+                                                        }
+                                                    }
+                                                });
                                             }
                                         }
                                     });
