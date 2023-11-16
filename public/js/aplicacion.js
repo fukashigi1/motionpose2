@@ -22,12 +22,12 @@ let data = {
         opcionesHotExportar: [['E', 69]]
     }
 }
-let opcionesHotCaptura = {}; 
-let opcionesHotTemporizador = {}; 
-let opcionesHotExportar = {}; 
+let opcionesHotCaptura = {};
+let opcionesHotTemporizador = {};
+let opcionesHotExportar = {};
 
 let hotkeysIniciales = []
-$(document).ready(function(){
+$(document).ready(function () {
     cargarModal();
     cargarFlotante();
     datosProyecto();
@@ -57,7 +57,7 @@ $(document).ready(function(){
                 ejecutarEmergente("Error", "Los segundos no pueden ser cero o valores negativos");
                 return;
             }
-            else if(segundos>0){
+            else if (segundos > 0) {
                 var count = parseInt(segundos);
                 var countdownElement = $('<div class="countdown">' + count + '</div>');
                 $('body').append(countdownElement);
@@ -204,7 +204,7 @@ $(document).ready(function(){
         }
     }
 
-    function borrarAccion(){
+    function borrarAccion() {
         Object.keys(opcionesHotCaptura).forEach(key => {
             opcionesHotCaptura[key] = false;
         });
@@ -214,9 +214,9 @@ $(document).ready(function(){
     }
 
     //Lector de hotkeys nuevos hotkeysIniciales
-    function lectorHotkeysNuevos(){
+    function lectorHotkeysNuevos() {
         let elementosHotArray = []
-        $('[id^="opcionesHot"]').each(function(){
+        $('[id^="opcionesHot"]').each(function () {
             elementosHotArray.push($(this))
         })
         let hotkeyCambiados = []
@@ -251,7 +251,7 @@ $(document).ready(function(){
             }
         }
     }
-    $("body").on("click", ".exit", function(){
+    $("body").on("click", ".exit", function () {
         console.log("SEXO");
         setTimeout(() => {
             $(".modalFlotante").css({
@@ -301,11 +301,11 @@ $(document).ready(function(){
     $('#dispositivo').on("click", function () {
 
     });
-    $('#preferencias').on("click", function(){
+    $('#preferencias').on("click", function () {
         hotkeysIniciales = []
         $(".modalOpciones").css('display', 'block')
         let arrayHotkeys = $('[id^="opcionesHot"]').clone();
-        for (let i = 0; i< arrayHotkeys.length; i++) {
+        for (let i = 0; i < arrayHotkeys.length; i++) {
             hotkeysIniciales.push($(arrayHotkeys[i]))
         }
 
@@ -658,9 +658,8 @@ window.onload = function () {
             if (result.imagenes.length > 0) {
                 result.imagenes.forEach(function (imagen, indice) {
                     const fileName = `${result.nombre_proyecto}`;
-                    var baseUrl = window.location.origin; // Obtén la URL base del servidor
-                    var imagenFinal = baseUrl + "/imagenes/" + imagen.nombre;
-                    const captura = `<div class="captura" style="color: white"><img src="${imagenFinal}" data-nombre_archivo="${fileName}"></div>`;
+                    const imagenBase64 = "data:image/png;base64,"+imagen.base64
+                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-nombre_archivo="${fileName}"></div>`;
                     $(captura).insertAfter(".herramienta .titulo");
                 });
                 $(".tutorialSpaceBar").remove();

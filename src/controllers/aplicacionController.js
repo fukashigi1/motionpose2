@@ -1,6 +1,7 @@
 const controller = {};
 const path = require('path');
 const multer = require('multer');
+const fs = require('fs');
 
 controller.view = async (req, res) => {
     req.session.loggedin = true;
@@ -231,16 +232,31 @@ controller.cargar = async (req, res) => {
             } else {
                 conexion.query('SELECT * FROM imagenes WHERE id_proyecto = ?', [req.session.id_proyecto], (error, imagenes) => {
                     if (error) {
-                        msg = "No se encontraron imagenes.";
+                        msg = "No se encontraron imágenes.";
                         console.log(msg);
                         res.json({ Exito: false, msg: msg });
                     } else {
-                        msg = "Las imagenes se han cargado correctamente."
-                        res.json({ Exito: true, msg: msg, imagenes: imagenes, nombre_proyecto: req.session.nombre_proyecto });
+                            const imagenesBase64 = imagenes.map(imagen => {
+                            const filePath = path.join(__dirname, '..', '..', 'imagenes', imagen.nombre);
+                            const base64 = getBase64(filePath);
+                            return { ...imagen, base64 };
+                        });
+                
+                        msg = "Las imágenes se han cargado correctamente."
+                        res.json({ Exito: true, msg: msg, imagenes: imagenesBase64, nombre_proyecto: req.session.nombre_proyecto });
                     }
                 });
             }
         });
     }
 };
+function getBase64(filePath) {
+    try {
+        const data = fs.readFileSync(filePath);
+        return data.toString('base64');
+    } catch (error) {
+        console.log('Error al leer el archivo:', error);
+        return null;
+    }
+}
 module.exports = controller;    
