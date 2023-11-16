@@ -60,7 +60,7 @@ $(document).ready(function(){
     $("#contrasenaLabel").on("click", function(){
         $("#contrasenaLabel").css("background-color", "white");
         $("#contrasena").focus();
-    });}
+    });
     // Cambiar ojo de contraseña
     $("#contrasenaLabel img").on("click", function(){
         if($("#contrasenaLabel img").attr("src") == "icons/hide.png"){

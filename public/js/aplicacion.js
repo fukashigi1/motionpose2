@@ -27,6 +27,9 @@ let opcionesHotTemporizador = {};
 let opcionesHotExportar = {};
 
 let hotkeysIniciales = []
+
+let bloquearHotkeys = false;
+
 $(document).ready(function () {
     cargarModal();
     cargarFlotante();
@@ -170,24 +173,26 @@ $(document).ready(function () {
             //console.log(hotkeys.opcionesHotCaptura[i][1])
 
             codeset[hotkey[i][1]] = false;
-
         }
     }
     // HOTKEYS
     $("body").on("keydown", function (e) {
         // TOMAR CAPTURA - opcionesHotCaptura
-        if (detectorHotkeyinKey(true, e, opcionesHotCaptura)) {
-            e.preventDefault();
-            screenShot();
-            $(".tutorialSpaceBar").remove();
-        } else if (detectorHotkeyinKey(true, e, opcionesHotTemporizador)) {// TEMPORIZADOR - opcionesHotTemporizador
-
-            e.preventDefault();
-            tomarCapturaTemp(data.opcionTemporizadorSegundos)
+        if (!bloquearHotkeys) {
+            if (detectorHotkeyinKey(true, e, opcionesHotCaptura)) {
+                e.preventDefault();
+                screenShot();
+                $(".tutorialSpaceBar").remove();
+            } else if (detectorHotkeyinKey(true, e, opcionesHotTemporizador)) {// TEMPORIZADOR - opcionesHotTemporizador
+    
+                e.preventDefault();
+                tomarCapturaTemp(data.opcionTemporizadorSegundos)
+            }
         }
     }).on('keyup', function (e) {
-        detectorHotkeyinKey(false);
-
+        if (!bloquearHotkeys) {
+            detectorHotkeyinKey(false);
+        }
     });
     ////
 
@@ -302,6 +307,7 @@ $(document).ready(function () {
 
     });
     $('#preferencias').on("click", function () {
+        bloquearHotkeys = true;
         hotkeysIniciales = []
         $(".modalOpciones").css('display', 'block')
         let arrayHotkeys = $('[id^="opcionesHot"]').clone();
@@ -356,7 +362,7 @@ $(document).ready(function () {
     $("#cerrarOpciones").on("click", function () {
         $(".modalOpciones").css('display', "none");
         lectorHotkeysNuevos()
-
+        bloquearHotkeys = false;
     });
 
 
