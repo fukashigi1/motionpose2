@@ -11,8 +11,8 @@ controller.view = async (req, res) => {
     req.session.contrasena = "Tester_123";
     req.session.id_tipo = 2;
     req.session.tipo_proyecto = "imagen";
-    req.session.nombre_proyecto = "sexo";
-    req.session.id_proyecto = 1;
+    req.session.nombre_proyecto = "pila";
+    req.session.id_proyecto = 2;
 
     if (req.session.loggedin != true) {
         //res.redirect('/login');
