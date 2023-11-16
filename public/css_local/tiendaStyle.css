@@ -118,10 +118,10 @@
         height: 7vh;
         width: 22vh;
         cursor: pointer;
-        font-size: 5.3vw;
+        font-size: 4.7vw;
         font-family: monospace;
         border-radius: 2vw;
-        margin-top: 2vh;
+        margin: 2vh;
         margin-bottom: 2vh;
     }
     .contenedorVIP h2{

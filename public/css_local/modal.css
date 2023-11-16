@@ -102,7 +102,8 @@
     font-size: 15px;
     user-select: none;
     cursor: text;
-
+    bottom: -8px;
+    background-color: white;
 }
  
 .modalIcono i {
@@ -289,16 +290,7 @@
     .modalGlobalCuerpo form div{
         margin-top: unset !important;
     }
-    .labelInput {
-        transition: all 0.5s;
-        color: #6f6f83;
-        font-family: monospace;
-        position: relative;
-        bottom: -9.5vw;
-        font-size: 5vw;
-        user-select: none;
-        cursor: text;
-    }
+
     .modalFlotante {
         height: 27vh !important;
         width: 40vh !important;
@@ -339,16 +331,7 @@
         width: 100%;
         background-color: #00000012;
     }
-    .input {
-        height: 13vw !important;
-        margin-bottom: 7vw;
-        border-radius: 5px;
-        border: 1px solid #16161aba;
-        font-size: 5vw;
-        font-family: monospace;
-        color: #16161a;
-        padding-left: 5px;
-    }
+
     .modalGlobalBoton {
         transition: all 0.1s;
         min-width: 13vh;

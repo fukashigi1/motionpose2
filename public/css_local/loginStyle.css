@@ -168,11 +168,12 @@ a{
     margin-left: 5.3vw;
 }
 
-.imgLogo {
-    width: 34.05vw;
-    height: 8.5vw;
+.imgLogo{
+    width: 32vw !important;
+    margin-top: 2vw !important;
+    height: 8vw !important;
+    margin-left: 5vw !important;
 }
-
 .lateral {
     float: right;
     width: 50%;

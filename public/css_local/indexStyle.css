@@ -12,7 +12,7 @@ footer{
 }
 
 h1 {
-    font-size: 3vw;
+    font-size: 5.8vh;
     position: absolute;
     bottom: 15vh;
     font-family: monospace;
@@ -152,10 +152,11 @@ ul a:hover {
 
     .header {
         height: 8vh;
+        padding-bottom: 10vw;
     }
 
-    h1{
-        font-size: 9vw;
+    .titleP{
+        font-size: 10.8vw;
     }
 
     h2{
@@ -237,7 +238,7 @@ ul a:hover {
         align-items: flex-end;
         margin-right: 0.6vw;
         padding-right: 6vw;
-        margin-top: 0vw;
+        margin-top: 2vw;
         background: #1d1d1d;
         margin-left: 0.6vw;
         padding-left: 6vw;
@@ -255,5 +256,9 @@ ul a:hover {
         transition: all 0.2s;
         padding: 0.8vw;
         font-size: 1.35vw;    
+    }
+
+    .fa-solid.fa-bars.dropdown-menu{
+        margin-left: -30px;
     }
 }

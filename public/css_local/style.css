@@ -58,6 +58,7 @@ footer a:hover{
 
 
 @media screen and (max-width: 1080px) and (max-height: 2600px) {
+
     footer{
         margin-left: 9vw;
         margin-right: 9vw;
@@ -69,7 +70,7 @@ footer a:hover{
 
     footer p {
         text-align: center;
-        font-size: 4.47vw;
+        font-size: 3.57vw;
     }
 
     .btnSubir{
@@ -96,7 +97,7 @@ footer a:hover{
         align-items: flex-end;
         margin-right: 0.6vw;
         padding-right: 6vw;
-        margin-top: 0vw;
+        margin-top: 2vw;
         background: #1d1d1d;
         margin-left: 0.6vw;
         padding-left: 6vw;
@@ -114,6 +115,10 @@ footer a:hover{
         transition: all 0.2s;
         padding: 0.8vw;
         font-size: 1.35vw;    
+    }
+
+    .fa-solid.fa-bars.dropdown-menu{
+        margin-left: -30px;
     }
 
     .footerButtons{
@@ -171,6 +176,11 @@ footer a:hover{
         background-color: #ffffff00;
     }
 
+    .header{
+        background-color: #ffffff00;
+        padding-bottom: 10vw;
+    }
+
     .imgLogo {
         width: 46vw;
         margin-top: 5vw;
@@ -196,7 +206,6 @@ footer a:hover{
     }
     #nuevoProyectoHidden{
         top: -6vh;
-        font-size: 4vw;
         left: 1vh;
     }
     .noEditable{

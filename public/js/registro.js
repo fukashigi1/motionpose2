@@ -72,10 +72,11 @@ $(document).ready(function(){
         'margin-left' : '100px'
     });
 
-    $(".contenedorLogin").css({
+    /*$(".contenedorLogin").css({
         'width' : '28%',
         'height' : '63%'
-    });
+    });*/
+    
     $("#volver").css({
         'left': '0',
         'opacity': '1'
