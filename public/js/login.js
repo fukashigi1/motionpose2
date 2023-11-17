@@ -60,7 +60,7 @@ $(document).ready(function(){
     $("#contrasenaLabel").on("click", function(){
         $("#contrasenaLabel").css("background-color", "white");
         $("#contrasena").focus();
-    });
+    });}
     // Cambiar ojo de contraseña
     $("#contrasenaLabel img").on("click", function(){
         if($("#contrasenaLabel img").attr("src") == "icons/hide.png"){
@@ -74,8 +74,7 @@ $(document).ready(function(){
         }
     });
     // Titulo y contenedor animación
-
-    $(".contenedorTitulo").css({
+    {$(".contenedorTitulo").css({
         'opacity' : '1',
     });
 
@@ -86,7 +85,7 @@ $(document).ready(function(){
     $("#volver").css({
         'left': '0',
         'opacity': '1'
-    });
+    });}
     $("#noCuenta").on("click", function(){
         window.location.href = 'registro'; 
     });

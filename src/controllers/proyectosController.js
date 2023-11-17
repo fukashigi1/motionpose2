@@ -9,10 +9,11 @@ controller.view = async (req, res)=>{
         res.sendFile(path.join(__dirname, '..', 'view', 'proyecto.html'));
     }
     req.session.loggedin = true;
-    req.session.nombre_usuario = "test@gmail.com";
-    req.session.correo = "test@gmail.com";
-    req.session.contrasena = "Mojon333!.";
-    req.session.tipo_usuario = "GRATIS";
+    req.session.id_usuario = 1;
+    req.session.nombre_usuario = "test";
+    req.session.correo = "test@test.test";
+    req.session.contrasena = "Tester_123";
+    req.session.id_tipo = 2;
 };
 
 controller.obtenerProyectos = async (req, res) => {
@@ -23,14 +24,14 @@ controller.obtenerProyectos = async (req, res) => {
             console.error(msg);
             res.json({ Exito: false, msg: msg });
         } else {
-            if (req.session.correo === undefined) {
+            if (req.session.id_usuario === undefined) {
                 msg = "No se encuentra el correo en nuestra base de datos.";
                 console.error(msg);
                 res.json({ Exito: false, msg: msg });
             }else{
-                conexion.query('SELECT * FROM proyectos WHERE correo = ?', [req.session.correo], (error, filas) => {
+                conexion.query('SELECT * FROM proyecto WHERE id_usuario = ?', [req.session.id_usuario], (error, filas) => {
                 console.log("correo");
-                console.log(req.session.correo);
+                console.log(req.session.id_usuario);
                 if (error) {
                     msg = error.code;
                     console.error(msg);
@@ -71,12 +72,12 @@ controller.cambiarNombre = async (req, res) => {
                     console.error(msg);
                     res.json({ Exito: false, msg: msg });
                 } else {
-                    if (req.session.correo === undefined) {
+                    if (req.session.id_usuario === undefined) {
                         msg = "Usted debe tener una sesión activa.";
                         console.error(msg);
                         res.json({ Exito: false, msg: msg });
                     } else {
-                        conexion.query("UPDATE proyectos SET nombre_proyecto = '" + req.body.nombre + "' WHERE correo = '" + req.session.correo + "' AND id_proyecto = '" + req.body.id + "'", (error, resultado) => {
+                        conexion.query("UPDATE proyecto SET nombre = '" + req.body.nombre + "' WHERE id_usuario = '" + req.session.id_usuario + "' AND id_proyecto = '" + req.body.id + "'", (error, resultado) => {
                             if (error) {
                                 msg = "Ha ocurrido un error inesperado en la consulta getConnection.";
                                 console.error(msg);
@@ -113,12 +114,12 @@ controller.eliminarProyecto = async (req, res) => {
                 console.error(msg);
                 res.json({ Exito: false, msg: msg });
             } else {
-                if (req.session.correo === undefined) {
+                if (req.session.id_usuario === undefined) {
                     msg = "Usted debe tener una sesión activa.";
                     console.error(msg);
                     res.json({ Exito: false, msg: msg });
                 } else {
-                    conexion.query("DELETE FROM proyectos WHERE correo = '" + req.session.correo + "' AND id_proyecto = '" + req.body.id + "'", (error, resultado) => {
+                    conexion.query("DELETE FROM proyecto WHERE id_usuario = '" + req.session.id_usuario + "' AND id_proyecto = '" + req.body.id + "'", (error, resultado) => {
                         if (error) {
                             msg = "Ha ocurrido un error inesperado en la consulta getConnection.";
                             console.error(msg);
@@ -137,7 +138,7 @@ controller.eliminarProyecto = async (req, res) => {
                 }
             }
         });
-    }
+    }//
 }
 
 controller.continuar = async (req, res) => {
@@ -147,7 +148,7 @@ controller.continuar = async (req, res) => {
         console.log(msg);
         res.json({Exito: false, msg: msg});
     } else {
-        if (req.session.correo === undefined) {
+        if (req.session.id_usuario === undefined) {
             msg = "Usted debe tener una sesión activa.";
             console.log(msg);
             res.json({ Exito: false, msg: msg });
@@ -158,7 +159,7 @@ controller.continuar = async (req, res) => {
                     console.log(msg);
                     res.json({ Exito: false, msg: msg });
                 } else {
-                    conexion.query('SELECT * FROM proyectos WHERE id_proyecto = ? AND correo = ?', [req.body.id, req.session.correo], (error, respuesta) => {
+                    conexion.query('SELECT * FROM proyecto WHERE id_proyecto = ? AND id_usuario = ?', [req.body.id, req.session.id_usuario], (error, respuesta) => {
                         if (error) {
                             msg = "Error en la consulta a la base de datos.";
                             console.log(msg);
@@ -172,6 +173,7 @@ controller.continuar = async (req, res) => {
                                 console.log(respuesta);
                                 req.session.nombre_proyecto = respuesta[0].nombre_proyecto;
                                 req.session.tipo_proyecto = respuesta[0].tipo_proyecto;
+                                req.session.id_proyecto = req.body.id;
                                 res.json({Exito: true, msg: "Proyecto encontrado.", tipo: respuesta[0].tipo_proyecto});
                             }
                         }

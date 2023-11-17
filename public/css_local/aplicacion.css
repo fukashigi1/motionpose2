@@ -3,7 +3,10 @@ body {
     background-color: #202025;
     font-family: monospace;
 }
-
+::selection {
+    color: rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+}
 .navOpciones {
     color: white;
     font-size: 2vh;
@@ -120,7 +123,7 @@ header {
     background-color: #ffffff;
     color: black;
     height: 85%;
-    width: 80%;
+    width: auto;
     border-radius: 0.5vh;
     display: flex;
     flex-direction: column;
@@ -133,6 +136,8 @@ header {
     -webkit-box-shadow: -1px 7px 10px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: -1px 7px 10px 0px rgba(0,0,0,0.5);
     user-select: none;
+    padding-left: 4px;
+    padding-right: 4px;
 
 }
 
@@ -238,6 +243,26 @@ header {
     z-index: 9999;
 }
 
+.seleccionado {
+    border: 2px solid white;
+}
+
+input[type='checkbox'] {
+    accent-color: black;
+    font-size: 2vh;
+    width: 1.5vh;
+    height: 2vh;
+}
+
+.divCheckbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.contenedorCheckbox{
+    margin-top: 2vh;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -257,4 +282,175 @@ input[type=number] {
     background-color: rgba(0, 0, 0, 0.18);
     z-index: 999;
     display: none;
+}
+
+/*VENTANA DE OPCIONES*/
+.modalOpciones {
+    position: absolute;
+    z-index: 1;
+    width: 70%;
+    height: 70%;
+    background-color: #43434b;
+    top: 15%;
+    left: 15%;
+    border-radius: 5px;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #6f6f6f;
+}
+
+.modalOpcionesTitulo {
+    width: 100%;
+    height: 5%;
+    background-color: #16161a;
+    border-bottom: 1px solid #6f6f6f;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.modalOpcionesTitulo span {
+    color: white;
+    font-size: 2vh;
+    margin-left: 1vw;
+}
+
+.modalOpcionesTitulo i {
+    color: white;
+    font-size: 2.5vh;
+    margin-right: 1vw;
+    cursor: pointer;
+}
+
+.modalOpcionesCuerpo {
+    width: 100%;
+    height: 95%;
+    display: flex;
+}
+
+.contenidoOpcionesCuerpo {
+    width: 20%;
+    height: 100%;
+    background-color: #1e1e25;
+    border-right: 1px solid #6f6f6f;
+    overflow: auto;
+}
+.contenidoOpcionesCuerpo ul {
+    list-style: none;
+    padding: 0;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.contenidoOpcionesCuerpo li {
+    padding: 2px;
+}
+
+.flechaDesplegable{
+    color: white;
+    font-size: 1vh;
+    padding-right: 0.5vw;
+}
+
+.infoOpcionesLi {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.contenidoOpcionesCuerpo span{
+    color: #c7c7c7;
+    display: block;
+    width: 100%;
+    font-size: 1.8vh;
+    cursor: pointer;
+}
+.contenidoOpcionesCuerpo span:hover{
+    color: rgb(236, 236, 236);
+    background-color: #16161a;
+}
+
+
+
+.modalOpcionesFooter {
+    width: 100%;
+    background-color: #16161a;
+    height: 5%;
+    border-top: 1px solid #6f6f6f;
+}
+
+.contenidoOpcionesDerecha {
+    width: 80%;
+    height: 100%;
+    background-color: #2d2d37;
+    overflow: auto;
+    padding-left: 2vw;
+}
+
+.contenidoOpcionesDerecha h2 {
+    color: white;
+    font-size: 3vh;
+}
+
+.contenedorOpcion {
+    color: white;
+    margin-bottom: 1%;
+    padding-left: 2vw;
+    margin-right: 2vw;
+    padding-right: 2vw;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+    font-size: 1.5vh;
+    background-color: #00000026;
+    border-radius: 7px;
+}
+
+.contenedorOpcion:hover {
+    background-color: #00000040;
+}
+
+.contenedorSpan {
+
+}
+.contenedorSpan span {
+    
+}
+
+.contenedorInput {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1vh;
+}
+
+.contenedorInput input[type=checkbox]{
+    margin-right: 1vw;
+}
+
+.contenedorInput select{   
+    margin-right: 1vw;
+    min-width: 200px;
+    background-color: #1e1e25;
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-family: monospace;
+}
+.contenedorInput input[type=text]{   
+    margin-right: 1vw;
+    min-width: 193px;
+    background-color: #1e1e25;
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-family: monospace;
 }

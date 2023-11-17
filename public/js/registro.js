@@ -1,8 +1,6 @@
 $(document).ready(function(){
     //Animaciones
-
-
-    $("#nombre").on("focus", function(){
+    {$("#nombre").on("focus", function(){
         $("#nombreLabel").css("bottom", "-8px");
         $("#nombreLabel").css("background-color", "white");
     })
@@ -21,6 +19,17 @@ $(document).ready(function(){
         if($("#correo").val() == ""){        
             $("#correoLabel").css("bottom", "-31px");
             $("#correoLabel").css("background-color", "transparent");
+        }
+    });
+
+    $("#telefono").on("focus", function(){
+        $("#telefonoLabel").css("bottom", "-8px");
+        $("#telefonoLabel").css("background-color", "white");
+    })
+    $("#telefono").on("blur", function(){
+        if($("#telefono").val() == ""){        
+            $("#telefonoLabel").css("bottom", "-31px");
+            $("#telefonoLabel").css("background-color", "transparent");
         }
     });
 
@@ -56,6 +65,11 @@ $(document).ready(function(){
         $("#correoLabel").css("background-color", "white");
         $("#correo").focus();
     });
+    $("#telefonoLabel").on("click", function(){
+        $("#telefonoLabel").css("bottom", "-8px");
+        $("#telefonoLabel").css("background-color", "white");
+        $("#telefono").focus();
+    });
     $("#contrasenaLabel").on("click", function(){
         $("#contrasenaLabel").css("bottom", "-8px");
         $("#contrasenaLabel").css("background-color", "white");
@@ -84,9 +98,9 @@ $(document).ready(function(){
 
     $("#aceptarTerminos").css({
         'opacity': '1'
-    });
-    //Botones
+    });}
 
+    //Botones
     $("#volver").on("click", function(){
         window.location.href = '/login'; 
     });
@@ -97,6 +111,7 @@ $(document).ready(function(){
     // Boton para registrarse.
     $("#registrarseBoton").on("click", function(){
         let invalido = "";
+        
         // Validación de campos.
         while (true){
             if($("#nombre").val() == ""){
@@ -111,6 +126,15 @@ $(document).ready(function(){
             if (validarCorreo($("#correo").val()) == false) {
                 console.log(validarCorreo($("#correo").val()));
                 invalido = "El correo ingresado es inválido.";
+            }
+
+            if ($("#telefono").val() == ""){
+                invalido = "El telefono es obligatorio.";
+                break;
+            }
+            if (validarTelefono($("#telefono").val()) == false) {
+                console.log(validarTelefono($("#telefono").val()));
+                invalido = "El teléfono debe contener 9 dígitos.";
             }
     
             if ($("#contrasena").val() == ""){
@@ -136,6 +160,7 @@ $(document).ready(function(){
             }
             break;
         }
+
         if(invalido == ""){
             console.log("EXITO REGISTRADO");
             $(".mostrarError").css({
@@ -149,14 +174,14 @@ $(document).ready(function(){
                 data: JSON.stringify({
                     nombre: $("#nombre").val(),
                     correo: $("#correo").val(),
+                    telefono: $("#telefono").val(),
                     contrasena: $("#contrasena").val()
                 }),
                 contentType: 'application/json',
                 success: function(data) {
                     if(data.Exito){
                         console.log(data);
-                        window.location.href = 'login'; 
-                        
+                        window.location.href = 'login';
                     }else{
                         console.error("Solicitud POST DENEGADA");
                     }
@@ -202,4 +227,9 @@ function validarContraseña(contrasena) {
     }
 
     return true;
+}
+
+function validarTelefono(telefono) {
+    const regex = /^[0-9]{9}$/;
+    return regex.test(telefono);
 }
