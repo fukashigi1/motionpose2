@@ -63,7 +63,6 @@ $(document).ready(function(){
     $('body').prepend(nav);
     $('body').append(modal);
     $('body').append(modalGlobal);
-    $('body').append(version);
     function navMenuToggle() {
         if ($(window).width() <= 1080 && $(window).height() <= 2400) {
             $(".ulNav").hide();
