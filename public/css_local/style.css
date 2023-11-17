@@ -259,6 +259,7 @@ footer a:hover{
 .icono-rotado {
     transition: all 0.5s;
     transform: rotate(0deg);
+    margin-top: -2.25vw;
 }
 /* Estilo cuando está rotado */
 .icono-rotado.rotado {
