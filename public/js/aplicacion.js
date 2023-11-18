@@ -665,7 +665,8 @@ window.onload = function () {
                 result.imagenes.forEach(function (imagen, indice) {
                     const fileName = `${result.nombre_proyecto}`;
                     const imagenBase64 = "data:image/png;base64,"+imagen.base64
-                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-nombre_archivo="${fileName}"></div>`;
+                    const imagenBase64jpeg = "data:image/jpeg;base64,"+imagen.base64
+                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-jpeg="${imagenBase64jpeg}" data-nombre_archivo="${fileName}"></div>`;
                     $(captura).insertAfter(".herramienta .titulo");
                 });
                 $(".tutorialSpaceBar").remove();
