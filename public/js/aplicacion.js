@@ -53,6 +53,17 @@ $(document).ready(function () {
         $(".tutorialSpaceBar").remove();
     });
 
+    // Si hace click en una opcion de preferencias (navegador izquierdo), deberá mandarlo al h2 correspondiente dentro de preferencias
+    $("body").on("click", ".infoOpcionesLi span", function(){
+        let $navClickeado = $(this)
+        $(".contenidoOpcionesDerecha").children('h2').each(function(){
+            if ($(this).text() == $navClickeado.text()){
+                $(".contenidoOpcionesDerecha").animate({ scrollTop: $(this).offset().top }, 300);
+
+            }
+        });
+    });
+
     function tomarCapturaTemp(segundos) {
         if (tomandoTemporizada == false) {
             tomandoTemporizada = true;
@@ -90,6 +101,33 @@ $(document).ready(function () {
             }
         }
     }
+    function detectarH2Visible() {
+        var contenedor = $('.contenidoOpcionesDerecha');
+        var h2Elementos = contenedor.find('h2');
+        h2Elementos.each(function() {
+            var h2 = $(this);
+            var posicionSuperior = h2.offset().top;
+            var posicionInferior = posicionSuperior + h2.outerHeight();
+            var ventanaSuperior = contenedor.offset().top;
+            var ventanaInferior = ventanaSuperior + contenedor.height();
+            // Verificar si el h2 está en la ventana de visualización
+            if ((posicionInferior >= ventanaSuperior) && (posicionSuperior <= ventanaInferior)) {
+                
+                $.extend($.expr[':'], {
+                    'containsExact': function (element, index, match) {
+                      return $(element).text() === match[3];
+                    }
+                  });
+            
+                  $(".infoOpcionesLi span").removeClass('highlight')
+                  $(":containsExact('" + h2.text() + "')").addClass('highlight')
+                return false; 
+            }
+        });
+    }
+    
+      // Llama a la función al cargar la página y al hacer scroll en el contenedor
+    $('.contenidoOpcionesDerecha').on('scroll', detectarH2Visible);
 
     $("body").on("click", "#tomarCapturaTemp", function () {
         $("#inputContainer").slideDown();
@@ -413,6 +451,23 @@ function cargarOpciones(data) {
     $("#opcionesHotCaptura").val(data.hotkeys.opcionesHotCaptura.map(([elemento, _]) => elemento).join(" + "));
     $("#opcionesHotTemporizador").val(data.hotkeys.opcionesHotTemporizador.map(([elemento, _]) => elemento).join(" + "));
     $("#opcionesHotExportar").val(data.hotkeys.opcionesHotExportar.map(([elemento, _]) => elemento).join(" + "));
+
+    let titulos = []
+    $(".contenidoOpcionesDerecha").children('h2').each(function(){
+        titulos.push($(this).text());
+    });
+
+    let barraIzquierda = '<ul>'
+
+    for (let i = 0; i < titulos.length; i++) {
+        barraIzquierda += `
+        <li>
+            <div class="infoOpcionesLi">
+                <span>${titulos[i]}</span>
+            </div>
+        </li>` 
+    }
+    $(".contenidoOpcionesCuerpo").html(barraIzquierda);
 }
 
 function detectorHotkey($input) {
