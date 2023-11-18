@@ -136,7 +136,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#exportarImagenes, #exportar").on("click", function () {
+    function exportar() {
         $(".seleccionado").each(function () {
             imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
         });
@@ -146,6 +146,10 @@ $(document).ready(function () {
             ejecutarAccion('Exportar imágenes', 'Por favor seleccione la extensión de imagen con la que desea exportar.<br>' + checkbox);
             $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="exportarModal">Exportar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
         }
+    }
+
+    $("#exportarImagenes, #exportar").on("click", function () {
+        exportar();
     });
 
 
@@ -222,9 +226,11 @@ $(document).ready(function () {
                 screenShot();
                 $(".tutorialSpaceBar").remove();
             } else if (detectorHotkeyinKey(true, e, opcionesHotTemporizador)) {// TEMPORIZADOR - opcionesHotTemporizador
-    
                 e.preventDefault();
                 tomarCapturaTemp(data.opcionTemporizadorSegundos)
+            } else if (detectorHotkeyinKey(true, e, opcionesHotExportar)) {
+                e.preventDefault();
+                exportar()
             }
         }
     }).on('keyup', function (e) {
@@ -720,7 +726,8 @@ window.onload = function () {
                 result.imagenes.forEach(function (imagen, indice) {
                     const fileName = `${result.nombre_proyecto}`;
                     const imagenBase64 = "data:image/png;base64,"+imagen.base64
-                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-nombre_archivo="${fileName}"></div>`;
+                    const imagenBase64jpeg = "data:image/jpeg;base64,"+imagen.base64
+                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-jpeg="${imagenBase64jpeg}" data-nombre_archivo="${fileName}"></div>`;
                     $(captura).insertAfter(".herramienta .titulo");
                 });
                 $(".tutorialSpaceBar").remove();
