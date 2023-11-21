@@ -13,7 +13,7 @@ const spheres = []; // Almacena las esferas
 // Función para crear esferas en una ubicación específica
 function createSphere(x, y, z) {
     const geometry = new THREE.SphereGeometry(0.008, 5, 5);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.7 });
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true });
     const sphere = new THREE.Mesh(geometry, material);
     sphere.position.set(x, y, z);
     scene.add(sphere);
@@ -73,7 +73,8 @@ setTimeout(() => {
             updateSpheres(landmarkAnterior);
         }
     
-        landmarkAnterior = newCoordinates;
+        landmarkAnterior = newCoordinates; // Actualiza la variable con las nuevas coordenadas
+        // Llama a esta función nuevamente para actualizar continuamente
         requestAnimationFrame(updateLoop);
         renderer.render(scene, camera);
     }
