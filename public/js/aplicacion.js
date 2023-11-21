@@ -723,11 +723,10 @@ window.onload = function () {
             console.log(result);
             if (result.imagenes.length > 0) {
                 result.imagenes.forEach(function (imagen, indice) {
-                    console.log("Hola")
                     const fileName = `${imagen.nombre}`;
                     const imagenBase64 = "data:image/png;base64,"+imagen.base64
                     const imagenBase64jpeg = "data:image/jpeg;base64,"+imagen.base64
-                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-jpeg="${imagenBase64jpeg}" data-nombre_archivo="${fileName}"></div>`;
+                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-jpeg="${imagenBase64jpeg}" data-nombre_archivo="${fileName.split('.')[0]}"></div>`;
                     $(captura).insertAfter(".herramienta .titulo");
                 });
                 $(".tutorialSpaceBar").remove();
