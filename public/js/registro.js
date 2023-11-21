@@ -85,11 +85,18 @@ $(document).ready(function(){
         'opacity' : '1',
         'margin-left' : '100px'
     });
-
-    $(".contenedorLogin").css({
-        'width' : '28%',
-        'height' : '63%'
-    });
+    if(window.innerWidth >=1920){
+        $(".contenedorLogin").css({
+            'width' : '27%',
+            'height' : '60%'
+        });
+    }else{
+        $(".contenedorLogin").css({
+            'width' : '29%',
+            'height' : '66%'
+        });
+    }
+    
 
     $("#volver").css({
         'left': '0',
@@ -105,7 +112,7 @@ $(document).ready(function(){
         window.location.href = '/login'; 
     });
     $("#terminos").on("click", function(){
-        window.location.href = '/terminos'; 
+        window.open('/terminos', '_blank');
     });
 
     // Boton para registrarse.
