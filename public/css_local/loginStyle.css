@@ -112,6 +112,7 @@ a{
 
 #noCuenta {
     transition: all 0.2s;
+    padding-block: 0.55vw;
     text-decoration: none;
     font-size: 1.1vw;
     cursor: pointer;
@@ -127,11 +128,10 @@ a{
     position: absolute;
     bottom: 0;
     right: 0;
-    margin: 1.1vw;
+    padding: 1.1vw;
     color: #16161a;
     font-size: 1.1vw;
     text-shadow: 0.2vw 0.2vw 0.2vw rgba(0,0,0,0.2);
-    border-bottom: 0.1vw solid black;
     
 }
 #continuarBoton:hover{
@@ -143,6 +143,7 @@ a{
     transition: all 0.2s;
     text-decoration: none;
     font-size: 1.1vw;
+    padding-block: 0.55vw;
     cursor: pointer;
     text-shadow: 0.2vw 0.2vw 0.2vw rgba(0,0,0,0.2);
     color: #16161a;
@@ -169,8 +170,9 @@ a{
 }
 
 .imgLogo {
-    width: 34.05vw;
-    height: 8.5vw;
+    width: 34.05vw !important;
+    height: 8.5vw !important;
+    cursor: default !important;
 }
 
 .lateral {
