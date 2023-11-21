@@ -714,7 +714,6 @@ function cargarModal() {
 }
 
 window.onload = function () {
-
     $.ajax({
         url: '/aplicacion/cargar',
         type: 'GET',
@@ -724,6 +723,7 @@ window.onload = function () {
             console.log(result);
             if (result.imagenes.length > 0) {
                 result.imagenes.forEach(function (imagen, indice) {
+                    console.log("Hola")
                     const fileName = `${result.nombre_proyecto}`;
                     const imagenBase64 = "data:image/png;base64,"+imagen.base64
                     const imagenBase64jpeg = "data:image/jpeg;base64,"+imagen.base64
