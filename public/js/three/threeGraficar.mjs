@@ -2,7 +2,7 @@ import { obtenerNuevasCoordenadas } from '../mediapipe/mpReconocimiento.mjs';
 const canvas = document.getElementById('output_canvas');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ canvas, preserveDrawingBuffer: true });
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, preserveDrawingBuffer: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
@@ -13,7 +13,7 @@ const spheres = []; // Almacena las esferas
 // Función para crear esferas en una ubicación específica
 function createSphere(x, y, z) {
     const geometry = new THREE.SphereGeometry(0.008, 5, 5);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true });
     const sphere = new THREE.Mesh(geometry, material);
     sphere.position.set(x, y, z);
     scene.add(sphere);
@@ -76,7 +76,7 @@ setTimeout(() => {
         landmarkAnterior = newCoordinates; // Actualiza la variable con las nuevas coordenadas
         // Llama a esta función nuevamente para actualizar continuamente
         requestAnimationFrame(updateLoop);
-        renderer.render(scene, camera, spheres);
+        renderer.render(scene, camera);
     }
     // Comienza el bucle de actualización
     updateLoop();
