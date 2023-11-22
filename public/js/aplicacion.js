@@ -219,16 +219,16 @@ $(document).ready(function () {
     }
     // HOTKEYS
     $("body").on("keydown", function (e) {
-        // TOMAR CAPTURA - opcionesHotCaptura
+        console.log(e)
         if (!bloquearHotkeys) {
-            if (detectorHotkeyinKey(true, e, opcionesHotCaptura)) {
+            if (detectorHotkeyinKey(true, e, opcionesHotCaptura)) {// TOMAR CAPTURA - opcionesHotCaptura
                 e.preventDefault();
                 screenShot();
                 $(".tutorialSpaceBar").remove();
             } else if (detectorHotkeyinKey(true, e, opcionesHotTemporizador)) {// TEMPORIZADOR - opcionesHotTemporizador
                 e.preventDefault();
                 tomarCapturaTemp(data.opcionTemporizadorSegundos)
-            } else if (detectorHotkeyinKey(true, e, opcionesHotExportar)) {
+            } else if (detectorHotkeyinKey(true, e, opcionesHotExportar)) {// EXPORTAR - opcionesHotCaptura
                 e.preventDefault();
                 exportar()
             }
@@ -523,12 +523,29 @@ function guardarEstado() {
         contadorImagenes += 1;
     });
 
+    
     formData.append('cantidad_imagenes', contadorImagenes);
-    //formData.append('opciones');
-    for (const value of formData.values()) {
-        console.log(value);
-    }
+    //PREFERENCIAS
+    
+    formData.append('opcionGuardadoAutomatico', $("#opcionGuardadoAutomatico").is(":checked"));
+    formData.append('opcionTemporizadorSegundos', $("#opcionTemporizadorSegundos").val());
+    formData.append('opcionFormatoImagen', $("#opcionFormatoImagen").val());
+    formData.append('opcionesHotCaptura', obtenerHotkeyDeObjeto(opcionesHotCaptura));
+    formData.append('opcionesHotTemporizador', obtenerHotkeyDeObjeto(opcionesHotTemporizador));
+    formData.append('opcionesHotExportar', obtenerHotkeyDeObjeto(opcionesHotExportar));
 
+    function obtenerHotkeyDeObjeto(hotkey){
+        let hotkeyLista = []
+        for (let i = 0; i < Object.keys(hotkey).length; i++) {
+            if (String.fromCharCode(Object.keys(hotkey)[i]) == ' '){
+                hotkeyLista.push(['SPACE', Object.keys(hotkey)[i]])
+            } else {
+                hotkeyLista.push([String.fromCharCode(Object.keys(hotkey)[i]).toUpperCase(), Object.keys(hotkey)[i]])
+            }
+        }
+        return hotkeyLista;
+    }
+    
     $.ajax({
         type: "POST",
         url: "/aplicacion/guardar", // La URL donde deseas enviar el archivo
