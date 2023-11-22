@@ -262,9 +262,27 @@ controller.cargar = async (req, res) => {
                             const base64 = getBase64(filePath);
                             return { ...imagen, base64 };
                         });
-                
-                        msg = "Las imágenes se han cargado correctamente."
-                        res.json({ Exito: true, msg: msg, imagenes: imagenesBase64, nombre_proyecto: req.session.nombre_proyecto });
+                        conexion.query('SELECT * FROM preferencias WHERE id_proyecto = ?', [req.session.id_proyecto], (error, preferencias) => {
+                            if (error) {
+                                msg = "No se encontraron preferencias.";
+                                console.log(msg);
+                                res.json({ Exito: false, msg: msg });
+                            } else {
+                                let autoguardado = (preferencias[0].autoguardado == 0) ? false : true;
+                                let preferenciasFormateado = {
+                                    opcionGuardadoAutomatico: autoguardado,
+                                    opcionTemporizadorSegundos: preferencias[0].temporizador,
+                                    opcionFormatoImagen: preferencias[0].formato_imagen,
+                                    hotkeys: {
+                                        opcionesHotCaptura: preferencias[0].hotkey_captura,
+                                        opcionesHotTemporizador: preferencias[0].hotkey_captura_temp,
+                                        opcionesHotExportar: preferencias[0].hotkey_exportar
+                                    }
+                                };
+                                msg = "Las imágenes se han cargado correctamente."
+                                res.json({ Exito: true, msg: msg, imagenes: imagenesBase64, nombre_proyecto: req.session.nombre_proyecto, preferencias: preferenciasFormateado});
+                            }
+                        });
                     }
                 });
             }

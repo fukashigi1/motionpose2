@@ -12,16 +12,7 @@ let imagenesSubir = [];
 let teclas = []
 let anterior;
 
-let data = {
-    opcionGuardadoAutomatico: false,
-    opcionTemporizadorSegundos: 4,
-    opcionFormatoImagen: 'exportarPNG',
-    hotkeys: {
-        opcionesHotCaptura: [['SPACE', 32], ['T', 84]],
-        opcionesHotTemporizador: [['R', 82]],
-        opcionesHotExportar: [['E', 69]]
-    }
-}
+
 let opcionesHotCaptura = {};
 let opcionesHotTemporizador = {};
 let opcionesHotExportar = {};
@@ -30,7 +21,33 @@ let hotkeysIniciales = []
 
 let bloquearHotkeys = false;
 
+var data = {};
 $(document).ready(function () {
+
+    $.ajax({
+        async: false,
+        url: '/aplicacion/cargar',
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+            data = result.preferencias
+            if (result.imagenes.length > 0) {
+                result.imagenes.forEach(function (imagen, indice) {
+                    const fileName = `${imagen.nombre}`;
+                    const imagenBase64 = "data:image/png;base64,"+imagen.base64
+                    const imagenBase64jpeg = "data:image/jpeg;base64,"+imagen.base64
+                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-jpeg="${imagenBase64jpeg}" data-nombre_archivo="${fileName.split('.')[0]}"></div>`;
+                    $(captura).insertAfter(".herramienta .titulo");
+                });
+                $(".tutorialSpaceBar").remove();
+            }
+        },
+        error: function (error) {
+            console.error('Error en la solicitud AJAX:', error);
+        }
+    });
+    cargarImagenes();
     cargarModal();
     cargarFlotante();
     datosProyecto();
@@ -730,27 +747,6 @@ function cargarModal() {
     $("body").append(modalGlobal);
 }
 
-window.onload = function () {
-    $.ajax({
-        url: '/aplicacion/cargar',
-        type: 'GET',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (result) {
-            console.log(result);
-            if (result.imagenes.length > 0) {
-                result.imagenes.forEach(function (imagen, indice) {
-                    const fileName = `${imagen.nombre}`;
-                    const imagenBase64 = "data:image/png;base64,"+imagen.base64
-                    const imagenBase64jpeg = "data:image/jpeg;base64,"+imagen.base64
-                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-jpeg="${imagenBase64jpeg}" data-nombre_archivo="${fileName.split('.')[0]}"></div>`;
-                    $(captura).insertAfter(".herramienta .titulo");
-                });
-                $(".tutorialSpaceBar").remove();
-            }
-        },
-        error: function (error) {
-            console.error('Error en la solicitud AJAX:', error);
-        }
-    });
+function cargarImagenes(){
+    
 }
