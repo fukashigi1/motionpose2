@@ -1,4 +1,6 @@
 import { obtenerNuevasCoordenadas } from '../mediapipe/mpReconocimiento.mjs';
+import * as THREE from "./three.module.js";
+import { OrbitControls } from "./OrbitControls.js";
 const canvas = document.getElementById('output_canvas');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
@@ -7,6 +9,25 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
 camera.position.z = 0.2;
+
+var controls = new OrbitControls(camera, renderer.domElement);
+controls.minDistance = 0.2;
+controls.maxDistance = 0.35;
+controls.enableDamping = true;
+controls.dampingFactor = 0.5;
+
+controls.maxPolarAngle = Math.PI;
+
+controls.screenSpacePanning = true;
+
+//animacion
+var animate = function () {
+    requestAnimationFrame(animate);
+
+    renderer.render(scene, camera);
+};
+
+animate();
 
 const spheres = []; // Almacena las esferas
 
@@ -54,12 +75,12 @@ function updateSpheres(newCoordinates) {
     // Borra las esferas existentes
     clearSpheres();
     // Crea esferas en las nuevas ubicaciones
-    if (newCoordinates != null){
+    if (newCoordinates != null) {
         for (let i = 0; i < newCoordinates.length; i++) {
             console.log(newCoordinates[i].x, newCoordinates[i].y, newCoordinates[i].z);
             createSphere(newCoordinates[i].x, -newCoordinates[i].y, -newCoordinates[i].z);
         }
-    } 
+    }
 }
 
 // Supongamos que tienes un bucle o evento que actualiza constantemente las coordenadas.
@@ -68,11 +89,11 @@ setTimeout(() => {
     let landmarkAnterior = obtenerNuevasCoordenadas(); // Inicializa con el valor actual
     function updateLoop() {
         const newCoordinates = obtenerNuevasCoordenadas();
-    
+
         if (landmarkAnterior !== newCoordinates) {
             updateSpheres(landmarkAnterior);
         }
-    
+
         landmarkAnterior = newCoordinates; // Actualiza la variable con las nuevas coordenadas
         // Llama a esta función nuevamente para actualizar continuamente
         requestAnimationFrame(updateLoop);
