@@ -10,6 +10,10 @@ $(document).ready(function(){
               $(".header").css("background-color", "#ffffff00");
             }
           });
+
+          $(".fa-bars").on("click", function() {
+            $("ul").toggleClass("show-menu");
+          });
     
           $('.imgLogo, #volverArriba').on('click', function(e) {
             e.preventDefault();

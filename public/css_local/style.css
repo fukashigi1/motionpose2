@@ -247,7 +247,6 @@ footer a:hover{
     }
     .pregunta-titulo{
         width: 77vw;
-        display: inline-block;
         font-size: 5.1vw;
     }
     .pregunta-respuesta{

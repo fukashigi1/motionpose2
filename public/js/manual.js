@@ -1,6 +1,10 @@
 $(document).ready(function(){
     $(document).ready(function(){
         $('html, body').animate({scrollTop:0}, '1');
+
+        $(".fa-bars").on("click", function() {
+          $("ul").toggleClass("show-menu");
+        });
     
         $(window).scroll(function() {
             var distanciaTop = $(window).scrollTop();

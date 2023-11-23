@@ -38,6 +38,7 @@ p {
     font-size: 20px;
     line-height: 30px;
     margin-bottom: 70px;
+    text-align: justify;
 }
 
 footer {
@@ -92,6 +93,7 @@ ul a {
     cursor: pointer;
     text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
 }
+
 ul a:hover {
     transition: all 0.2s;
     padding: 8px;
@@ -108,8 +110,72 @@ ul a:hover {
     background: white;
 }
 
+ul.show-menu {
+    display: block;
+  }
+
 @media screen and (max-width: 1365px){        
     ul{
        display: none;
+    }
+}
+
+@media screen and (max-width: 1080px) and (max-height: 2600px) {
+
+    h1{
+        margin-left: 30px !important;
+        margin-right: 30px !important;
+        font-size: 5.7vh !important;
+    }
+
+    h2{
+        margin-left: 30px !important;
+        margin-right: 30px !important;
+        border-bottom: none;
+    }
+
+    p{
+        margin-left: 30px !important;
+        margin-right: 30px !important;
+        text-align: justify !important;
+    }
+
+    ul.show-menu{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-right: 0.6vw;
+        padding-right: 6vw;
+        margin-top: 2vw;
+        background: #1d1d1d;
+        margin-left: 0.6vw;
+        padding-left: 6vw;
+        border-radius: 2vw;
+    }
+
+    .navMenu a{
+        line-height: 13vw !important;
+        font-size: 4.5vw !important;
+    }
+
+    .navMenu2{
+        width: 100%;
+        color: #ffff;
+        transition: all 0.2s;
+        padding: 0.8vw;
+        font-size: 4.35vw !important;    
+    }
+
+
+}
+
+@media screen and (min-width: 1081px) and (max-width: 1259px) {
+    ul a {
+        transition: all 0.2s !important;
+        font-size: 19px !important;    
+        font-family: monospace !important;
+        padding: 10px !important;
+        cursor: pointer !important;
+        text-shadow: 4px 4px 3px rgba(0,0,0,0.6) !important;
     }
 }

@@ -24,6 +24,19 @@ $(document).ready(function(){
     
     $('body').append(footer);
 
+
+    if (window.location.href.includes('politicas')) {
+        $("#politicas").css('background-color', '#003f4e');
+    }
+
+    if (window.location.href.includes('terminos')) {
+        $("#terminos").css('background-color', '#003f4e');
+    }
+
+    if (window.location.href.includes('manual')) {
+        $("#manual").css('background-color', '#003f4e');
+    }
+
     $(window).scroll(function() {
         var distanciaTop = $(window).scrollTop();
         if (distanciaTop >= 20) {
