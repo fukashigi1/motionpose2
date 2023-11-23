@@ -12,12 +12,12 @@ Motion Pose MP.
   
 
 - Cambios: 
-  1. Se ha cambiado la forma en la que se guardan las preferencias en el controlador.
+  - Se ha cambiado la forma en la que se guardan las preferencias en el controlador.
 
 - Arreglos:
-  1. Se arregló el bug que había al guardar un hotkey.
-  2. Se arregló el bug cuando solo se guardaba un cambio, el resto de las preferencias eran cambiadas incorrectamente a 'undefined'.
-  3. Se arregló un extraño bug que aveces no permitía escribir al hacer click sobre el input de un nuevo hotkey.
+  - Se arregló el bug que había al guardar un hotkey.
+  - Se arregló el bug cuando solo se guardaba un cambio, el resto de las preferencias eran cambiadas incorrectamente a 'undefined'.
+  - Se arregló un extraño bug que aveces no permitía escribir al hacer click sobre el input de un nuevo hotkey.
 
 ## Autores
 
