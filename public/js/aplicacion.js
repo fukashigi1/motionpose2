@@ -25,9 +25,8 @@ var data = {};
 $(document).ready(function () {
 
     $.ajax({
-        async: false,
         url: '/aplicacion/cargar',
-        type: 'GET',
+        type: 'GET',    
         dataType: 'json',
         contentType: 'application/json',
         success: function (result) {
@@ -52,7 +51,9 @@ $(document).ready(function () {
     cargarFlotante();
     datosProyecto();
     capturarWebCam('user');  // user, environment
-    cargarOpciones(data); // cambiar por ajax
+    setTimeout(() => { 
+        cargarOpciones(data); // cambiar por ajax
+    }, 1000);
 
     $("#ayudaBoton").on("click", function () {
         console.log("holaaaa");
@@ -153,21 +154,42 @@ $(document).ready(function () {
         });
     });
 
-    function exportar() {
-        $(".seleccionado").each(function () {
-            imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
-        });
-        if (imagenesSubir.length > 0) {
-            let checkbox = '';
-            checkbox += '<div class="contenedorCheckbox"><div class="divCheckbox"><input type="checkbox" id="png"><label for="png">.PNG</label></div><div class="divCheckbox"><input type="checkbox" id="jpeg"><label for="jpeg">.JPEG</label></div></div>';
-            ejecutarAccion('Exportar imágenes', 'Por favor seleccione la extensión de imagen con la que desea exportar.<br>' + checkbox);
-            $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="exportarModal">Exportar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
+    function exportar(defecto) {
+        if (defecto) {
+            let mime = $firstCheckedCheckbox.attr("id");
+
+            for (let i = 0; i < imagenesSubir.length; i++) {
+                var a = document.createElement("a");
+                if (mime == "png") {
+                    a.href = imagenesSubir[i][0];
+                } else {
+                    a.href = imagenesSubir[i][1];
+                }
+                a.download = imagenesSubir[i][2] + "." + mime;
+                a.click();
+            }
+            imagenesSubir = [];
+    
+            $(".captura.seleccionado").each(function () {
+                $(this).removeClass("seleccionado");
+            });
+        } else {
+            $(".seleccionado").each(function () {
+                imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
+            });
+            if (imagenesSubir.length > 0) {
+                let checkbox = '';
+                checkbox += '<div class="contenedorCheckbox"><div class="divCheckbox"><input type="checkbox" id="png"><label for="png">.PNG</label></div><div class="divCheckbox"><input type="checkbox" id="jpeg"><label for="jpeg">.JPEG</label></div></div>';
+                ejecutarAccion('Exportar imágenes', 'Por favor seleccione la extensión de imagen con la que desea exportar.<br>' + checkbox);
+                $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="exportarModal">Exportar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
+            }
         }
     }
 
     $("#exportarImagenes, #exportar").on("click", function () {
         exportar();
     });
+
 
 
     $("body").on("click", "#exportarModal", function () {
@@ -224,9 +246,11 @@ $(document).ready(function () {
     });
     ////
 
-    codeSetHotKey(data.hotkeys.opcionesHotCaptura, opcionesHotCaptura)
-    codeSetHotKey(data.hotkeys.opcionesHotTemporizador, opcionesHotTemporizador)
-    codeSetHotKey(data.hotkeys.opcionesHotExportar, opcionesHotExportar)
+    setTimeout(() => { 
+        codeSetHotKey(JSON.parse(data.hotkeys.opcionesHotCaptura), opcionesHotCaptura)
+        codeSetHotKey(JSON.parse(data.hotkeys.opcionesHotTemporizador), opcionesHotTemporizador)
+        codeSetHotKey(JSON.parse(data.hotkeys.opcionesHotExportar), opcionesHotExportar)
+    }, 1000);
     function codeSetHotKey(hotkey, codeset) {
         for (let i = 0; i < hotkey.length; i++) {
             //console.log(hotkeys.opcionesHotCaptura[i][1])
@@ -236,7 +260,6 @@ $(document).ready(function () {
     }
     // HOTKEYS
     $("body").on("keydown", function (e) {
-        console.log(e)
         if (!bloquearHotkeys) {
             if (detectorHotkeyinKey(true, e, opcionesHotCaptura)) {// TOMAR CAPTURA - opcionesHotCaptura
                 e.preventDefault();
@@ -247,7 +270,7 @@ $(document).ready(function () {
                 tomarCapturaTemp(data.opcionTemporizadorSegundos)
             } else if (detectorHotkeyinKey(true, e, opcionesHotExportar)) {// EXPORTAR - opcionesHotCaptura
                 e.preventDefault();
-                exportar()
+                exportar(true)
             }
         }
     }).on('keyup', function (e) {
@@ -291,32 +314,42 @@ $(document).ready(function () {
                 hotkeyCambiados.push($(elementosHotArray[i]))
             }
         }
-
-
-        for (let i = 0; i < hotkeyCambiados.length; i++) {
-            console.log($(hotkeyCambiados[i]).attr('id'), data.hotkeys)
-            if ($(hotkeyCambiados[i]).attr('id') in data.hotkeys) {
-                let valor = data.hotkeys[$(hotkeyCambiados[i]).attr('id')];
-                let objetoMomentaneo = {}
-                if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotCaptura') {
-                    for (let x = 0; x < valor.length; x++) {
-                        for (let z = 0; z < valor[x].length; z++) {
-                            objetoMomentaneo[valor[x][z][1]] = false;
+        if (hotkeyCambiados.length == 0) {
+            console.log("sin cambios")
+        } else {
+            for (let i = 0; i < hotkeyCambiados.length; i++) {
+                console.log($(hotkeyCambiados[i]).attr('id'), data.hotkeys)
+                if ($(hotkeyCambiados[i]).attr('id') in data.hotkeys) {
+                    let valor = data.hotkeys[$(hotkeyCambiados[i]).attr('id')];
+                    let objetoMomentaneo = {}
+                    if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotCaptura') {
+                        for (let x = 0; x < valor.length; x++) {
+                            for (let z = 0; z < valor[x].length; z++) {
+                                objetoMomentaneo[valor[x][z][1]] = false;
+                            }
                         }
-                    }
-                    opcionesHotCaptura = objetoMomentaneo;
-                } else if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotTemporizador') {
-                    console.log("aqui")
-                    for (let x = 0; x < valor.length; x++) {
-                        for (let z = 0; z < valor[x].length; z++) {
-                            objetoMomentaneo[valor[x][z][1]] = false;
+                        opcionesHotCaptura = objetoMomentaneo;
+                    } else if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotTemporizador') {
+                        for (let x = 0; x < valor.length; x++) {
+                            for (let z = 0; z < valor[x].length; z++) {
+                                objetoMomentaneo[valor[x][z][1]] = false;
+                            }
                         }
+                        opcionesHotTemporizador = objetoMomentaneo;
+                    } else if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotExportar') {
+                        for (let x = 0; x < valor.length; x++) {
+                            for (let z = 0; z < valor[x].length; z++) {
+                                objetoMomentaneo[valor[x][z][1]] = false;
+                            }
+                        }
+                        opcionesHotExportar = objetoMomentaneo;
                     }
-                    opcionesHotTemporizador = objetoMomentaneo;
                 }
             }
+            console.log(opcionesHotCaptura, opcionesHotTemporizador,opcionesHotExportar )
         }
     }
+
     $("body").on("click", ".exit", function () {
         console.log("SEXO");
         setTimeout(() => {
@@ -445,35 +478,18 @@ $(document).ready(function () {
 
 
 });
-//Lector de hotkeys nuevos
-function lectorHotkeysNuevos() {
-    let elementosHotArray = $('[id^="opcionesHot"]').toArray();
-    for (let i = 0; i < elementosHotArray.length; i++) {
-        if ($(elementosHotArray[i]).attr('id') in data.hotkeys) {
-            let valor = data.hotkeys[$(elementosHotArray[i]).attr('id')];
-            let objetoMomentaneo = {}
-            if ($(elementosHotArray[i]).attr('id') == 'opcionesHotCaptura') {
-                for (let x = 0; x < valor.length; x++) {
-                    for (let z = 0; z < valor[x].length; z++) {
-                        objetoMomentaneo[valor[x][z][1]] = false;
-                    }
-                }
-                opcionesHotCaptura = objetoMomentaneo;
-            }
-        }
-    }
-}
 
 function cargarOpciones(data) {
+    console.log(data)
     $("#opcionGuardadoAutomatico").prop('checked', data.opcionGuardadoAutomatico);
     $("#opcionTemporizadorSegundos").val(data.opcionTemporizadorSegundos);
     $("#segundosTemporizador").text(`${data.opcionTemporizadorSegundos} segundos`);
     $(`#opcionFormatoImagen option[value=${data.opcionFormatoImagen}]`).attr('selected', 'selected');
     //hotkeys
-    $(".keyboardBoton span").text(data.hotkeys.opcionesHotCaptura.map(([elemento, _]) => elemento).join(" + "));
-    $("#opcionesHotCaptura").val(data.hotkeys.opcionesHotCaptura.map(([elemento, _]) => elemento).join(" + "));
-    $("#opcionesHotTemporizador").val(data.hotkeys.opcionesHotTemporizador.map(([elemento, _]) => elemento).join(" + "));
-    $("#opcionesHotExportar").val(data.hotkeys.opcionesHotExportar.map(([elemento, _]) => elemento).join(" + "));
+    $(".keyboardBoton span").text(JSON.parse(data.hotkeys.opcionesHotCaptura).map(([elemento, _]) => elemento).join(" + "));
+    $("#opcionesHotCaptura").val(JSON.parse(data.hotkeys.opcionesHotCaptura).map(([elemento, _]) => elemento).join(" + "));
+    $("#opcionesHotTemporizador").val(JSON.parse(data.hotkeys.opcionesHotTemporizador).map(([elemento, _]) => elemento).join(" + "));
+    $("#opcionesHotExportar").val(JSON.parse(data.hotkeys.opcionesHotExportar).map(([elemento, _]) => elemento).join(" + "));
 
     let titulos = []
     $(".contenidoOpcionesDerecha").children('h2').each(function(){
@@ -552,6 +568,7 @@ function guardarEstado() {
     formData.append('opcionesHotExportar', obtenerHotkeyDeObjeto(opcionesHotExportar));
 
     function obtenerHotkeyDeObjeto(hotkey){
+        console.log(hotkey)
         let hotkeyLista = []
         for (let i = 0; i < Object.keys(hotkey).length; i++) {
             if (String.fromCharCode(Object.keys(hotkey)[i]) == ' '){

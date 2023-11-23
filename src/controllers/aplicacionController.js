@@ -12,7 +12,7 @@ controller.view = async (req, res) => {
     req.session.contrasena = "Tester_123";
     req.session.id_tipo = 2;
     req.session.tipo_proyecto = "imagen";
-    req.session.nombre_proyecto = "pila";
+    req.session.nombre_proyecto = "123";
     req.session.id_proyecto = 2;
 
     if (req.session.loggedin != true) {
@@ -161,10 +161,13 @@ controller.guardar = async (req, res) => {
                                                             let lista = '[';
                                                             for (let i = 0; i < hotkeyConvertir.length; i++) {
                                                                 if (i%2 == 0) {
-                                                                    lista += `["${hotkeyConvertir[i]}", ${hotkeyConvertir[i + 1]}]]`;
+                                                                    lista += `["${hotkeyConvertir[i]}", ${hotkeyConvertir[i + 1]}]`;
+                                                                    if(i + 2 < hotkeyConvertir.length) {
+                                                                        lista += ','
+                                                                    }
                                                                 }
                                                             }
-                                                            return lista;
+                                                            return lista + "]";
                                                         }
 
                                                         if (resultadoSelectOpciones.length < 1) {
