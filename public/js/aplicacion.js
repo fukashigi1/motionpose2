@@ -23,7 +23,11 @@ let bloquearHotkeys = false;
 
 var data = {};
 $(document).ready(function () {
-
+    
+    $("#overlay").css("display", "block").append('<div style="width: 100%; height: 100%; display: flex; flex-wrap: wrap; flex-direction: row; align-content: center; justify-content: center;"><div class="loader" style="width: 50px; height: 50px;"></div></div>');
+    setTimeout(() => { 
+        $("#overlay").css("display", "none").children().remove(); // cambiar por ajax
+    }, 1100);
     $.ajax({
         url: '/aplicacion/cargar',
         type: 'GET',    
