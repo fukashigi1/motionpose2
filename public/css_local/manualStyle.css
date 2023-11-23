@@ -220,6 +220,32 @@ aside .lista li:hover::before {
     box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
 }
 
+footer a {
+    background: #242429;
+    border-radius: 15vw;
+    padding-block: 1vw;
+    padding-inline: 1vw;
+}
+
+.btnSubir{
+    background-color: #003f4e !important;
+
+}
+
+.btnSubir:hover {
+    transition: all 0.4s;
+    background-color: #008db1 !important;
+}
+
+.fa-solid.fa-chevron-up {
+    font-size: 3.45vw;
+    padding-inline: 4vw;
+    border-radius: 15vw;
+    color: #ffff;
+    transition: all 0.2s;
+    padding: 0.8vw;
+
+}
 
 
 @media screen and (max-width: 1080px) and (max-height: 2600px) {
@@ -266,17 +292,15 @@ aside .lista li:hover::before {
         flex-direction: column;
         align-items: flex-end;
         margin-right: 0.6vw;
-        padding-right: 6vw;
         margin-top: 2vw;
         background: #1d1d1d;
-        margin-left: 0.6vw;
-        padding-left: 6vw;
+        padding-left: 10px;
         border-radius: 2vw;
     }
 
-    .navMenu a{
-        line-height: 13vw !important;
-        font-size: 4.5vw !important;
+    .show-menu a{
+        line-height: 13vw;
+        font-size: 4.5vw;
     }
 
     .navMenu2{
