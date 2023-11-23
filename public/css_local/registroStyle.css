@@ -175,7 +175,7 @@ a{
 }
 
 .contenedorLogin {
-    transition: all 0.5s;
+    transition: height 0.5s ease;
     border-radius: 1vw;
     background-color: white;
     position: absolute;
@@ -185,6 +185,12 @@ a{
     overflow: hidden;
     width: 28%;
     height: 63%;
+}
+
+.scroll {
+    max-height: 100%; /* Puedes ajustar la altura máxima según tus necesidades */
+    overflow-y: auto; /* Agregado para que aparezca el desbordamiento y se active el scroll vertical */
+    overflow-x: hidden; /* Oculta el desbordamiento horizontal */
 }
 
 @media screen and (max-width: 586px){
@@ -277,9 +283,15 @@ a{
         
     }
 
+    .scroll {
+        max-height: 210px; /* Puedes ajustar la altura máxima según tus necesidades */
+        overflow-y: auto; /* Agregado para que aparezca el desbordamiento y se active el scroll vertical */
+        overflow-x: hidden; /* Oculta el desbordamiento horizontal */
+    }
+    
 }
 
-@media screen and (min-width: 587px) and (max-width: 1066px) {
+@media screen and (min-width: 586px) and (max-width: 1066px) {
 
     input {
         width: 90%;
@@ -313,5 +325,19 @@ a{
         margin-left: -6vw !important;
     }
 
+    .scroll {
+        max-height: 225px; /* Puedes ajustar la altura máxima según tus necesidades */
+        overflow-y: auto; /* Agregado para que aparezca el desbordamiento y se active el scroll vertical */
+        overflow-x: hidden; /* Oculta el desbordamiento horizontal */
+    }
     
+}
+
+
+@media screen and (min-width: 1064px) and (max-width: 1466px) {
+.scroll {
+    max-height: 260px !important; /* Puedes ajustar la altura máxima según tus necesidades */
+    overflow-y: auto; /* Agregado para que aparezca el desbordamiento y se active el scroll vertical */
+    overflow-x: hidden; /* Oculta el desbordamiento horizontal */
+}
 }

@@ -1,5 +1,7 @@
 $(document).ready(function(){
     //Animaciones
+    
+
     {$("#nombre").on("focus", function(){
         $("#nombreLabel").css("bottom", "-8px");
         $("#nombreLabel").css("background-color", "white");
