@@ -72,16 +72,44 @@ export function guardarImagen() {
 
 // Función para actualizar las esferas en tiempo real con nuevas coordenadas
 function updateSpheres(newCoordinates) {
-    // Borra las esferas existentes
+    // Borra las esferas y líneas existentes
     clearSpheres();
+
     // Crea esferas en las nuevas ubicaciones
     if (newCoordinates != null) {
         for (let i = 0; i < newCoordinates.length; i++) {
-            console.log(newCoordinates[i].x, newCoordinates[i].y, newCoordinates[i].z);
             createSphere(newCoordinates[i].x, -newCoordinates[i].y, -newCoordinates[i].z);
+        }
+
+        // Conecta cada dedo desde la muñeca hasta la punta
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+
+        for (let i = 1; i < newCoordinates.length; i += 4) {
+            const lineGeometry = new THREE.BufferGeometry();
+            const linePositions = [];
+
+            // Conecta desde la muñeca hasta la punta del dedo actual
+            linePositions.push(
+                newCoordinates[0].x, -newCoordinates[0].y, -newCoordinates[0].z
+            );
+
+            for (let j = i; j < i + 4; j++) {
+                linePositions.push(
+                    newCoordinates[j].x, -newCoordinates[j].y, -newCoordinates[j].z
+                );
+            }
+
+            lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+            const line = new THREE.Line(lineGeometry, lineMaterial);
+            scene.add(line);
+
+            // Almacena la referencia a la línea para poder eliminarla más adelante
+            spheres.push(line);
         }
     }
 }
+
+
 
 // Supongamos que tienes un bucle o evento que actualiza constantemente las coordenadas.
 // Debes llamar a updateSpheres con las nuevas coordenadas cuando estén disponibles.
