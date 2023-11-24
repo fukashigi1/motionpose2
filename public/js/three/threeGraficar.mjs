@@ -33,7 +33,7 @@ const spheres = []; // Almacena las esferas
 
 // Función para crear esferas en una ubicación específica
 function createSphere(x, y, z) {
-    const geometry = new THREE.SphereGeometry(0.008, 5, 5);
+    const geometry = new THREE.SphereGeometry(0.005, 5, 5);
     const material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true });
     const sphere = new THREE.Mesh(geometry, material);
     sphere.position.set(x, y, z);
@@ -81,12 +81,20 @@ function updateSpheres(newCoordinates) {
             createSphere(newCoordinates[i].x, -newCoordinates[i].y, -newCoordinates[i].z);
         }
 
-        // Conecta cada dedo desde la muñeca hasta la punta
+        // Conecta cada dedo desde la muñeca hasta la punta de los dedos
         const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
 
         for (let i = 1; i < newCoordinates.length; i += 4) {
             const lineGeometry = new THREE.BufferGeometry();
             const linePositions = [];
+            linePositions.push(
+                newCoordinates[2].x, -newCoordinates[2].y, -newCoordinates[2].z
+            );
+            for (let j = 5; j < 18; j=j + 4) {
+                linePositions.push(
+                    newCoordinates[j].x, -newCoordinates[j].y, -newCoordinates[j].z
+                );
+            }
 
             // Conecta desde la muñeca hasta la punta del dedo actual
             linePositions.push(
@@ -98,6 +106,7 @@ function updateSpheres(newCoordinates) {
                     newCoordinates[j].x, -newCoordinates[j].y, -newCoordinates[j].z
                 );
             }
+            
 
             lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
             const line = new THREE.Line(lineGeometry, lineMaterial);
@@ -108,8 +117,6 @@ function updateSpheres(newCoordinates) {
         }
     }
 }
-
-
 
 // Supongamos que tienes un bucle o evento que actualiza constantemente las coordenadas.
 // Debes llamar a updateSpheres con las nuevas coordenadas cuando estén disponibles.
