@@ -56,7 +56,7 @@ function updateSpheres(newCoordinates) {
     // Crea esferas en las nuevas ubicaciones
     if (newCoordinates != null){
         for (let i = 0; i < newCoordinates.length; i++) {
-            console.log(newCoordinates[i].x, newCoordinates[i].y, newCoordinates[i].z);
+            //console.log(newCoordinates[i].x, newCoordinates[i].y, newCoordinates[i].z);
             createSphere(newCoordinates[i].x, -newCoordinates[i].y, -newCoordinates[i].z);
         }
     } 
@@ -70,13 +70,16 @@ setTimeout(() => {
         const newCoordinates = obtenerNuevasCoordenadas();
     
         if (landmarkAnterior !== newCoordinates) {
-            updateSpheres(landmarkAnterior);
+            updateSpheres(newCoordinates);
         }
     
         landmarkAnterior = newCoordinates; // Actualiza la variable con las nuevas coordenadas
         // Llama a esta función nuevamente para actualizar continuamente
-        requestAnimationFrame(updateLoop);
-        renderer.render(scene, camera, spheres);
+        setTimeout(() => {
+            console.log(landmarkAnterior)
+            requestAnimationFrame(updateLoop);
+            renderer.render(scene, camera, spheres);
+        }, 33); // 30 FPS 1000/30 = 33
     }
     // Comienza el bucle de actualización
     updateLoop();

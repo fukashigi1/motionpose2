@@ -51,7 +51,6 @@ app.set('port', process.env.PORT || PUERTO_SERVIDOR);
 app.use(express.static('public', {
     maxAge: 31536000, // Cache for 1 year
   }));
-  
 // Importación de rutas
 const usuarioRuta = require('./routes/usuarios');
 const registroRuta = require('./routes/registroRuta');

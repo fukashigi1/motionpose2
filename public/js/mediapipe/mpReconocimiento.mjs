@@ -5,7 +5,6 @@ const controls = window;
 const videoElement = document.getElementsByClassName('input_video')[0];
 const controlsElement = document.getElementsByClassName('control-panel')[0];
 const coordenadas = document.getElementById('coordenadas');
-
 const config = { locateFile: (file) => { //esta wea llama al modelo de entrenamiento hand_landmarker.task
         return `https://cdn.jsdelivr.net/npm/@mediapipe/hands@${mpHands.VERSION}/${file}`;
 } };
@@ -34,7 +33,6 @@ function extractData(landmarks){
     coordenadas.innerHTML = valoresPlanos //<-- Se muestra a tiempo real dentro del h1 en el html.
     console.log(valoresPlanos)
 }
-
 function onResults(results) {
     // Update the frame rate.
     fpsControl.tick();
