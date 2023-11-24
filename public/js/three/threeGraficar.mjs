@@ -62,6 +62,31 @@ function updateSpheres(newCoordinates) {
     } 
 }
 
+function suavizarTransicion(coords1, coords2, factorSuavizado) {
+    if (coords1 != null) {
+        if (coords1.length !== coords2.length) {
+        throw new Error('Las listas de coordenadas deben tener la misma longitud');
+        }
+  
+        const coordenadaSuavizada = [];
+  
+        for (let i = 0; i < coords1.length; i++) {
+            const smoothX = interpolacionHermite(coords1[i].x, coords2[i].x, factorSuavizado);
+            const smoothY = interpolacionHermite(coords1[i].y, coords2[i].y, factorSuavizado);
+            const smoothZ = interpolacionHermite(coords1[i].z, coords2[i].z, factorSuavizado);
+  
+            coordenadaSuavizada.push({ x: smoothX, y: smoothY, z: smoothZ });
+        }
+  
+        return coordenadaSuavizada;
+    }
+}
+  
+  // Función de interpolación de Hermite para suavizado
+function interpolacionHermite(p0, p1, t) {
+    return p0 * (2 * t * t * t - 3 * t * t + 1) + p1 * (-2 * t * t * t + 3 * t * t);
+}
+
 // Supongamos que tienes un bucle o evento que actualiza constantemente las coordenadas.
 // Debes llamar a updateSpheres con las nuevas coordenadas cuando estén disponibles.
 setTimeout(() => {
@@ -70,13 +95,13 @@ setTimeout(() => {
         const newCoordinates = obtenerNuevasCoordenadas();
     
         if (landmarkAnterior !== newCoordinates) {
-            updateSpheres(newCoordinates);
+            let coordenadasSuavizadas = suavizarTransicion(landmarkAnterior, newCoordinates, 0.5);
+            updateSpheres(coordenadasSuavizadas);
         }
     
         landmarkAnterior = newCoordinates; // Actualiza la variable con las nuevas coordenadas
         // Llama a esta función nuevamente para actualizar continuamente
         setTimeout(() => {
-            console.log(landmarkAnterior)
             requestAnimationFrame(updateLoop);
             renderer.render(scene, camera, spheres);
         }, 33); // 30 FPS 1000/30 = 33
