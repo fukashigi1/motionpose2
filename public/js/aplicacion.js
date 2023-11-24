@@ -767,7 +767,3 @@ function cargarModal() {
 
     $("body").append(modalGlobal);
 }
-
-function cargarImagenes(){
-    
-}
