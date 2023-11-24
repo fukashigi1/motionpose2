@@ -45,9 +45,11 @@ footer {
     margin-left: 150px;
     margin-right: 150px;
     margin-top: 200px;
+    padding-top: 0vh !important;
     border-top: 1px solid white;
     margin-bottom: 50px;
 }
+
 footer p {
     font-size: 20px;
     margin-left: 25px;
@@ -114,32 +116,6 @@ ul.show-menu {
     display: block;
   }
 
-  footer a {
-    background: #242429;
-    border-radius: 15vw;
-    padding-block: 1vw;
-    padding-inline: 1vw;
-}
-
-.btnSubir{
-    background-color: #003f4e !important;
-
-}
-
-.btnSubir:hover {
-    transition: all 0.4s;
-    background-color: #008db1 !important;
-}
-
-.fa-solid.fa-chevron-up {
-    font-size: 3.45vw;
-    padding-inline: 4vw;
-    border-radius: 15vw;
-    color: #ffff;
-    transition: all 0.2s;
-    padding: 0.8vw;
-
-}
 
 @media screen and (max-width: 1365px){        
     ul{

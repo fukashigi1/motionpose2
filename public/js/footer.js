@@ -27,14 +27,17 @@ $(document).ready(function(){
 
     if (window.location.href.includes('politicas')) {
         $("#politicas").css('background-color', '#003f4e');
+        $("#politicas").css('text-decoration', 'underline');
     }
 
     if (window.location.href.includes('terminos')) {
         $("#terminos").css('background-color', '#003f4e');
+        $("#terminos").css('text-decoration', 'underline');
     }
 
     if (window.location.href.includes('manual')) {
         $("#manual").css('background-color', '#003f4e');
+        $("#manual").css('text-decoration', 'underline');
     }
 
     $(window).scroll(function() {
