@@ -135,7 +135,7 @@ setTimeout(() => {
         setTimeout(() => {
             console.log(landmarkAnterior)
             requestAnimationFrame(updateLoop);
-            renderer.render(scene, camera, spheres);
+            renderer.render(scene, camera);
         }, 33); // 30 FPS 1000/30 = 33
     }
     // Comienza el bucle de actualización
