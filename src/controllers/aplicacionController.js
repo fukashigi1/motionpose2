@@ -2,6 +2,7 @@ const controller = {};
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+const util = require('util')
 
 controller.view = async (req, res) => {
     req.session.loggedin = true;
@@ -11,7 +12,7 @@ controller.view = async (req, res) => {
     req.session.contrasena = "Tester_123";
     req.session.id_tipo = 2;
     req.session.tipo_proyecto = "imagen";
-    req.session.nombre_proyecto = "pila";
+    req.session.nombre_proyecto = "123";
     req.session.id_proyecto = 2;
 
     if (req.session.loggedin != true) {
@@ -133,12 +134,11 @@ controller.guardar = async (req, res) => {
                                                         opcionTemporizadorSegundos: resultadoSelectOpciones[0].temporizador,
                                                         opcionFormatoImagen: resultadoSelectOpciones[0].formato_imagen,
                                                         hotkeys: {
-                                                            opcionesHotCaptura: JSON.parse(resultadoSelectOpciones[0].hotkey_captura),
-                                                            opcionesHotTemporizador: JSON.parse(resultadoSelectOpciones[0].hotkey_captura_temp),
-                                                            opcionesHotExportar: JSON.parse(resultadoSelectOpciones[0].hotkey_exportar)
+                                                            opcionesHotCaptura: resultadoSelectOpciones[0].hotkey_captura,
+                                                            opcionesHotTemporizador: resultadoSelectOpciones[0].hotkey_captura_temp,
+                                                            opcionesHotExportar: resultadoSelectOpciones[0].hotkey_exportar
                                                         }
                                                     };
-                                                    console.log(preferencias);
                                                     if (error) {
                                                         msg = "Hubo un error obteniendo la información.";
                                                         console.log(msg);
@@ -146,12 +146,36 @@ controller.guardar = async (req, res) => {
                                                     } else {
                                                         let query;
                                                         let listaSQL;
+                                                        //preferencias
+                                                        let opcionGuardadoAutomatico = req.body.opcionGuardadoAutomatico;
+                                                        let opcionTemporizadorSegundos = req.body.opcionTemporizadorSegundos;
+                                                        let opcionFormatoImagen = req.body.opcionFormatoImagen;
+                                                        let opcionesHotCaptura = agregarCorchetes(req.body.opcionesHotCaptura.split(','));
+                                                        let opcionesHotTemporizador = agregarCorchetes(req.body.opcionesHotTemporizador.split(','));
+                                                        let opcionesHotExportar = agregarCorchetes(req.body.opcionesHotExportar.split(','));
+
+                                                        //Convertir la data
+                                                        opcionGuardadoAutomatico = (opcionGuardadoAutomatico == true) ? 1 : 0;
+
+                                                        function agregarCorchetes(hotkeyConvertir){
+                                                            let lista = '[';
+                                                            for (let i = 0; i < hotkeyConvertir.length; i++) {
+                                                                if (i%2 == 0) {
+                                                                    lista += `["${hotkeyConvertir[i]}", ${hotkeyConvertir[i + 1]}]`;
+                                                                    if(i + 2 < hotkeyConvertir.length) {
+                                                                        lista += ','
+                                                                    }
+                                                                }
+                                                            }
+                                                            return lista + "]";
+                                                        }
+
                                                         if (resultadoSelectOpciones.length < 1) {
-                                                            query = 'INSERT INTO preferencias (id_proyecto) VALUES (?)';
-                                                            listaSQL = [req.session.id_proyecto]
+                                                            query = 'INSERT INTO preferencias (id_proyecto, autoguardado, temporizador, formato_imagen, hotkey_captura, hotkey_captura_temp, hotkey_exportar) VALUES (?, ?, ?, ?, ?, ?, ?)';
+                                                            listaSQL = [req.session.id_proyecto, opcionGuardadoAutomatico, opcionTemporizadorSegundos, opcionFormatoImagen, opcionesHotCaptura, opcionesHotTemporizador, opcionesHotExportar]
                                                         } else {
-                                                            query = 'UPDATE preferencias SET id_proyecto = ? WHERE id_proyecto = ?';
-                                                            listaSQL = [req.session.id_proyecto, req.session.id_proyecto]
+                                                            query = "UPDATE preferencias SET id_proyecto = ?, autoguardado = ?, temporizador = ?, formato_imagen = ?, hotkey_captura = ? , hotkey_captura_temp = ?, hotkey_exportar = ? WHERE id_proyecto = ?";
+                                                            listaSQL = [req.session.id_proyecto, opcionGuardadoAutomatico, opcionTemporizadorSegundos, opcionFormatoImagen, opcionesHotCaptura, opcionesHotTemporizador, opcionesHotExportar, req.session.id_proyecto]
                                                         }
                                                         conexion.query(query, listaSQL, (error, resultadoOpciones) => { // Guardar las preferencias aquí
                                                             if (error) {
@@ -241,9 +265,27 @@ controller.cargar = async (req, res) => {
                             const base64 = getBase64(filePath);
                             return { ...imagen, base64 };
                         });
-                
-                        msg = "Las imágenes se han cargado correctamente."
-                        res.json({ Exito: true, msg: msg, imagenes: imagenesBase64, nombre_proyecto: req.session.nombre_proyecto });
+                        conexion.query('SELECT * FROM preferencias WHERE id_proyecto = ?', [req.session.id_proyecto], (error, preferencias) => {
+                            if (error) {
+                                msg = "No se encontraron preferencias.";
+                                console.log(msg);
+                                res.json({ Exito: false, msg: msg });
+                            } else {
+                                let autoguardado = (preferencias[0].autoguardado == 0) ? false : true;
+                                let preferenciasFormateado = {
+                                    opcionGuardadoAutomatico: autoguardado,
+                                    opcionTemporizadorSegundos: preferencias[0].temporizador,
+                                    opcionFormatoImagen: preferencias[0].formato_imagen,
+                                    hotkeys: {
+                                        opcionesHotCaptura: preferencias[0].hotkey_captura,
+                                        opcionesHotTemporizador: preferencias[0].hotkey_captura_temp,
+                                        opcionesHotExportar: preferencias[0].hotkey_exportar
+                                    }
+                                };
+                                msg = "Las imágenes se han cargado correctamente."
+                                res.json({ Exito: true, msg: msg, imagenes: imagenesBase64, nombre_proyecto: req.session.nombre_proyecto, preferencias: preferenciasFormateado});
+                            }
+                        });
                     }
                 });
             }

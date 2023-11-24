@@ -12,16 +12,7 @@ let imagenesSubir = [];
 let teclas = []
 let anterior;
 
-let data = {
-    opcionGuardadoAutomatico: false,
-    opcionTemporizadorSegundos: 4,
-    opcionFormatoImagen: 'exportarPNG',
-    hotkeys: {
-        opcionesHotCaptura: [['SPACE', 32], ['T', 84]],
-        opcionesHotTemporizador: [['R', 82]],
-        opcionesHotExportar: [['E', 69]]
-    }
-}
+
 let opcionesHotCaptura = {};
 let opcionesHotTemporizador = {};
 let opcionesHotExportar = {};
@@ -30,12 +21,43 @@ let hotkeysIniciales = []
 
 let bloquearHotkeys = false;
 
+var data = {};
 $(document).ready(function () {
+    
+    $("#overlay").css("display", "block").append('<div style="width: 100%; height: 100%; display: flex; flex-wrap: wrap; flex-direction: row; align-content: center; justify-content: center;"><div class="loader" style="width: 50px; height: 50px;"></div></div>');
+    setTimeout(() => { 
+        $("#overlay").css("display", "none").children().remove(); // cambiar por ajax
+    }, 1100);
+    $.ajax({
+        url: '/aplicacion/cargar',
+        type: 'GET',    
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+            data = result.preferencias
+            if (result.imagenes.length > 0) {
+                result.imagenes.forEach(function (imagen, indice) {
+                    const fileName = `${imagen.nombre}`;
+                    const imagenBase64 = "data:image/png;base64,"+imagen.base64
+                    const imagenBase64jpeg = "data:image/jpeg;base64,"+imagen.base64
+                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-jpeg="${imagenBase64jpeg}" data-nombre_archivo="${fileName.split('.')[0]}"></div>`;
+                    $(captura).insertAfter(".herramienta .titulo");
+                });
+                $(".tutorialSpaceBar").remove();
+            }
+        },
+        error: function (error) {
+            console.error('Error en la solicitud AJAX:', error);
+        }
+    });
+    cargarImagenes();
     cargarModal();
     cargarFlotante();
     datosProyecto();
     capturarWebCam('user');  // user, environment
-    cargarOpciones(data); // cambiar por ajax
+    setTimeout(() => { 
+        cargarOpciones(data); // cambiar por ajax
+    }, 1000);
 
     $("#ayudaBoton").on("click", function () {
         console.log("holaaaa");
@@ -51,6 +73,17 @@ $(document).ready(function () {
     $("body").on("click", "#tomarCaptura", function () {
         screenShot();
         $(".tutorialSpaceBar").remove();
+    });
+
+    // Si hace click en una opcion de preferencias (navegador izquierdo), deberá mandarlo al h2 correspondiente dentro de preferencias
+    $("body").on("click", ".infoOpcionesLi span", function(){
+        let $navClickeado = $(this)
+        $(".contenidoOpcionesDerecha").children('h2').each(function(){
+            if ($(this).text() == $navClickeado.text()){
+                $(".contenidoOpcionesDerecha").animate({ scrollTop: $(this).offset().top }, 300);
+
+            }
+        });
     });
 
     function tomarCapturaTemp(segundos) {
@@ -90,6 +123,33 @@ $(document).ready(function () {
             }
         }
     }
+    function detectarH2Visible() {
+        var contenedor = $('.contenidoOpcionesDerecha');
+        var h2Elementos = contenedor.find('h2');
+        h2Elementos.each(function() {
+            var h2 = $(this);
+            var posicionSuperior = h2.offset().top;
+            var posicionInferior = posicionSuperior + h2.outerHeight();
+            var ventanaSuperior = contenedor.offset().top;
+            var ventanaInferior = ventanaSuperior + contenedor.height();
+            // Verificar si el h2 está en la ventana de visualización
+            if ((posicionInferior >= ventanaSuperior) && (posicionSuperior <= ventanaInferior)) {
+                
+                $.extend($.expr[':'], {
+                    'containsExact': function (element, index, match) {
+                      return $(element).text() === match[3];
+                    }
+                  });
+            
+                  $(".infoOpcionesLi span").removeClass('highlight')
+                  $(":containsExact('" + h2.text() + "')").addClass('highlight')
+                return false; 
+            }
+        });
+    }
+    
+      // Llama a la función al cargar la página y al hacer scroll en el contenedor
+    $('.contenidoOpcionesDerecha').on('scroll', detectarH2Visible);
 
     $("body").on("click", "#tomarCapturaTemp", function () {
         $("#inputContainer").slideDown();
@@ -98,17 +158,42 @@ $(document).ready(function () {
         });
     });
 
-    $("#exportarImagenes, #exportar").on("click", function () {
-        $(".seleccionado").each(function () {
-            imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
-        });
-        if (imagenesSubir.length > 0) {
-            let checkbox = '';
-            checkbox += '<div class="contenedorCheckbox"><div class="divCheckbox"><input type="checkbox" id="png"><label for="png">.PNG</label></div><div class="divCheckbox"><input type="checkbox" id="jpeg"><label for="jpeg">.JPEG</label></div></div>';
-            ejecutarAccion('Exportar imágenes', 'Por favor seleccione la extensión de imagen con la que desea exportar.<br>' + checkbox);
-            $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="exportarModal">Exportar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
+    function exportar(defecto) {
+        if (defecto) {
+            let mime = $firstCheckedCheckbox.attr("id");
+
+            for (let i = 0; i < imagenesSubir.length; i++) {
+                var a = document.createElement("a");
+                if (mime == "png") {
+                    a.href = imagenesSubir[i][0];
+                } else {
+                    a.href = imagenesSubir[i][1];
+                }
+                a.download = imagenesSubir[i][2] + "." + mime;
+                a.click();
+            }
+            imagenesSubir = [];
+    
+            $(".captura.seleccionado").each(function () {
+                $(this).removeClass("seleccionado");
+            });
+        } else {
+            $(".seleccionado").each(function () {
+                imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
+            });
+            if (imagenesSubir.length > 0) {
+                let checkbox = '';
+                checkbox += '<div class="contenedorCheckbox"><div class="divCheckbox"><input type="checkbox" id="png"><label for="png">.PNG</label></div><div class="divCheckbox"><input type="checkbox" id="jpeg"><label for="jpeg">.JPEG</label></div></div>';
+                ejecutarAccion('Exportar imágenes', 'Por favor seleccione la extensión de imagen con la que desea exportar.<br>' + checkbox);
+                $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="exportarModal">Exportar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
+            }
         }
+    }
+
+    $("#exportarImagenes, #exportar").on("click", function () {
+        exportar();
     });
+
 
 
     $("body").on("click", "#exportarModal", function () {
@@ -165,9 +250,11 @@ $(document).ready(function () {
     });
     ////
 
-    codeSetHotKey(data.hotkeys.opcionesHotCaptura, opcionesHotCaptura)
-    codeSetHotKey(data.hotkeys.opcionesHotTemporizador, opcionesHotTemporizador)
-    codeSetHotKey(data.hotkeys.opcionesHotExportar, opcionesHotExportar)
+    setTimeout(() => { 
+        codeSetHotKey(JSON.parse(data.hotkeys.opcionesHotCaptura), opcionesHotCaptura)
+        codeSetHotKey(JSON.parse(data.hotkeys.opcionesHotTemporizador), opcionesHotTemporizador)
+        codeSetHotKey(JSON.parse(data.hotkeys.opcionesHotExportar), opcionesHotExportar)
+    }, 1000);
     function codeSetHotKey(hotkey, codeset) {
         for (let i = 0; i < hotkey.length; i++) {
             //console.log(hotkeys.opcionesHotCaptura[i][1])
@@ -177,16 +264,17 @@ $(document).ready(function () {
     }
     // HOTKEYS
     $("body").on("keydown", function (e) {
-        // TOMAR CAPTURA - opcionesHotCaptura
         if (!bloquearHotkeys) {
-            if (detectorHotkeyinKey(true, e, opcionesHotCaptura)) {
+            if (detectorHotkeyinKey(true, e, opcionesHotCaptura)) {// TOMAR CAPTURA - opcionesHotCaptura
                 e.preventDefault();
                 screenShot();
                 $(".tutorialSpaceBar").remove();
             } else if (detectorHotkeyinKey(true, e, opcionesHotTemporizador)) {// TEMPORIZADOR - opcionesHotTemporizador
-    
                 e.preventDefault();
                 tomarCapturaTemp(data.opcionTemporizadorSegundos)
+            } else if (detectorHotkeyinKey(true, e, opcionesHotExportar)) {// EXPORTAR - opcionesHotCaptura
+                e.preventDefault();
+                exportar(true)
             }
         }
     }).on('keyup', function (e) {
@@ -230,32 +318,42 @@ $(document).ready(function () {
                 hotkeyCambiados.push($(elementosHotArray[i]))
             }
         }
-
-
-        for (let i = 0; i < hotkeyCambiados.length; i++) {
-            console.log($(hotkeyCambiados[i]).attr('id'), data.hotkeys)
-            if ($(hotkeyCambiados[i]).attr('id') in data.hotkeys) {
-                let valor = data.hotkeys[$(hotkeyCambiados[i]).attr('id')];
-                let objetoMomentaneo = {}
-                if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotCaptura') {
-                    for (let x = 0; x < valor.length; x++) {
-                        for (let z = 0; z < valor[x].length; z++) {
-                            objetoMomentaneo[valor[x][z][1]] = false;
+        if (hotkeyCambiados.length == 0) {
+            console.log("sin cambios")
+        } else {
+            for (let i = 0; i < hotkeyCambiados.length; i++) {
+                console.log($(hotkeyCambiados[i]).attr('id'), data.hotkeys)
+                if ($(hotkeyCambiados[i]).attr('id') in data.hotkeys) {
+                    let valor = data.hotkeys[$(hotkeyCambiados[i]).attr('id')];
+                    let objetoMomentaneo = {}
+                    if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotCaptura') {
+                        for (let x = 0; x < valor.length; x++) {
+                            for (let z = 0; z < valor[x].length; z++) {
+                                objetoMomentaneo[valor[x][z][1]] = false;
+                            }
                         }
-                    }
-                    opcionesHotCaptura = objetoMomentaneo;
-                } else if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotTemporizador') {
-                    console.log("aqui")
-                    for (let x = 0; x < valor.length; x++) {
-                        for (let z = 0; z < valor[x].length; z++) {
-                            objetoMomentaneo[valor[x][z][1]] = false;
+                        opcionesHotCaptura = objetoMomentaneo;
+                    } else if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotTemporizador') {
+                        for (let x = 0; x < valor.length; x++) {
+                            for (let z = 0; z < valor[x].length; z++) {
+                                objetoMomentaneo[valor[x][z][1]] = false;
+                            }
                         }
+                        opcionesHotTemporizador = objetoMomentaneo;
+                    } else if ($(hotkeyCambiados[i]).attr('id') == 'opcionesHotExportar') {
+                        for (let x = 0; x < valor.length; x++) {
+                            for (let z = 0; z < valor[x].length; z++) {
+                                objetoMomentaneo[valor[x][z][1]] = false;
+                            }
+                        }
+                        opcionesHotExportar = objetoMomentaneo;
                     }
-                    opcionesHotTemporizador = objetoMomentaneo;
                 }
             }
+            console.log(opcionesHotCaptura, opcionesHotTemporizador,opcionesHotExportar )
         }
     }
+
     $("body").on("click", ".exit", function () {
         console.log("SEXO");
         setTimeout(() => {
@@ -384,35 +482,35 @@ $(document).ready(function () {
 
 
 });
-//Lector de hotkeys nuevos
-function lectorHotkeysNuevos() {
-    let elementosHotArray = $('[id^="opcionesHot"]').toArray();
-    for (let i = 0; i < elementosHotArray.length; i++) {
-        if ($(elementosHotArray[i]).attr('id') in data.hotkeys) {
-            let valor = data.hotkeys[$(elementosHotArray[i]).attr('id')];
-            let objetoMomentaneo = {}
-            if ($(elementosHotArray[i]).attr('id') == 'opcionesHotCaptura') {
-                for (let x = 0; x < valor.length; x++) {
-                    for (let z = 0; z < valor[x].length; z++) {
-                        objetoMomentaneo[valor[x][z][1]] = false;
-                    }
-                }
-                opcionesHotCaptura = objetoMomentaneo;
-            }
-        }
-    }
-}
 
 function cargarOpciones(data) {
+    console.log(data)
     $("#opcionGuardadoAutomatico").prop('checked', data.opcionGuardadoAutomatico);
     $("#opcionTemporizadorSegundos").val(data.opcionTemporizadorSegundos);
     $("#segundosTemporizador").text(`${data.opcionTemporizadorSegundos} segundos`);
     $(`#opcionFormatoImagen option[value=${data.opcionFormatoImagen}]`).attr('selected', 'selected');
     //hotkeys
-    $(".keyboardBoton span").text(data.hotkeys.opcionesHotCaptura.map(([elemento, _]) => elemento).join(" + "));
-    $("#opcionesHotCaptura").val(data.hotkeys.opcionesHotCaptura.map(([elemento, _]) => elemento).join(" + "));
-    $("#opcionesHotTemporizador").val(data.hotkeys.opcionesHotTemporizador.map(([elemento, _]) => elemento).join(" + "));
-    $("#opcionesHotExportar").val(data.hotkeys.opcionesHotExportar.map(([elemento, _]) => elemento).join(" + "));
+    $(".keyboardBoton span").text(JSON.parse(data.hotkeys.opcionesHotCaptura).map(([elemento, _]) => elemento).join(" + "));
+    $("#opcionesHotCaptura").val(JSON.parse(data.hotkeys.opcionesHotCaptura).map(([elemento, _]) => elemento).join(" + "));
+    $("#opcionesHotTemporizador").val(JSON.parse(data.hotkeys.opcionesHotTemporizador).map(([elemento, _]) => elemento).join(" + "));
+    $("#opcionesHotExportar").val(JSON.parse(data.hotkeys.opcionesHotExportar).map(([elemento, _]) => elemento).join(" + "));
+
+    let titulos = []
+    $(".contenidoOpcionesDerecha").children('h2').each(function(){
+        titulos.push($(this).text());
+    });
+
+    let barraIzquierda = '<ul>'
+
+    for (let i = 0; i < titulos.length; i++) {
+        barraIzquierda += `
+        <li>
+            <div class="infoOpcionesLi">
+                <span>${titulos[i]}</span>
+            </div>
+        </li>` 
+    }
+    $(".contenidoOpcionesCuerpo").html(barraIzquierda);
 }
 
 function detectorHotkey($input) {
@@ -462,12 +560,30 @@ function guardarEstado() {
         contadorImagenes += 1;
     });
 
+    
     formData.append('cantidad_imagenes', contadorImagenes);
-    //formData.append('opciones');
-    for (const value of formData.values()) {
-        console.log(value);
-    }
+    //PREFERENCIAS
+    
+    formData.append('opcionGuardadoAutomatico', $("#opcionGuardadoAutomatico").is(":checked"));
+    formData.append('opcionTemporizadorSegundos', $("#opcionTemporizadorSegundos").val());
+    formData.append('opcionFormatoImagen', $("#opcionFormatoImagen").val());
+    formData.append('opcionesHotCaptura', obtenerHotkeyDeObjeto(opcionesHotCaptura));
+    formData.append('opcionesHotTemporizador', obtenerHotkeyDeObjeto(opcionesHotTemporizador));
+    formData.append('opcionesHotExportar', obtenerHotkeyDeObjeto(opcionesHotExportar));
 
+    function obtenerHotkeyDeObjeto(hotkey){
+        console.log(hotkey)
+        let hotkeyLista = []
+        for (let i = 0; i < Object.keys(hotkey).length; i++) {
+            if (String.fromCharCode(Object.keys(hotkey)[i]) == ' '){
+                hotkeyLista.push(['SPACE', Object.keys(hotkey)[i]])
+            } else {
+                hotkeyLista.push([String.fromCharCode(Object.keys(hotkey)[i]).toUpperCase(), Object.keys(hotkey)[i]])
+            }
+        }
+        return hotkeyLista;
+    }
+    
     $.ajax({
         type: "POST",
         url: "/aplicacion/guardar", // La URL donde deseas enviar el archivo
@@ -650,30 +766,4 @@ function cargarModal() {
     modalGlobal += '</div>';
 
     $("body").append(modalGlobal);
-}
-
-window.onload = function () {
-
-    $.ajax({
-        url: '/aplicacion/cargar',
-        type: 'GET',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (result) {
-            console.log(result);
-            if (result.imagenes.length > 0) {
-                result.imagenes.forEach(function (imagen, indice) {
-                    const fileName = `${result.nombre_proyecto}`;
-                    const imagenBase64 = "data:image/png;base64,"+imagen.base64
-                    const imagenBase64jpeg = "data:image/jpeg;base64,"+imagen.base64
-                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-jpeg="${imagenBase64jpeg}" data-nombre_archivo="${fileName}"></div>`;
-                    $(captura).insertAfter(".herramienta .titulo");
-                });
-                $(".tutorialSpaceBar").remove();
-            }
-        },
-        error: function (error) {
-            console.error('Error en la solicitud AJAX:', error);
-        }
-    });
 }

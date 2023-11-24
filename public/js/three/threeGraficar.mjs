@@ -33,7 +33,7 @@ const spheres = []; // Almacena las esferas
 
 // Función para crear esferas en una ubicación específica
 function createSphere(x, y, z) {
-    const geometry = new THREE.SphereGeometry(0.008, 5, 5);
+    const geometry = new THREE.SphereGeometry(0.005, 5, 5);
     const material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true });
     const sphere = new THREE.Mesh(geometry, material);
     sphere.position.set(x, y, z);
@@ -72,13 +72,49 @@ export function guardarImagen() {
 
 // Función para actualizar las esferas en tiempo real con nuevas coordenadas
 function updateSpheres(newCoordinates) {
-    // Borra las esferas existentes
+    // Borra las esferas y líneas existentes
     clearSpheres();
+
     // Crea esferas en las nuevas ubicaciones
     if (newCoordinates != null) {
         for (let i = 0; i < newCoordinates.length; i++) {
-            console.log(newCoordinates[i].x, newCoordinates[i].y, newCoordinates[i].z);
+            //console.log(newCoordinates[i].x, newCoordinates[i].y, newCoordinates[i].z);
             createSphere(newCoordinates[i].x, -newCoordinates[i].y, -newCoordinates[i].z);
+        }
+
+        // Conecta cada dedo desde la muñeca hasta la punta de los dedos
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+
+        for (let i = 1; i < newCoordinates.length; i += 4) {
+            const lineGeometry = new THREE.BufferGeometry();
+            const linePositions = [];
+            linePositions.push(
+                newCoordinates[2].x, -newCoordinates[2].y, -newCoordinates[2].z
+            );
+            for (let j = 5; j < 18; j=j + 4) {
+                linePositions.push(
+                    newCoordinates[j].x, -newCoordinates[j].y, -newCoordinates[j].z
+                );
+            }
+
+            // Conecta desde la muñeca hasta la punta del dedo actual
+            linePositions.push(
+                newCoordinates[0].x, -newCoordinates[0].y, -newCoordinates[0].z
+            );
+
+            for (let j = i; j < i + 4; j++) {
+                linePositions.push(
+                    newCoordinates[j].x, -newCoordinates[j].y, -newCoordinates[j].z
+                );
+            }
+            
+
+            lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+            const line = new THREE.Line(lineGeometry, lineMaterial);
+            scene.add(line);
+
+            // Almacena la referencia a la línea para poder eliminarla más adelante
+            spheres.push(line);
         }
     }
 }
@@ -91,13 +127,16 @@ setTimeout(() => {
         const newCoordinates = obtenerNuevasCoordenadas();
 
         if (landmarkAnterior !== newCoordinates) {
-            updateSpheres(landmarkAnterior);
+            updateSpheres(newCoordinates);
         }
 
         landmarkAnterior = newCoordinates; // Actualiza la variable con las nuevas coordenadas
         // Llama a esta función nuevamente para actualizar continuamente
-        requestAnimationFrame(updateLoop);
-        renderer.render(scene, camera);
+        setTimeout(() => {
+            console.log(landmarkAnterior)
+            requestAnimationFrame(updateLoop);
+            renderer.render(scene, camera, spheres);
+        }, 33); // 30 FPS 1000/30 = 33
     }
     // Comienza el bucle de actualización
     updateLoop();

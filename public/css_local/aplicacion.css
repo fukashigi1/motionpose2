@@ -364,7 +364,7 @@ input[type=number] {
 }
 
 .contenidoOpcionesCuerpo span{
-    color: #c7c7c7;
+    color: #a7a7a7;
     display: block;
     width: 100%;
     font-size: 1.8vh;
@@ -453,4 +453,8 @@ input[type=number] {
     border: none;
     cursor: pointer;
     font-family: monospace;
+}
+
+.highlight {
+    color: white !important;
 }
