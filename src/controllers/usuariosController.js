@@ -57,8 +57,9 @@ controller.post = async (req, res) => {
                                         req.session.loggedin = true;
                                         req.session.nombre_usuario = filas.nombre_usuario;
                                         req.session.correo = filas.correo;
+                                        req.session.id_usuario = filas.id_usuario;
                                         req.session.contrasena = filas.contrasena;
-                                        req.session.tipo_usuario = filas.tipo_usuario;
+                                        req.session.id_tipo = filas.id_tipo;
                                         res.json({Exito: Exito, msg: msg, correo: req.body.correo, contrasena: contrasena});
                                     }else{
                                         msg = "Correo o contraseña incorrecta."

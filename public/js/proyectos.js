@@ -143,6 +143,7 @@ $(document).ready(function(){
             }
         } else if (idLi == "eliminar") {
             let $elemento = $("#" + elementoClick).attr("id");
+            console.log($elemento)
             let nombreElemento = $("#" + elementoClick).text();
             console.log(nombreElemento);
             desplegarModal(nombreElemento);

@@ -2,12 +2,6 @@ const controller = {};
 const path = require('path');
 
 controller.view = async (req, res) => {
-    req.session.loggedin = true;
-    req.session.id_usuario = 1;
-    req.session.nombre_usuario = "test";
-    req.session.correo = "test@test.test";
-    req.session.contrasena = "Tester_123";
-    req.session.id_tipo = 2;
     if (req.session.loggedin != true) {
         //res.redirect('/login');
         res.sendFile(path.join(__dirname, '..', 'view', 'lobby.html'));
@@ -39,12 +33,13 @@ controller.crear = async (req, res) => {
                 console.error(msg);
                 res.json({ Exito: false, msg: msg });
             } else {
-                if (req.session.id_usuario === undefined) {
+                if (req.session.correo === undefined) {
                     msg = "Usted debe tener una sesión activa.";
                     console.error(msg);
                     res.json({ Exito: false, msg: msg });
                 } else {
-                    if (req.session.tipo_usuario == "GRATIS") {
+                    console.log(req.session)
+                    if (req.session.id_tipo == "1") {
                         conexion.query('SELECT COUNT(*) FROM proyecto WHERE id_usuario = ?', [req.session.id_usuario], (error, filas) => {
                             if (error) {
                                 msg = error.code;
@@ -63,8 +58,23 @@ controller.crear = async (req, res) => {
                                                 console.error(msg);
                                                 res.json({ Exito: false, msg: msg });
                                             } else {
-                                                console.log(respuesta);
-                                                res.json({ Exito: true, msg: "Proyecto creado satisfactoriamente." });
+                                                conexion.query('INSERT INTO preferencias (id_proyecto) VALUES (?)', [respuesta.insertId], (error, response) => {
+                                                    console.log(response);
+                                                    if (error) {
+                                                        msg = error.code;
+                                                        console.error(msg);
+                                                        res.json({ Exito: false, msg: msg });
+                                                    } else {
+                                                        if (response.affectedRows == 0) {
+                                                            msg = "Ocurrió un error inesperado en la consulta."
+                                                            console.error(msg);
+                                                            res.json({ Exito: false, msg: msg });
+                                                        } else {
+                                                            console.log(response);
+                                                            res.json({ Exito: true, msg: "Proyecto creado satisfactoriamente." });
+                                                        }
+                                                    }
+                                                });
                                             }
                                         }
                                     });

@@ -8,12 +8,6 @@ controller.view = async (req, res)=>{
     }else{
         res.sendFile(path.join(__dirname, '..', 'view', 'proyecto.html'));
     }
-    req.session.loggedin = true;
-    req.session.id_usuario = 1;
-    req.session.nombre_usuario = "test";
-    req.session.correo = "test@test.test";
-    req.session.contrasena = "Tester_123";
-    req.session.id_tipo = 2;
 };
 
 controller.obtenerProyectos = async (req, res) => {
@@ -24,7 +18,7 @@ controller.obtenerProyectos = async (req, res) => {
             console.error(msg);
             res.json({ Exito: false, msg: msg });
         } else {
-            if (req.session.id_usuario === undefined) {
+            if (req.session.correo === undefined) {
                 msg = "No se encuentra el correo en nuestra base de datos.";
                 console.error(msg);
                 res.json({ Exito: false, msg: msg });
@@ -119,7 +113,10 @@ controller.eliminarProyecto = async (req, res) => {
                     console.error(msg);
                     res.json({ Exito: false, msg: msg });
                 } else {
-                    conexion.query("DELETE FROM proyecto WHERE id_usuario = '" + req.session.id_usuario + "' AND id_proyecto = '" + req.body.id + "'", (error, resultado) => {
+                    const query = "DELETE FROM proyecto WHERE id_usuario = ? AND id_proyecto = ?";
+                    const values = [req.session.id_usuario, parseInt(req.body.id)];
+                    console.log("ACA DROGAAS AKLFJHASDKFGHASD FHJKDASGFHJASGDFJHGDSA FJHK",[req.session.id_usuario, req.body.id] )
+                    conexion.query(query, values, (error, resultado) => {
                         if (error) {
                             msg = "Ha ocurrido un error inesperado en la consulta getConnection.";
                             console.error(msg);
@@ -170,11 +167,10 @@ controller.continuar = async (req, res) => {
                                 console.log(msg);
                                 res.json({Exito: false, msg: msg});
                             } else {
-                                console.log(respuesta);
-                                req.session.nombre_proyecto = respuesta[0].nombre_proyecto;
-                                req.session.tipo_proyecto = respuesta[0].tipo_proyecto;
+                                req.session.nombre_proyecto = respuesta[0].nombre;
+                                req.session.tipo_proyecto = respuesta[0].id_tipo;
                                 req.session.id_proyecto = req.body.id;
-                                res.json({Exito: true, msg: "Proyecto encontrado.", tipo: respuesta[0].tipo_proyecto});
+                                res.json({Exito: true, msg: "Proyecto encontrado.", tipo: respuesta[0].id_tipo});
                             }
                         }
                     });

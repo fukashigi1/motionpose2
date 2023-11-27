@@ -10,13 +10,6 @@ controller.view = async (req, res)=>{
         res.sendFile(path.join(__dirname, '..', 'view', 'miCuenta.html'));
     }
 
-    req.session.loggedin = true;
-    req.session.id_usuario = 1;
-    req.session.nombre_usuario = "test";
-    req.session.correo = "test@test.test";
-    req.session.contrasena = "Tester_123";
-    req.session.id_tipo = 2;
-    req.session.tipo_usuario = 'VIP';
     
 };
 

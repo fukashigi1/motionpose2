@@ -5,28 +5,19 @@ const fs = require('fs');
 const util = require('util')
 
 controller.view = async (req, res) => {
-    req.session.loggedin = true;
-    req.session.id_usuario = 1;
-    req.session.nombre_usuario = "test";
-    req.session.correo = "test@test.test";
-    req.session.contrasena = "Tester_123";
-    req.session.id_tipo = 2;
-    req.session.tipo_proyecto = "imagen";
-    req.session.nombre_proyecto = "123";
-    req.session.id_proyecto = 2;
 
     if (req.session.loggedin != true) {
         //res.redirect('/login');
         res.sendFile(path.join(__dirname, '..', 'view', 'proyecto.html'));
     } else {
         if (req.session.tipo_proyecto !== undefined) {
-            if (req.session.tipo_proyecto == 'imagen') {
+            if (req.session.tipo_proyecto == '1') {
                 res.sendFile(path.join(__dirname, '..', 'view', 'imagen.html'));
-            } else if (req.session.tipo_proyecto == 'video') {
+            } else if (req.session.tipo_proyecto == '2') {
                 res.sendFile(path.join(__dirname, '..', 'view', 'video.html'));
-            } else if (req.session.tipo_proyecto == '3d') {
+            } else if (req.session.tipo_proyecto == '3') {
                 res.sendFile(path.join(__dirname, '..', 'view', '3d.html'));
-            } else if (req.session.tipo_proyecto == 'animacion') {
+            } else if (req.session.tipo_proyecto == '4') {
                 res.sendFile(path.join(__dirname, '..', 'view', 'animacion.html'));
             }
         } else {
@@ -69,7 +60,7 @@ const upload = multer({ storage: storage, fileFilter: fileValidation });
 var hola;
 controller.guardar = async (req, res) => {
     let msg;
-    if (req.session.tipo_proyecto == "imagen") {
+    if (req.session.tipo_proyecto == "1") {
 
         upload.array('images', req.body.cantidad_imagenes)(req, res, (err) => {
             const imagenes = req.files;
@@ -236,11 +227,11 @@ controller.guardar = async (req, res) => {
                 });
             }
         });
-    } else if (req.session.tipo_proyecto == "video") {
+    } else if (req.session.tipo_proyecto == "2") {
 
-    } else if (req.session.tipo_proyecto == "3d") {
+    } else if (req.session.tipo_proyecto == "3") {
 
-    } else if (req.session.tipo_proyecto == "animacion") {
+    } else if (req.session.tipo_proyecto == "4") {
 
     }
 };
