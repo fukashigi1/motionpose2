@@ -59,6 +59,7 @@ $(document).ready(function () {
     capturarWebCam('user');  // user, environment
     setTimeout(() => { 
         cargarOpciones(data); // cambiar por ajax
+        ejecutarGuardadoAutomatico()
     }, 1000);
 
     $("#ayudaBoton").on("click", function () {
@@ -315,11 +316,19 @@ $(document).ready(function () {
                 teclaPresionada = true;
             }
         }
+        
     }).on('keyup', function (e) {
+        
         teclaPresionada = false;
     
         if (!bloquearHotkeys) {
             detectorHotkeyinKey(false);
+        }
+        if (e.keyCode == 27 && $(".modalOpciones").css('display') != 'none') {
+            $(".modalOpciones").css('display', "none");
+            lectorHotkeysNuevos()
+            guardarPreferencias();
+            bloquearHotkeys = false;
         }
     });
     ////
@@ -347,6 +356,11 @@ $(document).ready(function () {
         Object.keys(opcionesHotExportar).forEach(key => {
             opcionesHotExportar[key] = false;
         });
+    }
+
+    function guardarPreferencias() {
+        data.opcionGuardadoAutomatico = $("#opcionGuardadoAutomatico").is(":checked");
+        data.opcionTemporizadorSegundos = $("#opcionTemporizadorSegundos").val();
     }
 
     //Lector de hotkeys nuevos hotkeysIniciales
@@ -503,6 +517,7 @@ $(document).ready(function () {
     $("#cerrarOpciones").on("click", function () {
         $(".modalOpciones").css('display', "none");
         lectorHotkeysNuevos()
+        guardarPreferencias();
         bloquearHotkeys = false;
     });
 
@@ -558,27 +573,38 @@ function cargarOpciones(data) {
 
 function detectorHotkey($input) {
     $input.on("keydown", function (e) {
-        e.preventDefault()
+        if (e.keyCode != 27) {
+            e.preventDefault()
 
-        if (anterior != e.key.toUpperCase()) {
-            if (teclas.length < 3) {
-                if (e.keyCode != 32) {
-                    teclas.push([e.key.toUpperCase(), e.keyCode])
-                } else {
-                    teclas.push(['SPACE', e.keyCode])
+            if (anterior != e.key.toUpperCase()) {
+                if (teclas.length < 3) {
+                    if (e.keyCode != 32) {
+                        teclas.push([e.key.toUpperCase(), e.keyCode])
+                    } else {
+                        teclas.push(['SPACE', e.keyCode])
+                    }
+                    const teclasPrimerElemento = teclas.map(([elemento, _]) => elemento);
+                    $input.val(teclasPrimerElemento.join(" + "));
+                    let nuevoHotkey = [];
+                    nuevoHotkey.push(teclas)
+                    data.hotkeys[$input.attr('id')] = nuevoHotkey;
                 }
-                const teclasPrimerElemento = teclas.map(([elemento, _]) => elemento);
-                $input.val(teclasPrimerElemento.join(" + "));
-                let nuevoHotkey = [];
-                nuevoHotkey.push(teclas)
-                data.hotkeys[$input.attr('id')] = nuevoHotkey;
             }
+            anterior = e.key.toUpperCase();
         }
-        anterior = e.key.toUpperCase();
+        
     });
     $input.on("keyup", function (e) {
         teclas = [];
     });
+}
+
+function ejecutarGuardadoAutomatico(){
+    setTimeout(() => {
+        guardarEstado(true);
+        ejecutarGuardadoAutomatico();
+        console.log("Guardado")
+    }, 10000);
 }
 
 function dataURLtoFile(dataurl, filename, mime) {
@@ -592,7 +618,7 @@ function dataURLtoFile(dataurl, filename, mime) {
     return new File([u8arr], filename, { type: mime });
 }
 
-function guardarEstado() {
+function guardarEstado(automatico) {
 
     const formData = new FormData();
 
@@ -606,8 +632,8 @@ function guardarEstado() {
     
     formData.append('cantidad_imagenes', contadorImagenes);
     //PREFERENCIAS
-    
-    formData.append('opcionGuardadoAutomatico', $("#opcionGuardadoAutomatico").is(":checked"));
+    let opcionesGuardadoAutomatico = ($("#opcionGuardadoAutomatico").is(":checked")) ? 1 : 0;
+    formData.append('opcionGuardadoAutomatico', opcionesGuardadoAutomatico);
     formData.append('opcionTemporizadorSegundos', $("#opcionTemporizadorSegundos").val());
     formData.append('opcionFormatoImagen', $("#opcionFormatoImagen").val());
     formData.append('opcionesHotCaptura', obtenerHotkeyDeObjeto(opcionesHotCaptura));
@@ -635,10 +661,12 @@ function guardarEstado() {
         contentType: false,
         success: function (response) {
             console.log(response);
-            if (response.Exito) {
-                ejecutarEmergente('Proyecto guardado', response.msg, '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
-            } else {
-                ejecutarEmergente('Ocurrió un error al guardar', response.msg, '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
+            if (automatico != true) {
+                if (response.Exito) {
+                    ejecutarEmergente('Proyecto guardado', response.msg, '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
+                } else {
+                    ejecutarEmergente('Ocurrió un error al guardar', response.msg, '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
+                }
             }
         },
         error: function (error) {

@@ -20,7 +20,7 @@ Motion Pose MP.
 
 - [@Mathias Garthoff Mattei](https://github.com/fukashigi1)
 - [@Damary Lay Espinoza](https://github.com/Damariri)
-- [@Camilo Pereira e](https://git0.6.12.28102023hub.com/Droflax)
+- [@Camilo Pereira e](https://github.com/Droflax)
 
 
 ## Documentación
