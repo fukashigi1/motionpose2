@@ -50,7 +50,6 @@ $(document).ready(function () {
             console.error('Error en la solicitud AJAX:', error);
         }
     });
-    cargarImagenes();
     cargarModal();
     cargarFlotante();
     datosProyecto();
@@ -766,8 +765,4 @@ function cargarModal() {
     modalGlobal += '</div>';
 
     $("body").append(modalGlobal);
-}
-
-function cargarImagenes(){
-    
 }

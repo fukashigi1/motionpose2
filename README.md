@@ -6,7 +6,6 @@ Motion Pose MP.
 
 ## Versión
 - Versión de desarrollo Alpha 1.1.3.24112023
-
 ## Cambios
 - Implementaciones:
   
@@ -18,7 +17,6 @@ Motion Pose MP.
   - Se arregló el bug que había al guardar un hotkey.
   - Se arregló el bug cuando solo se guardaba un cambio, el resto de las preferencias eran cambiadas incorrectamente a 'undefined'.
   - Se arregló un extraño bug que aveces no permitía escribir al hacer click sobre el input de un nuevo hotkey.
-
 ## Autores
 
 - [@Mathias Garthoff Mattei](https://github.com/fukashigi1)
