@@ -60,27 +60,33 @@ p {
     position: fixed;
 }
 
+
 ul {
     float: right;
-    margin-top: 3.3vh;
-    margin-right: 7.8vw;
-    user-select: none;
+    padding: 0;
+    padding-right: 10vh;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 ul a {
-    transition: all 0.2s;
-    font-size: 1.2vw;  
-    font-family: monospace;
-    padding: 0.521vw;
-    cursor: pointer;
-    user-select: none;
-    text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
+    transition: all 0.3s;
+    display: block;
+    text-transform: uppercase;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 1.2vw;
+    color:#ffffff;
+    text-decoration: none;
 }
+
 ul a:hover {
     transition: all 0.2s;
-    padding: 0.8vw;
-    font-size: 1.35vw;    
-    text-decoration: underline;
+    border-bottom: 4px solid #2aaaca;
+    color: #0091b6;
 }
 
 .divTransicion{
@@ -217,7 +223,6 @@ ul a:hover {
         background: #29292f;
         padding-inline: 1vw;
         color: #0091b6;
-        border-radius: 2vw;
     }
 
     footer{
@@ -234,14 +239,19 @@ ul a:hover {
     }
 
     .navMenu{
-        display: flex;
+        float: none;
+        z-index: 9;
+        left: 0;
+        right: 0;
+        top: 100px;
+        bottom: 100%;
+        width: auto;
+        height: auto;
         flex-direction: column;
-        align-items: flex-end;
-        margin-right: 0.6vw;
-        margin-top: 2vw;
-        background: #1d1d1d;
-        padding-left: 10px;
-        border-radius: 2vw;
+        justify-content: space-evenly;
+        background-color: #29292f;
+        overflow: hidden;
+        transition: all 0.5 ease-in-out;
     }
 
     .navMenu a{
@@ -250,11 +260,10 @@ ul a:hover {
     }
 
     .navMenu2{
-        width: 100%;
         color: #ffff;
         transition: all 0.2s;
         padding: 0.8vw;
-        font-size: 1.35vw;    
+        font-size: 1.35vw;   
     }
 
     .fa-solid.fa-bars.dropdown-menu{

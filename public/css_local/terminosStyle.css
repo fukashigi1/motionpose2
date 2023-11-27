@@ -81,13 +81,14 @@ footer a:hover {
     margin-left: 150px;
 }
 
-ul {
+
+ul.lista{
     float: right;
     margin-top: 36px;
     margin-right: 150px;
 }
 
-ul a {
+ul.lista a {
     transition: all 0.2s;
     font-size: 19px;    
     font-family: monospace;
@@ -95,12 +96,42 @@ ul a {
     cursor: pointer;
     text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
 }
-
-ul a:hover {
+ul.lista a:hover {
     transition: all 0.2s;
     padding: 8px;
     font-size: 20px;    
     text-decoration: underline;
+}
+
+ul:not(.lista) {
+    float: right;
+    padding: 0;
+    padding-right: 10vh;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul:not(.lista) a {
+    transition: all 0.3s;
+    display: block;
+    text-transform: uppercase;
+    padding: 15px;
+    font-weight: bold;
+    color:#ffffff;
+    text-decoration: none;
+    padding-top: 3vh;
+}
+
+ul:not(.lista) a:hover {
+    transition: all 0.2s;
+    border-bottom: 4px solid #2aaaca;
+    color: #0091b6;
+}
+
+.navMenu a{
+    font-size: 1.2vw;
 }
 
 .espaciador{
@@ -111,10 +142,6 @@ ul a:hover {
     color: black;
     background: white;
 }
-
-ul.show-menu {
-    display: block;
-  }
 
 
 @media screen and (max-width: 1365px){        
@@ -143,30 +170,94 @@ ul.show-menu {
         text-align: justify !important;
     }
 
-    ul.show-menu{
-        display: flex;
+    .navMenu{
+        float: none;
+        z-index: 9;
+        left: 0;
+        right: 0;
+        top: 100px;
+        bottom: 100%;
+        width: auto;
+        height: auto;
         flex-direction: column;
-        align-items: flex-end;
-        margin-right: 0.6vw;
-        margin-top: 2vw;
-        background: #1d1d1d;
-        padding-left: 10px;
-        border-radius: 2vw;
+        justify-content: space-evenly;
+        background-color: #29292f;
+        overflow: hidden;
+        transition: all 0.5 ease-in-out;
     }
 
-    .show-menu a{
+    .navMenu a{
         line-height: 13vw;
         font-size: 4.5vw;
     }
 
     .navMenu2{
-        width: 100%;
         color: #ffff;
         transition: all 0.2s;
         padding: 0.8vw;
-        font-size: 4.35vw !important;    
+        font-size: 1.35vw;   
+    }
+    .navMenu{
+        float: none;
+        z-index: 9;
+        left: 0;
+        right: 0;
+        top: 100px;
+        bottom: 100%;
+        width: auto;
+        height: auto;
+        flex-direction: column;
+        justify-content: space-evenly;
+        background-color: #29292f;
+        overflow: hidden;
+        transition: all 0.5 ease-in-out;
     }
 
+    .navMenu a{
+        line-height: 8vw;
+        font-size: 4.5vw;
+    }
+
+    .navMenu2{
+        color: #ffff;
+        transition: all 0.2s;
+        padding: 0.8vw;
+        font-size: 1.35vw;   
+    }
+    ul a:hover {
+        transition: all 0.2s;
+        text-decoration: none;
+        font-size: 4.5vw;
+        background: #29292f;
+        padding-inline: 1vw;
+        color: #0091b6;
+    }
+    
+    ul:not(.lista) {
+        float: none;
+        padding: 0;
+        padding-right: 10vh;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    ul:not(.lista) a {
+        transition: all 0.3s;
+        display: block;
+        text-transform: uppercase;
+        padding: 15px;
+        font-weight: bold;
+        color:#ffffff;
+        text-decoration: none;
+    }
+    
+    ul:not(.lista) a:hover {
+        transition: all 0.2s;
+        border-bottom: 4px solid #2aaaca;
+        color: #0091b6;
+    }
 
 }
 

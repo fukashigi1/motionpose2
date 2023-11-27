@@ -59,6 +59,7 @@ $(document).ready(function(){
     modalGlobal += '        <button class="modalGlobalBoton" id="cancelarModal">Cancelar</button>';
     modalGlobal += '    </div>';
     modalGlobal += '</div>';
+    
 
     $('body').prepend(nav);
     $('body').append(modal);
@@ -155,6 +156,8 @@ $(document).ready(function(){
     $("#cerrarSesion").on("click", function(){
         window.location.href = 'lobby/salir';
     });
+
+    
 
     // Acción modal
     $("body").on("click", "#cerrarVentana, #cancelarModal", function(){
