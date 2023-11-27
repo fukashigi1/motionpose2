@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2023 a las 00:30:21
--- Versión del servidor: 10.3.16-MariaDB
--- Versión de PHP: 7.3.7
+-- Servidor: localhost:3307
+-- Tiempo de generación: 27-11-2023 a las 16:24:21
+-- Versión del servidor: 8.0.30
+-- Versión de PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,11 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `compra` (
-  `id_compra` int(11) NOT NULL,
-  `id_usuario` int(11) DEFAULT NULL,
-  `id_producto` int(11) DEFAULT NULL,
+  `id_compra` int NOT NULL,
+  `id_usuario` int DEFAULT NULL,
+  `id_producto` int DEFAULT NULL,
   `fecha_compra` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `compra`
@@ -49,10 +48,10 @@ INSERT INTO `compra` (`id_compra`, `id_usuario`, `id_producto`, `fecha_compra`) 
 --
 
 CREATE TABLE `imagenes` (
-  `id_imagen` int(11) NOT NULL,
-  `id_proyecto` int(11) NOT NULL,
+  `id_imagen` int NOT NULL,
+  `id_proyecto` int NOT NULL,
   `nombre` varchar(50) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `imagenes`
@@ -78,7 +77,17 @@ INSERT INTO `imagenes` (`id_imagen`, `id_proyecto`, `nombre`) VALUES
 (17, 1, 'sexo_1699743468339.png'),
 (18, 1, 'sexo_1699743468131.png'),
 (19, 1, 'sexo_1699743479991.png'),
-(20, 1, 'sexo_1699743479763.png');
+(20, 1, 'sexo_1699743479763.png'),
+(21, 3, 'test_1701099920615.png'),
+(22, 3, 'test_1701099920420.png'),
+(23, 3, 'test_1701099920108.png'),
+(24, 3, 'test_1701099920615.png'),
+(25, 3, 'test_1701099920420.png'),
+(26, 3, 'test_1701099920108.png'),
+(27, 3, 'test_1701099925662.png'),
+(28, 3, 'test_1701099920615.png'),
+(29, 3, 'test_1701099920420.png'),
+(30, 3, 'test_1701099920108.png');
 
 -- --------------------------------------------------------
 
@@ -87,22 +96,23 @@ INSERT INTO `imagenes` (`id_imagen`, `id_proyecto`, `nombre`) VALUES
 --
 
 CREATE TABLE `preferencias` (
-  `id_preferencias` int(11) NOT NULL,
-  `id_proyecto` int(11) NOT NULL,
-  `autoguardado` tinyint(4) DEFAULT NULL,
-  `temporizador` int(11) DEFAULT NULL,
-  `formato_imagen` varchar(50) DEFAULT NULL,
-  `hotkey_captura` varchar(150) DEFAULT NULL,
-  `hotkey_captura_temp` varchar(150) DEFAULT NULL,
-  `hotkey_exportar` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_preferencias` int NOT NULL,
+  `id_proyecto` int NOT NULL,
+  `autoguardado` tinyint DEFAULT '0',
+  `temporizador` int DEFAULT '5',
+  `formato_imagen` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '0',
+  `hotkey_captura` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '[["S", 83]]',
+  `hotkey_captura_temp` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '[["T", 84]]',
+  `hotkey_exportar` varchar(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT '[["E", 69]]'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `preferencias`
 --
 
 INSERT INTO `preferencias` (`id_preferencias`, `id_proyecto`, `autoguardado`, `temporizador`, `formato_imagen`, `hotkey_captura`, `hotkey_captura_temp`, `hotkey_exportar`) VALUES
-(1, 1, 1, 6, 'exportarJPEG', '[[\"SHIFT\", 16], [\"D\", 68]]', '[[\"T\", 84]]', '[[\"SHIFT\", 16], [\"E\", 69]]');
+(1, 1, 1, 6, 'exportarJPEG', '[[\"S\", 83]]', '[[\"T\", 84]]', '[[\"E\", 69]]'),
+(3, 3, 0, 9, '0', '[[\"S\", 83]]', '[[\"T\", 84]]', '[[\"E\", 69]]');
 
 -- --------------------------------------------------------
 
@@ -111,18 +121,19 @@ INSERT INTO `preferencias` (`id_preferencias`, `id_proyecto`, `autoguardado`, `t
 --
 
 CREATE TABLE `proyecto` (
-  `id_proyecto` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_tipo` int(11) NOT NULL,
+  `id_proyecto` int NOT NULL,
+  `id_usuario` int NOT NULL,
+  `id_tipo` int NOT NULL,
   `nombre` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `proyecto`
 --
 
 INSERT INTO `proyecto` (`id_proyecto`, `id_usuario`, `id_tipo`, `nombre`) VALUES
-(1, 1, 1, 'sexo');
+(1, 1, 1, 'sexo'),
+(3, 2, 1, 'test');
 
 -- --------------------------------------------------------
 
@@ -131,9 +142,9 @@ INSERT INTO `proyecto` (`id_proyecto`, `id_usuario`, `id_tipo`, `nombre`) VALUES
 --
 
 CREATE TABLE `proyecto_tipo` (
-  `id_tipo` int(11) NOT NULL,
+  `id_tipo` int NOT NULL,
   `tipo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `proyecto_tipo`
@@ -152,11 +163,11 @@ INSERT INTO `proyecto_tipo` (`id_tipo`, `tipo`) VALUES
 --
 
 CREATE TABLE `sesiones` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `id_sesion` varchar(255) NOT NULL,
-  `data` text DEFAULT NULL,
-  `fecha_expiracion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `data` text,
+  `fecha_expiracion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -165,10 +176,10 @@ CREATE TABLE `sesiones` (
 --
 
 CREATE TABLE `tienda` (
-  `id_producto` int(11) NOT NULL,
+  `id_producto` int NOT NULL,
   `nombre` varchar(50) DEFAULT NULL,
-  `precio` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `precio` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `tienda`
@@ -185,20 +196,21 @@ INSERT INTO `tienda` (`id_producto`, `nombre`, `precio`) VALUES
 --
 
 CREATE TABLE `usuario` (
-  `id_usuario` int(11) NOT NULL,
-  `id_tipo` int(11) NOT NULL,
+  `id_usuario` int NOT NULL,
+  `id_tipo` int NOT NULL,
   `nombre` varchar(100) DEFAULT NULL,
   `correo` varchar(100) DEFAULT NULL,
   `contrasena` varchar(150) DEFAULT NULL,
-  `estado` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `estado` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id_usuario`, `id_tipo`, `nombre`, `correo`, `contrasena`, `estado`) VALUES
-(1, 3, 'test', 'test@test.test', '$2b$12$2AVzwEJWkkPh.3/6wiN9w.JkZi7cxlElJD4BXTeTtlFGCmO/8nIiy', 1);
+(1, 3, 'test', 'test@test.test', '$2b$12$2AVzwEJWkkPh.3/6wiN9w.JkZi7cxlElJD4BXTeTtlFGCmO/8nIiy', 1),
+(2, 1, 'qweqw', 'caca@caca.com', '$2b$12$z8sBKfucciIO9FV8k6Z0gOu8IC4nKy4ygtjeg16BWpTVNX1mVirom', 1);
 
 -- --------------------------------------------------------
 
@@ -207,9 +219,9 @@ INSERT INTO `usuario` (`id_usuario`, `id_tipo`, `nombre`, `correo`, `contrasena`
 --
 
 CREATE TABLE `usuario_tipo` (
-  `id_tipo` int(11) NOT NULL,
+  `id_tipo` int NOT NULL,
   `tipo` varchar(50) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Volcado de datos para la tabla `usuario_tipo`
@@ -294,49 +306,49 @@ ALTER TABLE `usuario_tipo`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_compra` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  MODIFY `id_imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_imagen` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `preferencias`
 --
 ALTER TABLE `preferencias`
-  MODIFY `id_preferencias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_preferencias` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
-  MODIFY `id_proyecto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_proyecto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `proyecto_tipo`
 --
 ALTER TABLE `proyecto_tipo`
-  MODIFY `id_tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_tipo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `sesiones`
 --
 ALTER TABLE `sesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tienda`
 --
 ALTER TABLE `tienda`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_producto` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -353,13 +365,13 @@ ALTER TABLE `compra`
 -- Filtros para la tabla `imagenes`
 --
 ALTER TABLE `imagenes`
-  ADD CONSTRAINT `FK_PROYECTO` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_PROYECTO` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`);
 
 --
 -- Filtros para la tabla `preferencias`
 --
 ALTER TABLE `preferencias`
-  ADD CONSTRAINT `FK_PROYECTO_OPCIONES` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`) ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_PROYECTO_OPCIONES` FOREIGN KEY (`id_proyecto`) REFERENCES `proyecto` (`id_proyecto`);
 
 --
 -- Filtros para la tabla `proyecto`
