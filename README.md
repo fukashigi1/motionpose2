@@ -5,17 +5,19 @@ Software de Inteligencia Artificial mediante el uso del framework Mediapipe para
 Motion Pose MP.
 
 ## Versión
-- Versión de desarrollo Alpha 1.1.4.27112023
+- Versión de desarrollo Alpha 1.1.6.27112023
 ## Cambios
 - Implementaciones:
   - Se añadió un algoritmo de interpolación para suavisar el movimiento de la mano.
+  - Se implementó la funcionalidad de guardado automático.
+  - Se implementó la funcionalidad de salir sin guardar, salir y guardar y cancelar.
 
 - Cambios: 
-  
 
 - Arreglos:
   - Se arregló el bug de que cualquier tecla ejecutava un hotkey.
   - Se arregló el bug de que se podían ejecutar hotkeys antes de que la página cargue.
+
 ## Autores
 
 - [@Mathias Garthoff Mattei](https://github.com/fukashigi1)

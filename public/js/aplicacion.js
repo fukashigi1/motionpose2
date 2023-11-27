@@ -24,6 +24,8 @@ let bloquearHotkeys = false;
 var data = {};
 
 let interfazBloqueada = true;
+
+let guardado = true;
 $(document).ready(function () {
     
     $("#overlay").css("display", "block").append('<div style="width: 100%; height: 100%; display: flex; flex-wrap: wrap; flex-direction: row; align-content: center; justify-content: center;"><div class="loader" style="width: 50px; height: 50px;"></div></div>');
@@ -329,6 +331,7 @@ $(document).ready(function () {
             lectorHotkeysNuevos()
             guardarPreferencias();
             bloquearHotkeys = false;
+            guardado = false;
         }
     });
     ////
@@ -450,8 +453,14 @@ $(document).ready(function () {
 
     // Botones nav
     $('#volver').on("click", function () {
-        ejecutarAccion('Abandonar', '¿Está seguro que desea abandonar el proyecto sin guardar?<br><br>■ ' + datos.nombre_proyecto);
-        $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="guardarSalir">Guardar y salir</button><button class="modalGlobalBoton" id="salirSinGuardar">Salir sin guardar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
+        console.log(guardado)
+        if (guardado) {
+            window.location.href = 'proyectos';
+        } else {
+            ejecutarAccion('Abandonar', '¿Está seguro que desea abandonar el proyecto sin guardar?<br><br>■ ' + datos.nombre_proyecto);
+            $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="guardarSalir">Guardar y salir</button><button class="modalGlobalBoton" id="salirSinGuardar">Salir sin guardar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
+        }
+        
     });
     $('#guardar').on("click", function () {
         $(".modalFooter").html('<button class="modalBoton">Aceptar</button>');
@@ -519,23 +528,22 @@ $(document).ready(function () {
         lectorHotkeysNuevos()
         guardarPreferencias();
         bloquearHotkeys = false;
+        guardado = false;
     });
 
 
     $("body").on("click", '#guardarSalir', function () {
-        $(".modalFooter").html('<button class="modalBoton" id="aceptarGuardado">Aceptar</button>');
-        guardarEstado();
+        guardarEstado(true);
+        window.location.href = 'proyectos';
     });
+
     $("body").on("click", '#salirSinGuardar', function () {
         window.location.href = 'proyectos';
     });
+    
     $("body").on("click", '#cancelarAccion, #cerrarVentana', function () {
         cerrarVentana();
     });
-
-    $("body").on("click", "#aceptarGuardado", function () {
-        window.location.href = 'proyectos';
-    })
 
 
 
@@ -668,6 +676,7 @@ function guardarEstado(automatico) {
                     ejecutarEmergente('Ocurrió un error al guardar', response.msg, '<i class="fa-regular fa-floppy-disk" style="color: #16161a;"></i>');
                 }
             }
+            guardado = true;
         },
         error: function (error) {
             console.log(error);
