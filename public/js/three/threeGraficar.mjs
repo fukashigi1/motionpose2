@@ -132,11 +132,10 @@ setTimeout(() => {
 
         landmarkAnterior = newCoordinates; // Actualiza la variable con las nuevas coordenadas
         // Llama a esta función nuevamente para actualizar continuamente
-        setTimeout(() => {
-            console.log(landmarkAnterior)
-            requestAnimationFrame(updateLoop);
-            renderer.render(scene, camera);
-        }, 33); // 30 FPS 1000/30 = 33
+        
+        console.log(landmarkAnterior)
+        requestAnimationFrame(updateLoop);
+        renderer.render(scene, camera);
     }
     // Comienza el bucle de actualización
     updateLoop();
