@@ -364,6 +364,7 @@ $(document).ready(function () {
     function guardarPreferencias() {
         data.opcionGuardadoAutomatico = $("#opcionGuardadoAutomatico").is(":checked");
         data.opcionTemporizadorSegundos = $("#opcionTemporizadorSegundos").val();
+        data.opcionFormatoImagen = $("#opcionFormatoImagen").val();
     }
 
     //Lector de hotkeys nuevos hotkeysIniciales
