@@ -5,18 +5,17 @@ Software de Inteligencia Artificial mediante el uso del framework Mediapipe para
 Motion Pose MP.
 
 ## Versión
-- Versión de desarrollo Alpha 1.1.3.24112023
+- Versión de desarrollo Alpha 1.1.4.27112023
 ## Cambios
 - Implementaciones:
-  
+  - Se añadió un algoritmo de interpolación para suavisar el movimiento de la mano.
 
 - Cambios: 
-  - Se ha cambiado la forma en la que se guardan las preferencias en el controlador.
+  
 
 - Arreglos:
-  - Se arregló el bug que había al guardar un hotkey.
-  - Se arregló el bug cuando solo se guardaba un cambio, el resto de las preferencias eran cambiadas incorrectamente a 'undefined'.
-  - Se arregló un extraño bug que aveces no permitía escribir al hacer click sobre el input de un nuevo hotkey.
+  - Se arregló el bug de que cualquier tecla ejecutava un hotkey.
+  - Se arregló el bug de que se podían ejecutar hotkeys antes de que la página cargue.
 ## Autores
 
 - [@Mathias Garthoff Mattei](https://github.com/fukashigi1)

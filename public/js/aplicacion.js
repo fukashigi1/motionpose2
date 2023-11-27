@@ -22,11 +22,14 @@ let hotkeysIniciales = []
 let bloquearHotkeys = false;
 
 var data = {};
+
+let interfazBloqueada = true;
 $(document).ready(function () {
     
     $("#overlay").css("display", "block").append('<div style="width: 100%; height: 100%; display: flex; flex-wrap: wrap; flex-direction: row; align-content: center; justify-content: center;"><div class="loader" style="width: 50px; height: 50px;"></div></div>');
     setTimeout(() => { 
         $("#overlay").css("display", "none").children().remove(); // cambiar por ajax
+        interfazBloqueada = false;
     }, 1100);
     $.ajax({
         url: '/aplicacion/cargar',
@@ -159,23 +162,53 @@ $(document).ready(function () {
 
     function exportar(defecto) {
         if (defecto) {
-            let mime = $firstCheckedCheckbox.attr("id");
-
-            for (let i = 0; i < imagenesSubir.length; i++) {
-                var a = document.createElement("a");
-                if (mime == "png") {
-                    a.href = imagenesSubir[i][0];
-                } else {
-                    a.href = imagenesSubir[i][1];
-                }
-                a.download = imagenesSubir[i][2] + "." + mime;
-                a.click();
-            }
-            imagenesSubir = [];
-    
-            $(".captura.seleccionado").each(function () {
-                $(this).removeClass("seleccionado");
+            let formatoImagen = data.opcionFormatoImagen;
+            let mime;
+            $(".seleccionado").each(function () {
+                imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
             });
+            if (formatoImagen == '0') {
+                if (imagenesSubir.length > 0) {
+                    let checkbox = '';
+                    checkbox += '<div class="contenedorCheckbox"><div class="divCheckbox"><input type="checkbox" id="png"><label for="png">.PNG</label></div><div class="divCheckbox"><input type="checkbox" id="jpeg"><label for="jpeg">.JPEG</label></div></div>';
+                    ejecutarAccion('Exportar imágenes', 'Por favor seleccione la extensión de imagen con la que desea exportar.<br>' + checkbox);
+                    $(".modalGlobalFooter").html('<button class="modalGlobalBoton" id="exportarModal">Exportar</button><button class="modalGlobalBoton" id="cancelarAccion">Cancelar</button>');
+                }
+            } else if (formatoImagen == 'exportarPNG') {
+                mime = 'png'
+                for (let i = 0; i < imagenesSubir.length; i++) {
+                    var a = document.createElement("a");
+                    if (mime == "png") {
+                        a.href = imagenesSubir[i][0];
+                    } else {
+                        a.href = imagenesSubir[i][1];
+                    }
+                    a.download = imagenesSubir[i][2] + "." + mime;
+                    a.click();
+                }
+                imagenesSubir = [];
+        
+                $(".captura.seleccionado").each(function () {
+                    $(this).removeClass("seleccionado");
+                });
+            } else {
+                mime = 'jpg';
+                for (let i = 0; i < imagenesSubir.length; i++) {
+                    var a = document.createElement("a");
+                    if (mime == "png") {
+                        a.href = imagenesSubir[i][0];
+                    } else {
+                        a.href = imagenesSubir[i][1];
+                    }
+                    a.download = imagenesSubir[i][2] + "." + mime;
+                    a.click();
+                }
+                imagenesSubir = [];
+        
+                $(".captura.seleccionado").each(function () {
+                    $(this).removeClass("seleccionado");
+                });
+            }   
         } else {
             $(".seleccionado").each(function () {
                 imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
@@ -262,21 +295,29 @@ $(document).ready(function () {
         }
     }
     // HOTKEYS
+    let teclaPresionada = false;
+
     $("body").on("keydown", function (e) {
-        if (!bloquearHotkeys) {
-            if (detectorHotkeyinKey(true, e, opcionesHotCaptura)) {// TOMAR CAPTURA - opcionesHotCaptura
+        if (!teclaPresionada && interfazBloqueada === false && !bloquearHotkeys) {
+    
+            if (detectorHotkeyinKey(true, e, opcionesHotCaptura)) {
                 e.preventDefault();
                 screenShot();
                 $(".tutorialSpaceBar").remove();
-            } else if (detectorHotkeyinKey(true, e, opcionesHotTemporizador)) {// TEMPORIZADOR - opcionesHotTemporizador
+                teclaPresionada = true;
+            } else if (detectorHotkeyinKey(true, e, opcionesHotTemporizador)) {
                 e.preventDefault();
-                tomarCapturaTemp(data.opcionTemporizadorSegundos)
-            } else if (detectorHotkeyinKey(true, e, opcionesHotExportar)) {// EXPORTAR - opcionesHotCaptura
+                tomarCapturaTemp(data.opcionTemporizadorSegundos);
+                teclaPresionada = true;
+            } else if (detectorHotkeyinKey(true, e, opcionesHotExportar)) {
                 e.preventDefault();
-                exportar(true)
+                exportar(true);
+                teclaPresionada = true;
             }
         }
     }).on('keyup', function (e) {
+        teclaPresionada = false;
+    
         if (!bloquearHotkeys) {
             detectorHotkeyinKey(false);
         }
@@ -302,6 +343,9 @@ $(document).ready(function () {
         });
         Object.keys(opcionesHotTemporizador).forEach(key => {
             opcionesHotTemporizador[key] = false;
+        });
+        Object.keys(opcionesHotExportar).forEach(key => {
+            opcionesHotExportar[key] = false;
         });
     }
 
