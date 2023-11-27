@@ -4,35 +4,12 @@ const controls = window;
 // Our input frames will come from here.
 const videoElement = document.getElementsByClassName('input_video')[0];
 const controlsElement = document.getElementsByClassName('control-panel')[0];
-const coordenadas = document.getElementById('coordenadas');
 const config = { locateFile: (file) => { //esta wea llama al modelo de entrenamiento hand_landmarker.task
         return `https://cdn.jsdelivr.net/npm/@mediapipe/hands@${mpHands.VERSION}/${file}`;
 } };
 
 const fpsControl = new controls.FPS();
 
-function extractData(landmarks){
-    //ESTA FUNCION TRANSFORMA LOS DATOS DE OBJETO A FLOATS, SE ALMACENA TODO EN LA LISTA
-    //VALORES, LA CUAL CONTIENE 63 ELEMENTOS (X, Y ,Z * 3)
-
-    const scaleFactor = 100; //Variable para ajustar la escala de las coordenadas
-    var transformed = JSON.stringify(landmarks) //se transforma de objeto a string.
-    //De aquí para abajo se quitan todos los caractere especiales como, {[":,.
-    var output = transformed.replace(/[\[\]{}]/g, '');
-    output = output.replace(/"|x|y|z|:/g, '');
-    output = output.replace(/,/g, ' ');
-    //Se separa el string con los 21 datos en una lista.
-    var valores = output.split(' ')
-    //Se trunca cada numero por 6 decimales, (dice 8 porque en realidad se está cortando un string)
-    //Se transforma cada elemento de la lista (strings) en flotantes.
-    valores = valores.map(function(elemento) {
-      return parseFloat(elemento)
-    });
-    const valoresEscalados = valores.map((valor) => (valor * scaleFactor).toFixed(6)); //se escala por 100 y se corta en 6 decimales.
-    const valoresPlanos = valoresEscalados.flat().map(Number);; //Transformamos todo a un array plano
-    coordenadas.innerHTML = valoresPlanos //<-- Se muestra a tiempo real dentro del h1 en el html.
-    console.log(valoresPlanos)
-}
 function onResults(results) {
     // Update the frame rate.
     fpsControl.tick();
