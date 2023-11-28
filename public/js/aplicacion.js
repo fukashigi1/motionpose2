@@ -601,10 +601,13 @@ function detectorHotkey($input) {
 }
 
 function ejecutarGuardadoAutomatico(){
+    
     setTimeout(() => {
-        guardarEstado(true);
+        if (data.opcionGuardadoAutomatico){
+            guardarEstado(true);
+            console.log("Guardado")
+        }
         ejecutarGuardadoAutomatico();
-        console.log("Guardado")
     }, 10000);
 }
 
