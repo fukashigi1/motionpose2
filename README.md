@@ -8,7 +8,8 @@ Motion Pose MP.
 - Versión de desarrollo Alpha 1.1.9.28112023
 ## Cambios
 - Arreglos:
-  - Se arreglo la funcionalidad de Eliminar un Proyecto
+  - Se arregló la funcionalidad de Eliminar un Proyecto.
+  - Se arregló la funcionalidad de exportar imagenes.
 
 ## Autores
 
