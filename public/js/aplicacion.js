@@ -181,11 +181,7 @@ $(document).ready(function () {
                 mime = 'png'
                 for (let i = 0; i < imagenesSubir.length; i++) {
                     var a = document.createElement("a");
-                    if (mime == "png") {
-                        a.href = imagenesSubir[i][0];
-                    } else {
-                        a.href = imagenesSubir[i][1];
-                    }
+                    a.href = imagenesSubir[i][0];
                     a.download = imagenesSubir[i][2] + "." + mime;
                     a.click();
                 }
@@ -198,11 +194,7 @@ $(document).ready(function () {
                 mime = 'jpg';
                 for (let i = 0; i < imagenesSubir.length; i++) {
                     var a = document.createElement("a");
-                    if (mime == "png") {
-                        a.href = imagenesSubir[i][0];
-                    } else {
-                        a.href = imagenesSubir[i][1];
-                    }
+                    a.href = imagenesSubir[i][1];
                     a.download = imagenesSubir[i][2] + "." + mime;
                     a.click();
                 }
@@ -233,7 +225,7 @@ $(document).ready(function () {
 
     $("body").on("click", "#exportarModal", function () {
         let $firstCheckedCheckbox = null;
-        $("input[type='checkbox']").each(function () {
+        $(".contenedorCheckbox input[type='checkbox']").each(function () {
             let $checkbox = $(this);
             if ($checkbox.is(":checked") && !$firstCheckedCheckbox) {
                 $firstCheckedCheckbox = $checkbox;
@@ -241,7 +233,7 @@ $(document).ready(function () {
         });
 
         let mime = $firstCheckedCheckbox.attr("id");
-
+        console.log($firstCheckedCheckbox[0])
         for (let i = 0; i < imagenesSubir.length; i++) {
             var a = document.createElement("a");
             if (mime == "png") {
