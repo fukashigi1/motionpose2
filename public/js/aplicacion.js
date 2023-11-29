@@ -45,7 +45,15 @@ $(document).ready(function () {
                     const fileName = `${imagen.nombre}`;
                     const imagenBase64 = "data:image/png;base64,"+imagen.base64
                     const imagenBase64jpeg = "data:image/jpeg;base64,"+imagen.base64
-                    const captura = `<div class="captura" style="color: white"><img src="${imagenBase64}" data-jpeg="${imagenBase64jpeg}" data-nombre_archivo="${fileName.split('.')[0]}"></div>`;
+                    const captura = `
+                    <div class="captura" style="color: white">
+                        <div class="contenedorCapturaIcono ocultar">
+                            <div>
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                        </div>
+                    <img src="${imagenBase64}" data-jpeg="${imagenBase64jpeg}" data-nombre_archivo="${fileName.split('.')[0]}">
+                    </div>`;
                     $(captura).insertAfter(".herramienta .titulo");
                 });
                 $(".tutorialSpaceBar").remove();
@@ -168,7 +176,7 @@ $(document).ready(function () {
             let formatoImagen = data.opcionFormatoImagen;
             let mime;
             $(".seleccionado").each(function () {
-                imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
+                imagenesSubir.push([$(this).children('img').attr("src"), $(this).children('img').data("jpeg"), $(this).children('img').data("nombre_archivo")]);
             });
             if (formatoImagen == '0') {
                 if (imagenesSubir.length > 0) {
@@ -206,7 +214,7 @@ $(document).ready(function () {
             }   
         } else {
             $(".seleccionado").each(function () {
-                imagenesSubir.push([$(this).children().attr("src"), $(this).children().data("jpeg"), $(this).children().data("nombre_archivo")]);
+                imagenesSubir.push([$(this).children('img').attr("src"), $(this).children('img').data("jpeg"), $(this).children('img').data("nombre_archivo")]);
             });
             if (imagenesSubir.length > 0) {
                 let checkbox = '';
@@ -272,6 +280,7 @@ $(document).ready(function () {
             } else {
                 $(".captura").removeClass("seleccionado");
                 $(this).addClass("seleccionado");
+                // Añadir icono de ojo
             }
         }
     });
@@ -628,7 +637,7 @@ function guardarEstado(automatico) {
 
     let contadorImagenes = 0;
     $(".captura").each(function () {
-        let archivo = dataURLtoFile($(this).children().attr("src"), $(this).children().data("nombre_archivo") + ".png", 'image/png');
+        let archivo = dataURLtoFile($(this).children('img').attr("src"), $(this).children('img').data("nombre_archivo") + ".png", 'image/png');
         formData.append('images', archivo);
         contadorImagenes += 1;
     });
@@ -680,11 +689,40 @@ function guardarEstado(automatico) {
     });
 }
 
+//CLICK EN OJO DE CAPTURA
+
+$(".herramienta").on("mouseover", ".captura", function(){
+    $(this).children('.contenedorCapturaIcono').removeClass('ocultar');
+});
+$(".herramienta").on("mouseleave", ".captura", function(){
+    $(this).children('.contenedorCapturaIcono').addClass('ocultar');
+});
+
+$(".herramienta").on("click", ".contenedorCapturaIcono div", function(){
+    $(".contenedorModalVisualizadorImagen").removeClass('ocultar');
+    $(".fondoModal").css('display', 'block');
+
+    $(".contenedorImagen").children('img').attr('src', $(this).parent().siblings('img').attr('src'));
+});
+
+$("body").on("click", "#cerrarVisualizadorImagen", function(){
+    $(".contenedorModalVisualizadorImagen").addClass('ocultar');
+    $(".fondoModal").css('display', 'none');
+});
+
 let test = 0;
 function screenShot() {
     const timestamp = new Date().getTime();
     const fileName = `${getDatos().nombre_proyecto}_${timestamp}`;
-    const captura = `<div class="captura" style="color: white"><img src="${guardarImagen()[0]}" data-jpeg="${guardarImagen()[1]}" data-nombre_archivo="${fileName}"></div>`;
+    const captura = `
+        <div class="captura" style="color: white">
+            <div class="contenedorCapturaIcono ocultar">
+                <div>
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+            </div>
+            <img src="${guardarImagen()[0]}" data-jpeg="${guardarImagen()[1]}" data-nombre_archivo="${fileName}">
+        </div>`;
     $(captura).insertAfter(".herramienta .titulo");
     test++;
 }
