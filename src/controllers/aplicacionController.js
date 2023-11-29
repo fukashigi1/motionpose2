@@ -11,7 +11,7 @@ controller.view = async (req, res) => {
     req.session.nombre_usuario = "test";
     req.session.correo = "test@test.test";
     req.session.contrasena = "Tester_123";
-    req.session.id_tipo = 2;
+    req.session.id_tipo = 1;
     req.session.tipo_proyecto = "1";
     req.session.nombre_proyecto = "sexo";
     req.session.id_proyecto = 1;
@@ -126,7 +126,7 @@ controller.guardar = async (req, res) => {
                                                 hola = resultadoImagenes;
                                                 let imagenesExistentes = [];
                                                 for (let i = 0; i < resultadoImagenes.length; i++) {
-                                                    imagenesExistentes.push(resultadoImagenes[i].nombre_imagen);
+                                                    imagenesExistentes.push(resultadoImagenes[i].nombre);
                                                 }
                                                 conexion.query('SELECT * FROM preferencias WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoSelectOpciones) => {
                                                     /*UPDATE preferencias SET hotkey_captura = '[["SHIFT", 16], ["D", 68]]' WHERE id_preferencias = 1;*/
@@ -158,12 +158,12 @@ controller.guardar = async (req, res) => {
                                                         //Convertir la data
                                                         opcionGuardadoAutomatico = (opcionGuardadoAutomatico == true) ? 1 : 0;
 
-                                                        function agregarCorchetes(hotkeyConvertir){
+                                                        function agregarCorchetes(hotkeyConvertir) {
                                                             let lista = '[';
                                                             for (let i = 0; i < hotkeyConvertir.length; i++) {
-                                                                if (i%2 == 0) {
+                                                                if (i % 2 == 0) {
                                                                     lista += `["${hotkeyConvertir[i]}", ${hotkeyConvertir[i + 1]}]`;
-                                                                    if(i + 2 < hotkeyConvertir.length) {
+                                                                    if (i + 2 < hotkeyConvertir.length) {
                                                                         lista += ','
                                                                     }
                                                                 }
@@ -193,12 +193,21 @@ controller.guardar = async (req, res) => {
                                                                 }
                                                                 let msg;
                                                                 for (let i = 0; i < imagenes.length; i++) {
+                                                                    console.log(i);
+                                                                    console.log("imagen existente: "+ imagenesExistentes[i]);
+                                                                    console.log("imagen nueva:"+ imagenes[i].originalname);
                                                                     if (!imagenesExistentes.includes(imagenes[i].originalname)) {
                                                                         if ((limite - imagenesExistentes.length) <= 0) {
                                                                             //msg = 'El proyecto ha sido guardado satisfactoriamente, sin embargo usted posee una membresía "' + req.session.tipo_usuario + '", la cual tiene un limite de ' + limite + ' imagenes en nuestra base de datos.<br>Es por eso que solo se han guardado ' + i + ' imagenes.';
-
-                                                                            msg = 'El proyecto ha sido guardado satisfactoriamente';
-                                                                            break;
+                                                                            conexion.query('UPDATE imagenes SET nombre = ? WHERE id_proyecto = ? AND nombre = ?', [imagenes[i].originalname, req.session.id_proyecto, imagenesExistentes[i]], (error, resultadoUpdate) => {
+                                                                                if (error) {
+                                                                                    msg = "Error al actualizar un archivo en la base de datos.";
+                                                                                    console.log(msg);
+                                                                                    res.json({ Exito: false, msg: msg });
+                                                                                } else {
+                                                                                    a = resultadoUpdate;
+                                                                                }
+                                                                            });
                                                                         } else {
                                                                             limite--;
                                                                             var a;
@@ -212,8 +221,49 @@ controller.guardar = async (req, res) => {
                                                                                 }
                                                                             });
                                                                         }
+                                                                    }else{
+                                                                        conexion.query('UPDATE imagenes SET nombre = ? WHERE id_proyecto = ? AND nombre = ?', [imagenesExistentes[i+(limite-imagenes.length)], req.session.id_proyecto, imagenesExistentes[i]], (error, resultadoUpdate) => {
+                                                                            if (error) {
+                                                                                msg = "Error al actualizar un archivo en la base de datos.";
+                                                                                console.log(msg);
+                                                                                res.json({ Exito: false, msg: msg });
+                                                                            } else {
+                                                                                a = resultadoUpdate;
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
+                                                                conexion.query('SELECT * FROM imagenes WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoImagenes) => {
+                                                                    if (error) {
+                                                                        msg = "Error al eliminar imagenes.";
+                                                                        console.log(msg);
+                                                                        res.json({ Exito: false, msg: msg });
+                                                                    } else {
+                                                                        // Obtener la lista de nombres de imágenes almacenadas en la base de datos
+                                                                        let nombresImagenesBD = resultadoImagenes.map(imagen => imagen.nombre);
+
+                                                                        // Obtener la lista de nombres de imágenes que fueron cargadas en la solicitud
+                                                                        let nombresImagenesCargadas = imagenes.map(imagen => imagen.originalname);
+
+                                                                        // Identificar las imágenes que están en la base de datos pero no fueron cargadas
+                                                                        let imagenesParaEliminar = nombresImagenesCargadas.filter(nombreImagen => !nombresImagenesBD.includes(nombreImagen));
+                                                                        console.log(imagenesParaEliminar);
+
+                                                                        // Eliminar las imágenes del directorio
+                                                                        imagenesParaEliminar.forEach(nombreImagen => {
+                                                                            const rutaImagen = path.join(__dirname, '..', '..', 'imagenes', nombreImagen);
+
+                                                                            // Verificar si el archivo existe antes de intentar eliminarlo
+                                                                            if (fs.existsSync(rutaImagen)) {
+                                                                                // Eliminar el archivo
+                                                                                fs.unlinkSync(rutaImagen);
+                                                                                console.log(`Archivo ${nombreImagen} eliminado del directorio.`);
+                                                                            } else {
+                                                                                console.log(`El archivo ${nombreImagen} no existe en el directorio.`);
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
                                                                 msg = "El proyecto ha sido guardado satisfactoriamente."
                                                                 res.json({ Exito: true, msg: msg, preferencias: preferencias }); // No hay mensaje 
                                                             }
@@ -261,7 +311,7 @@ controller.cargar = async (req, res) => {
                         console.log(msg);
                         res.json({ Exito: false, msg: msg });
                     } else {
-                            const imagenesBase64 = imagenes.map(imagen => {
+                        const imagenesBase64 = imagenes.map(imagen => {
                             const filePath = path.join(__dirname, '..', '..', 'imagenes', imagen.nombre);
                             const base64 = getBase64(filePath);
                             return { ...imagen, base64 };
@@ -284,7 +334,7 @@ controller.cargar = async (req, res) => {
                                     }
                                 };
                                 msg = "Las imágenes se han cargado correctamente."
-                                res.json({ Exito: true, msg: msg, imagenes: imagenesBase64, nombre_proyecto: req.session.nombre_proyecto, preferencias: preferenciasFormateado});
+                                res.json({ Exito: true, msg: msg, imagenes: imagenesBase64, nombre_proyecto: req.session.nombre_proyecto, preferencias: preferenciasFormateado });
                             }
                         });
                     }
