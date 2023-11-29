@@ -11,7 +11,7 @@ controller.view = async (req, res) => {
     req.session.nombre_usuario = "test";
     req.session.correo = "test@test.test";
     req.session.contrasena = "Tester_123";
-    req.session.id_tipo = 2;
+    req.session.id_tipo = 1;
     req.session.tipo_proyecto = "1";
     req.session.nombre_proyecto = "sexo";
     req.session.id_proyecto = 1;
@@ -193,27 +193,42 @@ controller.guardar = async (req, res) => {
                                                                 }
                                                                 let msg;
                                                                 for (let i = 0; i < imagenes.length; i++) {
-                                                                    if ((limite - imagenesExistentes.length) <= 0) {
-                                                                        //msg = 'El proyecto ha sido guardado satisfactoriamente, sin embargo usted posee una membresía "' + req.session.tipo_usuario + '", la cual tiene un limite de ' + limite + ' imagenes en nuestra base de datos.<br>Es por eso que solo se han guardado ' + i + ' imagenes.';
-                                                                        conexion.query('UPDATE imagenes SET nombre = ? WHERE id_proyecto = ? AND nombre = ?', [imagenes[i].originalname, req.session.id_proyecto, imagenesExistentes[limite-(i+1)]], (error, resultadoUpdate) => {
+                                                                    console.log(i);
+                                                                    console.log("imagen existente: "+ imagenesExistentes[i]);
+                                                                    console.log("imagen nueva:"+ imagenes[i].originalname);
+                                                                    if (!imagenesExistentes.includes(imagenes[i].originalname)) {
+                                                                        if ((limite - imagenesExistentes.length) <= 0) {
+                                                                            //msg = 'El proyecto ha sido guardado satisfactoriamente, sin embargo usted posee una membresía "' + req.session.tipo_usuario + '", la cual tiene un limite de ' + limite + ' imagenes en nuestra base de datos.<br>Es por eso que solo se han guardado ' + i + ' imagenes.';
+                                                                            conexion.query('UPDATE imagenes SET nombre = ? WHERE id_proyecto = ? AND nombre = ?', [imagenes[i].originalname, req.session.id_proyecto, imagenesExistentes[i]], (error, resultadoUpdate) => {
+                                                                                if (error) {
+                                                                                    msg = "Error al actualizar un archivo en la base de datos.";
+                                                                                    console.log(msg);
+                                                                                    res.json({ Exito: false, msg: msg });
+                                                                                } else {
+                                                                                    a = resultadoUpdate;
+                                                                                }
+                                                                            });
+                                                                        } else {
+                                                                            limite--;
+                                                                            var a;
+                                                                            conexion.query('INSERT INTO imagenes (id_proyecto, nombre) VALUES(?, ?)', [req.session.id_proyecto, imagenes[i].originalname], (error, resultadoInsert) => {
+                                                                                if (error) {
+                                                                                    msg = "Error al subir un archivo a la base de datos.";
+                                                                                    console.log(msg);
+                                                                                    res.json({ Exito: false, msg: msg });
+                                                                                } else {
+                                                                                    a = resultadoInsert;
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    }else{
+                                                                        conexion.query('UPDATE imagenes SET nombre = ? WHERE id_proyecto = ? AND nombre = ?', [imagenesExistentes[i+(limite-imagenes.length)], req.session.id_proyecto, imagenesExistentes[i]], (error, resultadoUpdate) => {
                                                                             if (error) {
                                                                                 msg = "Error al actualizar un archivo en la base de datos.";
                                                                                 console.log(msg);
                                                                                 res.json({ Exito: false, msg: msg });
                                                                             } else {
                                                                                 a = resultadoUpdate;
-                                                                            }
-                                                                        });
-                                                                    } else {
-                                                                        limite--;
-                                                                        var a;
-                                                                        conexion.query('INSERT INTO imagenes (id_proyecto, nombre) VALUES(?, ?)', [req.session.id_proyecto, imagenes[i].originalname], (error, resultadoInsert) => {
-                                                                            if (error) {
-                                                                                msg = "Error al subir un archivo a la base de datos.";
-                                                                                console.log(msg);
-                                                                                res.json({ Exito: false, msg: msg });
-                                                                            } else {
-                                                                                a = resultadoInsert;
                                                                             }
                                                                         });
                                                                     }
