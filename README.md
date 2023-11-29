@@ -5,12 +5,12 @@ Software de Inteligencia Artificial mediante el uso del framework Mediapipe para
 Motion Pose MP.
 
 ## Versión
-- Versión de desarrollo Alpha 1.0.2.23112023
+- Versión de desarrollo Alpha 1.0.2.29112023
 
 ## Cambios
-- Implementaciones: Se implemento en el manual.html el efecto de resaltado en la tabla de contenido a medida que se desplaza la pagina.
-- Cambios: Se modifico el diseño del Footer.
-- Arreglos: Se arreglaron leves problemas de diseño en la responsividad.
+- Implementaciones: Se implemento el identificador de paginas en el Nav pero falta pulir
+- Cambios:
+- Arreglos:
 
 ## Autores
 

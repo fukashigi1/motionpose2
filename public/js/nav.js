@@ -23,7 +23,7 @@ $(document).ready(function(){
     nav += '        <ul class="ulNav">';
     nav += '            <a class="navMenu2" id="inicio">Inicio</a>';
     nav += '            <a class="navMenu2" id="misProyectos">Mis proyectos</a>';
-    nav += '            <a class="navMenu2" id="miCuenta" >Mi cuenta</a>';
+    nav += '            <a class="navMenu2" id="miCuenta">Mi cuenta</a>';
     nav += '            <a class="navMenu2" id="tienda">Tienda</a>';
     nav += '            <a class="navMenu2" id="ayuda">Ayuda</a>';
     nav += '            <a class="navMenu2" id="cerrarSesion">Cerrar sesión</a>';
@@ -88,6 +88,27 @@ $(document).ready(function(){
             $(".header").removeClass('header-top');
         }
     });
+
+    if (window.location.href.includes('lobby')) {
+        $("#inicio").css('background-color', '#003f4e');
+        $("#inicio").css('color', '#0091b6'); 
+    }
+    if (window.location.href.includes('proyecto')) {
+        $("#misProyectos").css('background-color', '#003f4e');
+        $("#misProyectos").css('color', '#0091b6'); 
+    }
+    if (window.location.href.includes('miCuenta')) {
+        $("#miCuenta").css('background-color', '#003f4e');
+        $("#miCuenta").css('color', '#0091b6'); 
+    }
+    if (window.location.href.includes('tienda')) {
+        $("#tienda").css('background-color', '#003f4e');
+        $("#tienda").css('color', '#0091b6'); 
+    }
+    if (window.location.href.includes('ayuda')) {
+        $("#ayuda").css('background-color', '#003f4e');
+        $("#ayuda").css('color', '#0091b6'); 
+    }
 
 
     $('html, body').animate({scrollTop:0}, '1');

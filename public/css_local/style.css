@@ -121,12 +121,6 @@ footer a:hover{
         color: #0091b6;
     }
 
-    .navMenu2.active {
-        color: blue; /* Color de texto azul para la página activa */
-        border-bottom: 2px solid blue; /* Borde inferior azul para la página activa */
-        /* Otros estilos si es necesario */
-    }
-
     .ulNav{
         float: none;
         z-index: 9;
