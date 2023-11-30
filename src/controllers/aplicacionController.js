@@ -187,15 +187,15 @@ controller.guardar = async (req, res) => {
                                                                 let limite;
                                                                 if (req.session.id_tipo == 2 || req.session.id_tipo == 3) {
                                                                     limite = 20;
-
                                                                 } else if (req.session.id_tipo == 1) {
                                                                     limite = 10;
                                                                 }
                                                                 let msg;
                                                                 for (let i = 0; i < imagenes.length; i++) {
-                                                                    console.log(i);
+                                                                    console.log(limite);
                                                                     console.log("imagen existente: "+ imagenesExistentes[i]);
                                                                     console.log("imagen nueva:"+ imagenes[i].originalname);
+                                                                    console.log(imagenesExistentes.length);
                                                                     if (!imagenesExistentes.includes(imagenes[i].originalname)) {
                                                                         if ((limite - imagenesExistentes.length) <= 0) {
                                                                             //msg = 'El proyecto ha sido guardado satisfactoriamente, sin embargo usted posee una membresía "' + req.session.tipo_usuario + '", la cual tiene un limite de ' + limite + ' imagenes en nuestra base de datos.<br>Es por eso que solo se han guardado ' + i + ' imagenes.';
@@ -221,8 +221,8 @@ controller.guardar = async (req, res) => {
                                                                                 }
                                                                             });
                                                                         }
-                                                                    }else{
-                                                                        conexion.query('UPDATE imagenes SET nombre = ? WHERE id_proyecto = ? AND nombre = ?', [imagenesExistentes[i+(limite-imagenes.length)], req.session.id_proyecto, imagenesExistentes[i]], (error, resultadoUpdate) => {
+                                                                    }else if((limite - imagenesExistentes.length) <= 0){
+                                                                        conexion.query('UPDATE imagenes SET nombre = ? WHERE id_proyecto = ? AND nombre = ?', [imagenesExistentes[i], req.session.id_proyecto, imagenesExistentes[i]], (error, resultadoUpdate) => {
                                                                             if (error) {
                                                                                 msg = "Error al actualizar un archivo en la base de datos.";
                                                                                 console.log(msg);
@@ -233,20 +233,22 @@ controller.guardar = async (req, res) => {
                                                                         });
                                                                     }
                                                                 }
-                                                                conexion.query('SELECT * FROM imagenes WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoImagenes) => {
+                                                                conexion.query('SELECT * FROM imagenes WHERE id_proyecto = ?', [req.session.id_proyecto], (error, resultadoImagenesBD) => {
                                                                     if (error) {
                                                                         msg = "Error al eliminar imagenes.";
                                                                         console.log(msg);
                                                                         res.json({ Exito: false, msg: msg });
                                                                     } else {
                                                                         // Obtener la lista de nombres de imágenes almacenadas en la base de datos
-                                                                        let nombresImagenesBD = resultadoImagenes.map(imagen => imagen.nombre);
+                                                                        let nombresImagenesBD = resultadoImagenesBD.map(imagen => imagen.nombre);
 
                                                                         // Obtener la lista de nombres de imágenes que fueron cargadas en la solicitud
                                                                         let nombresImagenesCargadas = imagenes.map(imagen => imagen.originalname);
 
                                                                         // Identificar las imágenes que están en la base de datos pero no fueron cargadas
                                                                         let imagenesParaEliminar = nombresImagenesCargadas.filter(nombreImagen => !nombresImagenesBD.includes(nombreImagen));
+                                                                        console.log("-----\nImagen en la base de datos: "+nombresImagenesBD);
+                                                                        console.log("Imagenes cargadas: "+nombresImagenesCargadas+"\n------");
                                                                         console.log(imagenesParaEliminar);
 
                                                                         // Eliminar las imágenes del directorio
