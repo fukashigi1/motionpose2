@@ -92,7 +92,6 @@ $(document).ready(function(){
         'width' : '28%',
         'height' : '63%'
     });*/
-    
     $("#volver").css({
         'left': '0',
         'opacity': '1'
@@ -107,7 +106,7 @@ $(document).ready(function(){
         window.location.href = '/login'; 
     });
     $("#terminos").on("click", function(){
-        window.location.href = '/terminos'; 
+        window.open('/terminos', '_blank');
     });
 
     // Boton para registrarse.

@@ -112,6 +112,7 @@ a{
 
 #noCuenta {
     transition: all 0.2s;
+    padding-block: 0.55vw;
     text-decoration: none;
     font-size: 15px;
     cursor: pointer;
@@ -127,11 +128,10 @@ a{
     position: absolute;
     bottom: 0;
     right: 0;
-    margin: 1.1vw;
+    padding: 1.1vw;
     color: #16161a;
     font-size: 15px;
     text-shadow: 0.2vw 0.2vw 0.2vw rgba(0,0,0,0.2);
-    border-bottom: 0.1vw solid black;
     
 }
 #continuarBoton:hover{

@@ -51,7 +51,6 @@ app.set('port', process.env.PORT || PUERTO_SERVIDOR);
 app.use(express.static('public', {
     maxAge: 31536000, // Cache for 1 year
   }));
-  
 // Importación de rutas
 const usuarioRuta = require('./routes/usuarios');
 const registroRuta = require('./routes/registroRuta');
@@ -77,6 +76,7 @@ app.use('/ayuda', ayudaRuta);
 app.use('/imagen', imagenRuta);
 app.use('/aplicacion', aplicacionRuta);
 app.use('/imagenes', express.static(path.join(__dirname, '../Imagenes')));
+app.use('/orbit', express.static(path.join(__dirname, '../node_modules/three/')));
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, 'view', 'index.html'));
 }); 

@@ -31,44 +31,48 @@ controller.post = async (req, res) => {
                 //console.log("Llegue");
                 conexion.query('SELECT * FROM usuario WHERE correo = ? AND estado = 1', [req.body.correo], (error, filas) => {
                     //console.log(filas);
-                    if(filas.length == 0){
-                        Exito = false;
-                        msg = "No se encontró el correo.";
-                        console.error(msg);
-                        res.json({Exito: Exito, msg: msg});
-                    }else{
-                        if(error){
+                    if (filas != undefined){
+                        if(filas.length == 0){
                             Exito = false;
-                            msg = error.code;
+                            msg = "No se encontró el correo.";
                             console.error(msg);
                             res.json({Exito: Exito, msg: msg});
                         }else{
-                            filas = filas[0];
-                            bcrypt.compare(req.body.contrasena, filas.contrasena, (error, coinciden) => {
-                                if (error){
-                                    Exito = false;
-                                    msg = "Ha ocurrido un error inesperado en la consulta bcrypt.";
-                                    console.error(msg);
-                                    res.json({Exito: Exito, msg: msg});
-                                }else{
-                                    if(coinciden == true) {
-                                        msg = "Iniciando sesión...";
-                                        Exito = true;
-                                        req.session.loggedin = true;
-                                        req.session.nombre_usuario = filas.nombre_usuario;
-                                        req.session.correo = filas.correo;
-                                        req.session.contrasena = filas.contrasena;
-                                        req.session.tipo_usuario = filas.tipo_usuario;
-                                        res.json({Exito: Exito, msg: msg, correo: req.body.correo, contrasena: contrasena});
-                                    }else{
-                                        msg = "Correo o contraseña incorrecta."
+                            if(error){
+                                Exito = false;
+                                msg = error.code;
+                                console.error(msg);
+                                res.json({Exito: Exito, msg: msg});
+                            }else{
+                                filas = filas[0];
+                                bcrypt.compare(req.body.contrasena, filas.contrasena, (error, coinciden) => {
+                                    if (error){
                                         Exito = false;
+                                        msg = "Ha ocurrido un error inesperado en la consulta bcrypt.";
+                                        console.error(msg);
                                         res.json({Exito: Exito, msg: msg});
+                                    }else{
+                                        if(coinciden == true) {
+                                            msg = "Iniciando sesión...";
+                                            Exito = true;
+                                            req.session.loggedin = true;
+                                            req.session.nombre_usuario = filas.nombre_usuario;
+                                            req.session.correo = filas.correo;
+                                            req.session.id_usuario = filas.id_usuario;
+                                            req.session.contrasena = filas.contrasena;
+                                            req.session.id_tipo = filas.id_tipo;
+                                            res.json({Exito: Exito, msg: msg, correo: req.body.correo, contrasena: contrasena});
+                                        }else{
+                                            msg = "Correo o contraseña incorrecta."
+                                            Exito = false;
+                                            res.json({Exito: Exito, msg: msg});
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
                     }
+                    
 
                     
                 });
