@@ -69,6 +69,31 @@ span::selection {
 @media screen and (max-width: 1080px) and (max-height: 2600px) {
     .centro{
         top: 32vh !important;
-        margin-bottom: 46vh;
+    }
+
+    .nuevoProyecto{
+        height: 7vh;
+        font-size: 1.5vh;
+        
+    }
+
+    .titleProyecto{
+        padding-top: 6vw;
+    }
+    
+}
+
+@media screen and (min-width: 1024px){
+    .centro{
+        top: 32vh  !important;
+    }
+
+    .nuevoProyecto{
+        height: 7vh;
+        font-size: 1.5vh;
+    }
+
+    .titleProyecto{
+        padding-top: 6vw;
     }
 }

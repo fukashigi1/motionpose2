@@ -1,5 +1,7 @@
 $(document).ready(function(){
     //Animaciones
+    
+
     {$("#nombre").on("focus", function(){
         $("#nombreLabel").css("bottom", "-8px");
         $("#nombreLabel").css("background-color", "white");
@@ -85,19 +87,11 @@ $(document).ready(function(){
         'opacity' : '1',
         'margin-left' : '100px'
     });
-    if(window.innerWidth >=1920){
-        $(".contenedorLogin").css({
-            'width' : '27%',
-            'height' : '60%'
-        });
-    }else{
-        $(".contenedorLogin").css({
-            'width' : '29%',
-            'height' : '66%'
-        });
-    }
-    
 
+    /*$(".contenedorLogin").css({
+        'width' : '28%',
+        'height' : '63%'
+    });*/
     $("#volver").css({
         'left': '0',
         'opacity': '1'

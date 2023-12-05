@@ -34,7 +34,7 @@ h1::selection {
     margin-top: 1vw;
     margin-left: 7.83vw;
 }
-.header {
+.header{
     transition: all 0.5s;
     z-index: 50;
     height: 100px;
@@ -43,26 +43,33 @@ h1::selection {
     position: fixed;
     margin-top: -1.96vh;
 }
+
 ul {
     float: right;
-    margin-top: 36px;
-    margin-right: 150px;
-    user-select: none;
+    padding: 0;
+    padding-right: 10vh;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 ul a {
-    transition: all 0.2s;
-    font-size: 1vw;
-    font-family: monospace;
-    padding: 0.521vw;
-    cursor: pointer;
-    text-shadow: 4px 4px 3px rgba(0,0,0,0.6);
+    transition: all 0.3s;
+    display: block;
+    text-transform: uppercase;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 1.2vw;
+    color:#ffffff;
+    text-decoration: none;
 }
+
 ul a:hover {
     transition: all 0.2s;
-    padding: 0.591vw;
-    font-size: 1.1vw;   
-    text-decoration: underline;
+    border-bottom: 4px solid #2aaaca;
+    color: #0091b6;
 }
 
 i {
@@ -153,7 +160,6 @@ span::before {
     overflow: hidden;
     display: inline-flex;
     margin-left: auto;
-    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -187,4 +193,19 @@ p {
     font-size: 20px;
     line-height: 30px;
     margin-bottom: 70px;
+}
+
+@media screen and (min-width: 1080px) and (max-width: 2600px) {
+    .pregunta span {
+        display: flex;
+        margin-top: -2.8vw;
+        font-size: 1.4vw;
+        margin-inline-end: 3vw;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    h2{
+        margin-right: 4vh;
+    }
 }

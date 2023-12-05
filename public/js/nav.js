@@ -23,7 +23,7 @@ $(document).ready(function(){
     nav += '        <ul class="ulNav">';
     nav += '            <a class="navMenu2" id="inicio">Inicio</a>';
     nav += '            <a class="navMenu2" id="misProyectos">Mis proyectos</a>';
-    nav += '            <a class="navMenu2" id="miCuenta" >Mi cuenta</a>';
+    nav += '            <a class="navMenu2" id="miCuenta">Mi cuenta</a>';
     nav += '            <a class="navMenu2" id="tienda">Tienda</a>';
     nav += '            <a class="navMenu2" id="ayuda">Ayuda</a>';
     nav += '            <a class="navMenu2" id="cerrarSesion">Cerrar sesión</a>';
@@ -59,6 +59,7 @@ $(document).ready(function(){
     modalGlobal += '        <button class="modalGlobalBoton" id="cancelarModal">Cancelar</button>';
     modalGlobal += '    </div>';
     modalGlobal += '</div>';
+    
 
     $('body').prepend(nav);
     $('body').append(modal);
@@ -87,6 +88,27 @@ $(document).ready(function(){
             $(".header").removeClass('header-top');
         }
     });
+
+    if (window.location.href.includes('lobby')) {
+        $("#inicio").css('border-bottom', '4px solid #2aaaca');
+        $("#inicio").css('color', '#0091b6'); 
+    }
+    if (window.location.href.includes('proyecto')) {
+        $("#misProyectos").css('border-bottom', '4px solid #2aaaca');
+        $("#misProyectos").css('color', '#0091b6'); 
+    }
+    if (window.location.href.includes('cuenta')) {
+        $("#miCuenta").css('border-bottom', '4px solid #2aaaca');
+        $("#miCuenta").css('color', '#0091b6'); 
+    }
+    if (window.location.href.includes('tienda')) {
+        $("#tienda").css('border-bottom', '4px solid #2aaaca');
+        $("#tienda").css('color', '#0091b6'); 
+    }
+    if (window.location.href.includes('ayuda')) {
+        $("#ayuda").css('border-bottom', '4px solid #2aaaca');
+        $("#ayuda").css('color', '#0091b6'); 
+    }
 
 
     $('html, body').animate({scrollTop:0}, '1');
@@ -155,6 +177,8 @@ $(document).ready(function(){
     $("#cerrarSesion").on("click", function(){
         window.location.href = 'lobby/salir';
     });
+
+    
 
     // Acción modal
     $("body").on("click", "#cerrarVentana, #cancelarModal", function(){

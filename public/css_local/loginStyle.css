@@ -114,13 +114,13 @@ a{
     transition: all 0.2s;
     padding-block: 0.55vw;
     text-decoration: none;
-    font-size: 1.1vw;
+    font-size: 15px;
     cursor: pointer;
     text-shadow: 0.2vw 0.2vw 0.2vw rgba(0,0,0,0.2);
     color: #16161a;
 }
 #noCuenta:hover {
-    font-size: 1.17vw;
+    font-weight: bold;
 }
 #continuarBoton {
     transition: all 0.2s;
@@ -130,20 +130,19 @@ a{
     right: 0;
     padding: 1.1vw;
     color: #16161a;
-    font-size: 1.1vw;
+    font-size: 15px;
     text-shadow: 0.2vw 0.2vw 0.2vw rgba(0,0,0,0.2);
     
 }
 #continuarBoton:hover{
-    font-size: 1.2vw;
+    font-weight: bold;
 }
 
 #olvideCuenta {
     display: block;
     transition: all 0.2s;
     text-decoration: none;
-    font-size: 1.1vw;
-    padding-block: 0.55vw;
+    font-size: 15px;
     cursor: pointer;
     text-shadow: 0.2vw 0.2vw 0.2vw rgba(0,0,0,0.2);
     color: #16161a;
@@ -151,7 +150,7 @@ a{
 }
 
 #olvideCuenta:hover {
-    font-size: 1.2vw;
+    font-weight: bold;
 }
 
 .contenedorContenedor {
@@ -169,12 +168,12 @@ a{
     margin-left: 5.3vw;
 }
 
-.imgLogo {
-    width: 34.05vw !important;
-    height: 8.5vw !important;
-    cursor: default !important;
+.imgLogo{
+    width: 32vw !important;
+    margin-top: 2vw !important;
+    height: 8vw !important;
+    margin-left: 5vw !important;
 }
-
 .lateral {
     float: right;
     width: 50%;
@@ -194,7 +193,8 @@ a{
     height: 63%;
 }
 
-@media screen and (max-width: 1080px) and (max-height: 2600px){
+
+@media screen and (max-width: 618px){
     .contenedorContenedor {
         width: 100%;
         height: 14vh;
@@ -241,7 +241,7 @@ a{
     h2{
         font-size: 5.433vw;
         padding-bottom: 1.6vw;
-        margin-bottom: 4vw;
+        margin-bottom: 0vw;
         border-bottom: 0.2vw solid #00000063;
     }
 
@@ -250,47 +250,56 @@ a{
         font-size: 3.1vw;
         border: 0.2vw solid #16161aba;
         border-radius: 1.4vw;
-        margin-bottom: 4.46vw;
+        margin-bottom: 2.46vw;
     }
 
     label{
         font-size: 2.9vw;
         bottom: -5.8vw;
     }
-
-    #contrasenaLabel{
-        left: 2.2vw !important;
+    
+    .contenedorTerminos {
+        text-align: center;
+        margin-top: -4px;
     }
 
-    #contrasenaLabel img{
-        margin-left: -2.539vw;
-        height: 4vw;
-        padding-left: 0;
-        padding-right: 0;
-        margin-left: -2.6vw;
+    #aceptarTerminos { 
+        transition: all 3s;
+        opacity: 0;
+        accent-color: #16161a;
+        margin-bottom: 0;
+    }
+    
+    #registrarseBoton {
+        transition: all 0.2s;
+        cursor: pointer;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 15px;
+        color: #16161a;
+        font-size: 15px;
+        text-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+        border-bottom: 1px solid black;
+        
     }
 
-    #noCuenta{
-        font-size: 4.1vw;
+}
+
+
+@media screen and (min-width: 622px) and (max-width: 1095px){
+   
+    .contenedorLogin {
+        transition: all 0.5s;
+        border-radius: 1vw;
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        margin-left: 1.06vw;
+        overflow: hidden;
+        width: 38%;
+        height: 43%;
     }
 
-    #continuarBoton{
-        font-size: 4.1vw;
-    }
-
-    #olvideCuenta{
-        font-size: 4.1vw;
-        margin-top: 3.8vw;
-    }
-
-    #olvideCuenta:hover {
-        font-size: 4.4vw;
-    }
-
-    #continuarBoton:hover{
-        font-size: 4.4vw;
-    }
-    #noCuenta:hover{
-        font-size: 4.4vw;
-    }
 }
