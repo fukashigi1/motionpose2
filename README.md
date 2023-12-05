@@ -5,10 +5,10 @@ Software de Inteligencia Artificial mediante el uso del framework Mediapipe para
 Motion Pose MP.
 
 ## Versión
-- Versión de desarrollo Alpha 1.0.2.29112023
+- Versión de desarrollo Alpha 1.0.3.05122023
 
 ## Cambios
-- Implementaciones: Se implemento el identificador de paginas en el Nav pero falta pulir
+- Implementaciones: El identificador de paginas en el Nav esta completamente pulido.
 - Cambios:
 - Arreglos:
 

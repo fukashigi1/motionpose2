@@ -90,23 +90,23 @@ $(document).ready(function(){
     });
 
     if (window.location.href.includes('lobby')) {
-        $("#inicio").css('background-color', '#003f4e');
+        $("#inicio").css('border-bottom', '4px solid #2aaaca');
         $("#inicio").css('color', '#0091b6'); 
     }
     if (window.location.href.includes('proyecto')) {
-        $("#misProyectos").css('background-color', '#003f4e');
+        $("#misProyectos").css('border-bottom', '4px solid #2aaaca');
         $("#misProyectos").css('color', '#0091b6'); 
     }
-    if (window.location.href.includes('miCuenta')) {
-        $("#miCuenta").css('background-color', '#003f4e');
+    if (window.location.href.includes('cuenta')) {
+        $("#miCuenta").css('border-bottom', '4px solid #2aaaca');
         $("#miCuenta").css('color', '#0091b6'); 
     }
     if (window.location.href.includes('tienda')) {
-        $("#tienda").css('background-color', '#003f4e');
+        $("#tienda").css('border-bottom', '4px solid #2aaaca');
         $("#tienda").css('color', '#0091b6'); 
     }
     if (window.location.href.includes('ayuda')) {
-        $("#ayuda").css('background-color', '#003f4e');
+        $("#ayuda").css('border-bottom', '4px solid #2aaaca');
         $("#ayuda").css('color', '#0091b6'); 
     }
 
