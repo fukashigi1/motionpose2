@@ -3,17 +3,11 @@ const path = require('path');
 
 controller.view = async (req, res)=>{
     if(req.session.loggedin != true){
-        //res.redirect('/login');
-        res.sendFile(path.join(__dirname, '..', 'view', 'tienda.html'));
+        res.redirect('/login');
+        //res.sendFile(path.join(__dirname, '..', 'view', 'tienda.html'));
     }else{
         res.sendFile(path.join(__dirname, '..', 'view', 'tienda.html'));
     }
-    req.session.loggedin = true;
-    req.session.id_usuario = 1;
-    req.session.nombre_usuario = "test";
-    req.session.correo = "test@test.test";
-    req.session.contrasena = "Tester_123";
-    req.session.id_tipo = 2;
 };
 
 controller.comprar = async (req, res) => {

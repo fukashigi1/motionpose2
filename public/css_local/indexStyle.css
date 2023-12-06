@@ -81,6 +81,7 @@ ul a {
     font-size: 1.2vw;
     color:#ffffff;
     text-decoration: none;
+    cursor: pointer;
 }
 
 ul a:hover {
@@ -264,6 +265,7 @@ ul a:hover {
         transition: all 0.2s;
         padding: 0.8vw;
         font-size: 1.35vw;   
+        cursor:pointer;
     }
 
     .fa-solid.fa-bars.dropdown-menu{

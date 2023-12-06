@@ -64,6 +64,7 @@ ul a {
     font-size: 1.2vw;
     color:#ffffff;
     text-decoration: none;
+    cursor: pointer;
 }
 
 ul a:hover {
