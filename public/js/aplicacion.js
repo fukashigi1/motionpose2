@@ -701,7 +701,7 @@ $(".herramienta").on("mouseleave", ".captura", function(){
 $(".herramienta").on("click", ".contenedorCapturaIcono div", function(){
     $(".contenedorModalVisualizadorImagen").removeClass('ocultar');
     $(".fondoModal").css('display', 'block');
-
+    $(".headerVisualizadorImagen span").text($(this).parent().siblings('img').data('nombre_archivo'));
     $(".contenedorImagen").children('img').attr('src', $(this).parent().siblings('img').attr('src'));
 });
 

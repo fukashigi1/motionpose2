@@ -33,8 +33,8 @@ const spheres = []; // Almacena las esferas
 
 // Función para crear esferas en una ubicación específica
 function createSphere(x, y, z) {
-    const geometry = new THREE.SphereGeometry(0.005, 5, 5);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true });
+    const geometry = new THREE.SphereGeometry(0.003, 5, 5);
+    const material = new THREE.MeshBasicMaterial({ color: 0xcccccc, transparent: true });
     const sphere = new THREE.Mesh(geometry, material);
     sphere.position.set(x, y, z);
     scene.add(sphere);
@@ -83,7 +83,7 @@ function updateSpheres(newCoordinates) {
         }
 
         // Conecta cada dedo desde la muñeca hasta la punta de los dedos
-        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xcccccc });
 
         for (let i = 1; i < newCoordinates.length; i += 4) {
             const lineGeometry = new THREE.BufferGeometry();
