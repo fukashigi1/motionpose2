@@ -4,7 +4,7 @@ import { usuariosModulo } from '../models/usuariosModulo.js';
 export class usuariosController {
     static async view (req, res) {
         if(req.session.loggedin != true){
-            res.sendFile(path.join(__dirname, '..', 'view', 'login.html'));
+            res.sendFile(path.join(process.cwd(), 'src', 'view', 'login.html'));
         }else{
             res.redirect('/lobby');
         }

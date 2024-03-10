@@ -5,9 +5,9 @@ export class ayudaController {
         if(req.session.loggedin != true){
             res.redirect('/login');
             
-            //res.sendFile(path.join(__dirname, '..', 'view', 'ayuda.html'));
+            //res.sendFile(path.join(process.cwd(), 'src', 'view', 'ayuda.html'));
         }else{
-            res.sendFile(path.join(__dirname, '..', 'view', 'ayuda.html'));
+            res.sendFile(path.join(process.cwd(), 'src', 'view', 'ayuda.html'));
         }
     }
 }

@@ -23,11 +23,11 @@ const NOMBRE_PROYECTO = process.env.NOMBRE_PROYECTO;
 const VERSION_PROYECTO = process.env.VERSION_PROYECTO;
 
 const config = {
-    host: process.env.URLBD,
-    user: process.env.USUARIOBD,
-    port: process.env.PUERTOBD,
-    password: process.env.CONTRASENABD,
-    database: process.env.NOMBREBD
+    host: URLBD,
+    user: USUARIOBD,
+    port: PUERTOBD,
+    password: CONTRASENABD,
+    database: NOMBREBD
 }
 // Middlewares
 app.use(compression())
@@ -76,10 +76,10 @@ app.use('/tienda', tiendaRuta);
 app.use('/ayuda', ayudaRuta);
 app.use('/imagen', imagenRuta);
 app.use('/aplicacion', aplicacionRuta);
-app.use('/imagenes', express.static(path.join(__dirname, '../Imagenes')));
-app.use('/orbit', express.static(path.join(__dirname, '../node_modules/three/')));
+app.use('/imagenes', express.static(path.join(process.cwd(), '../Imagenes')));
+app.use('/orbit', express.static(path.join(process.cwd(), '../node_modules/three/')));
 app.get('/', (req, res)=>{
-    res.sendFile(path.join(__dirname, 'view', 'index.html'));
+    res.sendFile(path.join(process.cwd(), 'src', 'view', 'index.html'));
 }); 
 
 //APIS

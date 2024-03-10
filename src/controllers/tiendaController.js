@@ -5,9 +5,9 @@ export class tiendaController {
     static async view (req, res) {
         if(req.session.loggedin != true){
             res.redirect('/login');
-            //res.sendFile(path.join(__dirname, '..', 'view', 'tienda.html'));
+            //res.sendFile(path.join(process.cwd(), 'src', 'view', 'tienda.html'));
         }else{
-            res.sendFile(path.join(__dirname, '..', 'view', 'tienda.html'));
+            res.sendFile(path.join(process.cwd(), 'src', 'view', 'tienda.html'));
         }
     }
 
