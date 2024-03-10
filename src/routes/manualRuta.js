@@ -1,9 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const manualController = require('../controllers/manualController');
+import { express } from 'express'
+import { manualController } from '../controllers/manualController.js'
 
+const router = express.Router();
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
 router.get('/', manualController.view);
-module.exports = router;

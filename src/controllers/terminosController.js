@@ -1,8 +1,7 @@
-const controller = {};
-const path = require('path');
+import path from 'path'
 
-controller.view = async (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'view', 'terminos.html'));
-};
-
-module.exports = controller;
+export class terminosController {
+    static async view (req, res) {
+        res.sendFile(path.join(__dirname, '..', 'view', 'terminos.html'));
+    }
+}

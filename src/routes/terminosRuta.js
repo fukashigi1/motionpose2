@@ -1,9 +1,9 @@
-const express = require('express');
+import { express } from 'express'
+import { terminosController } from '../controllers/terminosController.js'
+
 const router = express.Router();
-const terminosController = require('../controllers/terminosController');
 
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
 router.get('/', terminosController.view);
-module.exports = router;

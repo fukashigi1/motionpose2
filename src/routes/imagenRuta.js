@@ -1,9 +1,9 @@
-const express = require('express');
+import { express } from 'express'
+import { imagenController } from '../controllers/imagenController.js'
+
 const router = express.Router();
-const imagenController = require('../controllers/imagenController');
 
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
 router.get('/', imagenController.view);
-module.exports = router;

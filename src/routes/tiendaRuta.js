@@ -1,11 +1,10 @@
-const express = require('express');
+import { express } from 'express'
+import { tiendaController } from '../controllers/tiendaController.js'
+
 const router = express.Router();
-const tiendaController = require('../controllers/tiendaController');
 
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
 router.get('/', tiendaController.view);
-
 router.post('/comprar', tiendaController.comprar)
-module.exports = router;
