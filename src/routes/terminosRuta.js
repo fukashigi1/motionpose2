@@ -1,4 +1,4 @@
-import { express } from 'express'
+import express from 'express'
 import { terminosController } from '../controllers/terminosController.js'
 
 const router = express.Router();

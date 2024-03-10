@@ -1,4 +1,4 @@
-import { express } from 'express'
+import express from 'express'
 import { ayudaController } from '../controllers/ayudaController.js'
 
 export const router = express.Router();

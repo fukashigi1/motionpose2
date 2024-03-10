@@ -1,4 +1,4 @@
-import { express } from 'express'
+import express from 'express'
 import { manualController } from '../controllers/manualController.js'
 
 const router = express.Router();

@@ -1,4 +1,5 @@
-import express from 'express'
+import express from 'express';
+
 import morgan from 'morgan'
 import path from 'path'
 import mysql from 'mysql2/promise'
@@ -31,6 +32,7 @@ const config = {
 // Middlewares
 app.use(compression())
 
+app.use(express.static('public'));
 app.use(morgan('dev'))
 
 // Middleware para deshabilitar la caché
@@ -49,10 +51,6 @@ app.use(session({
 }))
 
 app.set('port', process.env.PORT || PUERTO_SERVIDOR)
-
-app.use(express.static('public', {
-    maxAge: 31536000, // Cache for 1 year
-  }))
 
 // Importación de rutas
 import { usuarioRuta } from './routes/usuarios.js'

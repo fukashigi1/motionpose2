@@ -1,4 +1,4 @@
-import { express } from 'express'
+import express from 'express'
 import { proyectosController } from '../controllers/proyectosController.js'
 
 const router = express.Router();

@@ -1,4 +1,4 @@
-import { express } from 'express'
+import express from 'express'
 import { miCuentaController } from '../controllers/miCuentaController.js'
 
 const router = express.Router();

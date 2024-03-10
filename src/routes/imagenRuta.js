@@ -1,4 +1,4 @@
-import { express } from 'express'
+import express from 'express'
 import { imagenController } from '../controllers/imagenController.js'
 
 const router = express.Router();
