@@ -1,5 +1,5 @@
 import express from 'express'
-import { aplicacionController } from '../controllers/aplicacionController.js'
+import {aplicacionController} from '../controllers/aplicacionController.js'
 
 export const aplicacionRuta = express.Router()
 

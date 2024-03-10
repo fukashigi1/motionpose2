@@ -13,8 +13,6 @@ export class tiendaModulo {
             } else { 
                 const [resultado] = await connection.query("UPDATE usuario SET id_tipo = (SELECT id_tipo FROM usuario_tipo WHERE tipo = ?) WHERE id_usuario = ?", [compras[0].nombre, req.session.id_usuario])
 
-                console.log(resultado);
-
                 if (resultado.affectedRows == 0 ){
                     msg = "Error inesperado, no se ha hecho ningún cambio.";
                     console.error(msg);
@@ -28,9 +26,11 @@ export class tiendaModulo {
                 }else{
                     if(req.session.loggedin == true){
                         const [filas] = await connection.query('SELECT id_tipo FROM usuario WHERE id_usuario = ?', [req.session.id_usuario])
+                        let tipo_usuario = filas[0].id_tipo;
+                        
+                        let membresiafechaHoraActual = new Date()
 
-                        tipo_usuario = filas[0].tipo_usuario;
-                        const [resultado2] = await connection.query('INSERT INTO compra (id_usuario, id_producto, fecha_compra) VALUES (?, ?, ?)', [req.session.id_usuario, req.body.membresiafechaHoraActual.toISOString().slice(0, 19).replace('T', ' ')])
+                        const [resultado2] = await connection.query('INSERT INTO compra (id_usuario, id_producto, fecha_compra) VALUES (?, ?, ?)', [req.session.id_usuario, req.body.membresia, membresiafechaHoraActual.toISOString().slice(0, 19).replace('T', ' ')])
 
                         if (resultado2.affectedRows == 0){
                             msg = "Hubo un error en la compra.";

@@ -28,6 +28,7 @@ export class proyectosController {
 
     static async continuar (req, res) {
         const respuestaModulo = await proyectosModulo.continuar({req})
+        console.log(respuestaModulo)
         const {nombre_proyecto, tipo_proyecto, id_proyecto} = respuestaModulo.datos
         if (respuestaModulo.Exito){
             req.session.nombre_proyecto = nombre_proyecto;

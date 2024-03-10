@@ -24,32 +24,26 @@ export class usuariosModulo {
                         console.error(msg);
                         return{Exito: Exito, msg: msg};
                     }else{
-                        filas = filas[0];
-                        bcrypt.compare(req.body.contrasena, filas.contrasena, (error, coinciden) => {
-                            if (error){
-                                Exito = false;
-                                msg = "Ha ocurrido un error inesperado en la consulta bcrypt.";
-                                console.error(msg);
-                                return{Exito: Exito, msg: msg};
-                            }else{
-                                if(coinciden == true) {
-                                    msg = "Iniciando sesión...";
-                                    Exito = true;
-                                    loggedin = true;
-                                    nombre_usuario = filas.nombre_usuario;
-                                    correo = filas.correo;
-                                    id_usuario = filas.id_usuario;
-                                    contrasena = filas.contrasena;
-                                    id_tipo = filas.id_tipo;
-                                    return {Exito: Exito, msg: msg, correo: req.body.correo, contrasena: contrasena, datos: {loggedin, nombre_usuario, correo, id_usuario, contrasena, id_tipo}};
+                        let resultadoFilas = filas[0];
+                        
+                        const isPasswordCorrect = await bcrypt.compare(req.body.contrasena, resultadoFilas.contrasena)
 
-                                }else{
-                                    msg = "Correo o contraseña incorrecta."
-                                    Exito = false;
-                                    return{Exito: Exito, msg: msg};
-                                }
-                            }
-                        });
+                        if(isPasswordCorrect == true) {
+                            msg = "Iniciando sesión...";
+                            let loggedin = true;
+                            let nombre_usuario = resultadoFilas.nombre;
+                            let correo = resultadoFilas.correo;
+                            let id_usuario = resultadoFilas.id_usuario;
+                            let contrasena = resultadoFilas.contrasena;
+                            let id_tipo = resultadoFilas.id_tipo;
+
+                            return {Exito: true, msg: msg, correo: req.body.correo, contrasena: contrasena, datos: {loggedin, nombre_usuario, correo, id_usuario, contrasena, id_tipo}};
+
+                        }else{
+                            msg = "Correo o contraseña incorrecta."
+                            Exito = false;
+                            return{Exito: Exito, msg: msg};
+                        }
                     }
                 }
             } catch (e) {
@@ -57,8 +51,6 @@ export class usuariosModulo {
                 console.error(e);
                 return{Exito: false, msg: msg};
             }
-            
-            
         }
     }
 }

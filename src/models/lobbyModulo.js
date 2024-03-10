@@ -2,7 +2,7 @@ import {connection} from '../server.js'
 
 export class lobbyModulo {
     static crear = async ({req}) => {
-        let msg;
+        var msg;
 
         if (req.body.nombre_proyecto == '' || req.body.nombre_proyecto === undefined) {
             msg = "El nombre del proyecto no puede estár vacío.";
@@ -26,13 +26,12 @@ export class lobbyModulo {
                 console.error(msg);
                 return{ Exito: false, msg: msg };
             } else {
-                console.log(req.session)
                 if (req.session.id_tipo == "1") {
                     try {
                         const [filas] = await connection.query('SELECT COUNT(*) FROM proyecto WHERE id_usuario = ?', [req.session.id_usuario])
 
+                        console.log(filas)
                         if (Object.values(filas[0])[0] < 2) {
-                            
                             const [respuesta] = await connection.query('INSERT INTO proyecto (nombre, id_tipo, id_usuario) VALUES (?, ?, ?)', [req.body.nombre_proyecto, req.body.tipo_proyecto, req.session.id_usuario])
 
                             if (respuesta.affectedRows == 0) {
@@ -66,7 +65,6 @@ export class lobbyModulo {
 
                     try {
                         const [filas] = await connection.query('SELECT COUNT(*) FROM proyecto WHERE id_usuario = ?', [req.session.id_usuario])
-                        
                         if (Object.values(filas[0])[0] < 10) {
                             const [respuesta] = await connection.query('INSERT INTO proyecto (nombre, id_tipo, id_usuario) VALUES (?, ?, ?)', [req.body.nombre_proyecto, req.body.tipo_proyecto, req.session.id_usuario])
 
@@ -75,8 +73,9 @@ export class lobbyModulo {
                                 console.error(msg);
                                 return{ Exito: false, msg: msg };
                             } else {
-                                const [response] = connection.query('INSERT INTO preferencias (id_proyecto) VALUES (?)', [respuesta.insertId])
+                                const [response] = await connection.query('INSERT INTO preferencias (id_proyecto) VALUES (?)', [respuesta.insertId])
 
+                                console.log(response)
                                 if (response.affectedRows == 0) {
                                     msg = "Ocurrió un error inesperado en la consulta."
                                     console.error(msg);
@@ -88,14 +87,14 @@ export class lobbyModulo {
                                 
                             }
                         } else {
-                            msg = "Un usuario VIP solo puede tener 10 proyectos simultáneos.";
+                            msg = "Un usuario Normal solo puede tener 10 proyectos simultáneos.";
                             console.error(msg);
                             return{ Exito: false, msg: msg };
                         }
                     } catch(e) {
                         msg = e;
                         console.error(msg);
-                        return{ Exito: false, msg: msg };
+                        return{ Exito: false, msg: 'Ha ocurrido un error misterioso.' };
                     }
                     
                 }

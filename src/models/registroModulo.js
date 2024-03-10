@@ -1,12 +1,11 @@
 import { connection } from '../server.js'
+import bcrypt from 'bcrypt'
 
 export class registroModulo {
     static post = async ({req}) => {
         let msg;
-        bcrypt.hash(req.body.contrasena, 12).then(hash => {
-            req.body.contrasena = hash;
-            
-        });
+        const hash = await bcrypt.hash(req.body.contrasena, 12)
+        req.body.contrasena = hash;
 
         try {
             const [filas] = await connection.query('SELECT correo FROM usuario WHERE correo = ?', [req.body.correo])

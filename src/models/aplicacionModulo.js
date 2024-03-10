@@ -248,7 +248,7 @@ export class aplicacionModulo {
                 return null;
             }
         }
-
+        let msg;
         if (req.session.nombre_proyecto == '' || req.session.nombre_proyecto === undefined) {
             return{ Exito: false, msg: "Hubo un error obteniendo la información del proyecto." };
         } else {

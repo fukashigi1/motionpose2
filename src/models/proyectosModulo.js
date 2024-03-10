@@ -134,9 +134,9 @@ export class proyectosModulo {
                         console.log(msg);
                         return{ Exito: false, msg: msg };
                     } else {
-                        nombre_proyecto = respuesta[0].nombre;
-                        tipo_proyecto = respuesta[0].id_tipo;
-                        id_proyecto = req.body.id;
+                        let nombre_proyecto = respuesta[0].nombre;
+                        let tipo_proyecto = respuesta[0].id_tipo;
+                        let id_proyecto = respuesta[0].id_proyecto;
                         return{ Exito: true, msg: "Proyecto encontrado.", tipo: respuesta[0].id_tipo, datos: {nombre_proyecto, tipo_proyecto, id_proyecto}};
                     }
                 } catch (e) {

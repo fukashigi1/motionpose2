@@ -200,7 +200,17 @@ function desplegarDatos(datos){
     $('#usuario').val(datos.nombre_usuario);
     $('#correo').val(datos.correo);
     //if(datos.tipo_usuario ==)
-    $('#membresia').val(datos.tipo_usuario);
+    if (datos.tipo_usuario == 1) {
+        $('#membresia').val("Normal");
+    } else if (datos.id_tipo == 2) {
+        $('#membresia').val("VIP");
+    } else if (datos.id_tipo == 3) {
+        $('#membresia').val("SUPER VIP");
+    } else if (datos.id_tipo == 4) {
+        $('#membresia').val("ADMIN");
+    }else {
+        $('#membresia').val("DEFAULT");
+    }
 }
 
 function validarCorreo(email) {

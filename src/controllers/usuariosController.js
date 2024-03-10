@@ -12,14 +12,13 @@ export class usuariosController {
 
     static async post (req, res) {
         const respuestaModulo = await usuariosModulo.post({req})
-
         if (respuestaModulo.Exito) {
-            req.session.loggedin = respuestaModulo.loggedin;
-            req.session.nombre_usuario = respuestaModulo.nombre_usuario;
-            req.session.correo = respuestaModulo.correo;
-            req.session.id_usuario = respuestaModulo.id_usuario;
-            req.session.contrasena = respuestaModulo.contrasena;
-            req.session.id_tipo = respuestaModulo.id_tipo;
+            req.session.loggedin = respuestaModulo.datos.loggedin;
+            req.session.nombre_usuario = respuestaModulo.datos.nombre_usuario;
+            req.session.correo = respuestaModulo.datos.correo;
+            req.session.id_usuario = respuestaModulo.datos.id_usuario;
+            req.session.contrasena = respuestaModulo.datos.contrasena;
+            req.session.id_tipo = respuestaModulo.datos.id_tipo;
         }
         res.json(respuestaModulo)
         
