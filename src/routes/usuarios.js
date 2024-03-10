@@ -1,13 +1,13 @@
 import express  from 'express'
 import { usuariosController } from '../controllers/usuariosController.js'
 
-const router = express.Router();
+export const usuarioRuta = express.Router();
 
-router.use(express.urlencoded({ extended: false }));
-router.use(express.json());
+usuarioRuta.use(express.urlencoded({ extended: false }));
+usuarioRuta.use(express.json());
 
-router.get('/', usuariosController.view);
-router.post('/', usuariosController.post);
+usuarioRuta.get('/', usuariosController.view);
+usuarioRuta.post('/', usuariosController.post);
 
 /*router.post('/', usuariosController.post, (req, res, next) => {
     // Si las credenciales son correctas, establece las cookies con los datos del usuario

@@ -1,12 +1,12 @@
 import express from 'express'
 import { aplicacionController } from '../controllers/aplicacionController.js'
 
-export const router = express.Router()
+export const aplicacionRuta = express.Router()
 
-router.use(express.urlencoded({ extended: true }));
-router.use(express.json());
+aplicacionRuta.use(express.urlencoded({ extended: true }));
+aplicacionRuta.use(express.json());
 
-router.get('/', aplicacionController.view);
-router.get('/datosproyecto', aplicacionController.obtenerDatosProyecto);
-router.get('/cargar', aplicacionController.cargar);
-router.post('/guardar', aplicacionController.guardar)
+aplicacionRuta.get('/', aplicacionController.view);
+aplicacionRuta.get('/datosproyecto', aplicacionController.obtenerDatosProyecto);
+aplicacionRuta.get('/cargar', aplicacionController.cargar);
+aplicacionRuta.post('/guardar', aplicacionController.guardar)

@@ -1,9 +1,9 @@
 import express from 'express'
 import { politicasController } from '../controllers/politicasController.js'
 
-const router = express.Router();
+export const politicasRuta = express.Router();
 
-router.use(express.urlencoded({ extended: false }));
-router.use(express.json());
+politicasRuta.use(express.urlencoded({ extended: false }));
+politicasRuta.use(express.json());
 
-router.get('/', politicasController.view);
+politicasRuta.get('/', politicasController.view);

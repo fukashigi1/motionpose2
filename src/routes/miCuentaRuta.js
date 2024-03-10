@@ -1,11 +1,11 @@
 import express from 'express'
 import { miCuentaController } from '../controllers/miCuentaController.js'
 
-const router = express.Router();
+export const miCuentaRuta = express.Router();
 
-router.use(express.urlencoded({ extended: false }));
-router.use(express.json());
+miCuentaRuta.use(express.urlencoded({ extended: false }));
+miCuentaRuta.use(express.json());
 
-router.get('/', miCuentaController.view);
-router.get('/datos', miCuentaController.datos);
-router.post('/', miCuentaController.post);
+miCuentaRuta.get('/', miCuentaController.view);
+miCuentaRuta.get('/datos', miCuentaController.datos);
+miCuentaRuta.post('/', miCuentaController.post);

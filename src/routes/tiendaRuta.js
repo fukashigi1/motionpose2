@@ -1,10 +1,10 @@
 import express from 'express'
 import { tiendaController } from '../controllers/tiendaController.js'
 
-const router = express.Router();
+export const tiendaRuta = express.Router();
 
-router.use(express.urlencoded({ extended: false }));
-router.use(express.json());
+tiendaRuta.use(express.urlencoded({ extended: false }));
+tiendaRuta.use(express.json());
 
-router.get('/', tiendaController.view);
-router.post('/comprar', tiendaController.comprar)
+tiendaRuta.get('/', tiendaController.view);
+tiendaRuta.post('/comprar', tiendaController.comprar)

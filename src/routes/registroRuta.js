@@ -1,10 +1,10 @@
 import express from 'express'
 import { registroController } from '../controllers/registroController.js'
 
-const router = express.Router();
+export const registroRuta = express.Router();
 
-router.use(express.urlencoded({ extended: false }));
-router.use(express.json());
+registroRuta.use(express.urlencoded({ extended: false }));
+registroRuta.use(express.json());
 
-router.get('/', registroController.view);
-router.post('/', registroController.post);
+registroRuta.get('/', registroController.view);
+registroRuta.post('/', registroController.post);

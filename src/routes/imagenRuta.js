@@ -1,9 +1,9 @@
 import express from 'express'
 import { imagenController } from '../controllers/imagenController.js'
 
-const router = express.Router();
+export const imagenRuta = express.Router();
 
-router.use(express.urlencoded({ extended: false }));
-router.use(express.json());
+imagenRuta.use(express.urlencoded({ extended: false }));
+imagenRuta.use(express.json());
 
 router.get('/', imagenController.view);

@@ -1,13 +1,13 @@
 import express from 'express'
 import { proyectosController } from '../controllers/proyectosController.js'
 
-const router = express.Router();
+export const proyectosRuta = express.Router();
 
-router.use(express.urlencoded({ extended: false }));
-router.use(express.json());
+proyectosRuta.use(express.urlencoded({ extended: false }));
+proyectosRuta.use(express.json());
 
-router.get('/', proyectosController.view);
-router.get('/obtenerproyectos', proyectosController.obtenerProyectos);
-router.post('/cambiarnombre', proyectosController.cambiarNombre);
-router.post('/eliminarproyecto', proyectosController.eliminarProyecto);
-router.post('/continuar', proyectosController.continuar);
+proyectosRuta.get('/', proyectosController.view);
+proyectosRuta.get('/obtenerproyectos', proyectosController.obtenerProyectos);
+proyectosRuta.post('/cambiarnombre', proyectosController.cambiarNombre);
+proyectosRuta.post('/eliminarproyecto', proyectosController.eliminarProyecto);
+proyectosRuta.post('/continuar', proyectosController.continuar);

@@ -1,9 +1,9 @@
 import express from 'express'
 import { ayudaController } from '../controllers/ayudaController.js'
 
-export const router = express.Router();
+export const ayudaRuta = express.Router();
 
-router.use(express.urlencoded({ extended: false }));
-router.use(express.json());
+ayudaRuta.use(express.urlencoded({ extended: false }));
+ayudaRuta.use(express.json());
 
-router.get('/', ayudaController.view);
+ayudaRuta.get('/', ayudaController.view);

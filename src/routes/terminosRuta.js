@@ -1,9 +1,9 @@
 import express from 'express'
 import { terminosController } from '../controllers/terminosController.js'
 
-const router = express.Router();
+export const terminosRuta = express.Router();
 
-router.use(express.urlencoded({ extended: false }));
-router.use(express.json());
+terminosRuta.use(express.urlencoded({ extended: false }));
+terminosRuta.use(express.json());
 
-router.get('/', terminosController.view);
+terminosRuta.get('/', terminosController.view);
