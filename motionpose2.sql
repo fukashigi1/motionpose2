@@ -332,7 +332,7 @@ ALTER TABLE `proyecto`
 ALTER TABLE `proyecto_tipo`
   MODIFY `id_tipo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
---
+-
 -- AUTO_INCREMENT de la tabla `sesiones`
 --
 ALTER TABLE `sesiones`
