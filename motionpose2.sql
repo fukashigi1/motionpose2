@@ -38,8 +38,6 @@ CREATE TABLE `compra` (
 -- Volcado de datos para la tabla `compra`
 --
 
-INSERT INTO `compra` (`id_compra`, `id_usuario`, `id_producto`, `fecha_compra`) VALUES
-(3, 1, 2, '2023-11-10 01:43:41');
 
 -- --------------------------------------------------------
 
@@ -57,37 +55,6 @@ CREATE TABLE `imagenes` (
 -- Volcado de datos para la tabla `imagenes`
 --
 
-INSERT INTO `imagenes` (`id_imagen`, `id_proyecto`, `nombre`) VALUES
-(1, 1, 'sexo_1699584370232.png'),
-(2, 1, 'sexo_1699743317875.png'),
-(3, 1, 'sexo_1699743317676.png'),
-(4, 1, 'sexo_1699743316587.png'),
-(5, 1, 'sexo_1699743316339.png'),
-(6, 1, 'sexo_1699743316026.png'),
-(7, 1, 'sexo_1699743315835.png'),
-(8, 1, 'sexo_1699743315643.png'),
-(9, 1, 'sexo_1699743315439.png'),
-(10, 1, 'sexo_1699743315243.png'),
-(11, 1, 'sexo_1699743315038.png'),
-(12, 1, 'sexo_1699743314475.png'),
-(13, 1, 'sexo_1699743469163.png'),
-(14, 1, 'sexo_1699743468971.png'),
-(15, 1, 'sexo_1699743468763.png'),
-(16, 1, 'sexo_1699743468547.png'),
-(17, 1, 'sexo_1699743468339.png'),
-(18, 1, 'sexo_1699743468131.png'),
-(19, 1, 'sexo_1699743479991.png'),
-(20, 1, 'sexo_1699743479763.png'),
-(21, 3, 'test_1701099920615.png'),
-(22, 3, 'test_1701099920420.png'),
-(23, 3, 'test_1701099920108.png'),
-(24, 3, 'test_1701099920615.png'),
-(25, 3, 'test_1701099920420.png'),
-(26, 3, 'test_1701099920108.png'),
-(27, 3, 'test_1701099925662.png'),
-(28, 3, 'test_1701099920615.png'),
-(29, 3, 'test_1701099920420.png'),
-(30, 3, 'test_1701099920108.png');
 
 -- --------------------------------------------------------
 
@@ -110,9 +77,6 @@ CREATE TABLE `preferencias` (
 -- Volcado de datos para la tabla `preferencias`
 --
 
-INSERT INTO `preferencias` (`id_preferencias`, `id_proyecto`, `autoguardado`, `temporizador`, `formato_imagen`, `hotkey_captura`, `hotkey_captura_temp`, `hotkey_exportar`) VALUES
-(1, 1, 1, 6, 'exportarJPEG', '[[\"S\", 83]]', '[[\"T\", 84]]', '[[\"E\", 69]]'),
-(3, 3, 0, 9, '0', '[[\"S\", 83]]', '[[\"T\", 84]]', '[[\"E\", 69]]');
 
 -- --------------------------------------------------------
 
@@ -130,11 +94,6 @@ CREATE TABLE `proyecto` (
 --
 -- Volcado de datos para la tabla `proyecto`
 --
-
-INSERT INTO `proyecto` (`id_proyecto`, `id_usuario`, `id_tipo`, `nombre`) VALUES
-(1, 1, 1, 'sexo'),
-(3, 2, 1, 'test');
-
 -- --------------------------------------------------------
 
 --
@@ -185,9 +144,6 @@ CREATE TABLE `tienda` (
 -- Volcado de datos para la tabla `tienda`
 --
 
-INSERT INTO `tienda` (`id_producto`, `nombre`, `precio`) VALUES
-(1, 'VIP', 5000),
-(2, 'SUPER VIP', 9000);
 
 -- --------------------------------------------------------
 
@@ -207,11 +163,6 @@ CREATE TABLE `usuario` (
 --
 -- Volcado de datos para la tabla `usuario`
 --
-
-INSERT INTO `usuario` (`id_usuario`, `id_tipo`, `nombre`, `correo`, `contrasena`, `estado`) VALUES
-(1, 3, 'test', 'test@test.test', '$2b$12$2AVzwEJWkkPh.3/6wiN9w.JkZi7cxlElJD4BXTeTtlFGCmO/8nIiy', 1),
-(2, 1, 'qweqw', 'caca@caca.com', '$2b$12$z8sBKfucciIO9FV8k6Z0gOu8IC4nKy4ygtjeg16BWpTVNX1mVirom', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -225,13 +176,6 @@ CREATE TABLE `usuario_tipo` (
 
 --
 -- Volcado de datos para la tabla `usuario_tipo`
---
-
-INSERT INTO `usuario_tipo` (`id_tipo`, `tipo`) VALUES
-(1, 'Usuario'),
-(2, 'VIP'),
-(3, 'SUPER VIP'),
-(4, 'Admin');
 
 --
 -- Índices para tablas volcadas
